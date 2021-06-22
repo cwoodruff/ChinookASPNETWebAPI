@@ -65,7 +65,7 @@ namespace Chinook.Domain.Supervisor
 
             if (album is null) return false;
             album.Id = albumApiModel.Id;
-            album.Title = albumApiModel.Title;
+            album.Title = albumApiModel.Title ?? string.Empty;
             album.ArtistId = albumApiModel.ArtistId;
 
             return _albumRepository.Update(album);

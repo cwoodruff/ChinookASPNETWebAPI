@@ -24,10 +24,10 @@ namespace Chinook.API.Controllers
         [HttpGet]
         
         [SwaggerOperation(
-            Summary = "Gets all Album",
-            Description = "Gets all Album",
-            OperationId = "Album.GetAll",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets all MediaType",
+            Description = "Gets all MediaType",
+            OperationId = "MediaType.GetAll",
+            Tags = new[] { "MediaTypeEndpoint"})]
         [Produces(typeof(List<MediaTypeApiModel>))]
         [ResponseCache(Duration = 604800)] // cache for a week
         public ActionResult<List<MediaTypeApiModel>> Get()
@@ -44,10 +44,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(
-            Summary = "Gets a specific Album",
-            Description = "Gets a specific Album",
-            OperationId = "Album.GetOne",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets a specific MediaType",
+            Description = "Gets a specific MediaType",
+            OperationId = "MediaType.GetOne",
+            Tags = new[] { "MediaTypeEndpoint"})]
         [Produces(typeof(MediaTypeApiModel))]
         public ActionResult<MediaTypeApiModel> Get(int id)
         {
@@ -65,10 +65,10 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [SwaggerOperation(
-            Summary = "Creates a new Album",
-            Description = "Creates a new Album",
-            OperationId = "Album.Create",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Creates a new MediaType",
+            Description = "Creates a new MediaType",
+            OperationId = "MediaType.Create",
+            Tags = new[] { "MediaTypeEndpoint"})]
         public ActionResult<MediaTypeApiModel> Post([FromBody] MediaTypeApiModel input)
         {
             try
@@ -86,10 +86,10 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(
-            Summary = "Update an Album",
-            Description = "Update an Album",
-            OperationId = "Album.Update",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Update an MediaType",
+            Description = "Update an MediaType",
+            OperationId = "MediaType.Update",
+            Tags = new[] { "MediaTypeEndpoint"})]
         public ActionResult<MediaTypeApiModel> Put(int id, [FromBody] MediaTypeApiModel input)
         {
             try
@@ -112,10 +112,10 @@ namespace Chinook.API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(
-            Summary = "Delete a Album",
-            Description = "Delete a Album",
-            OperationId = "Album.Delete",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Delete a MediaType",
+            Description = "Delete a MediaType",
+            OperationId = "MediaType.Delete",
+            Tags = new[] { "MediaTypeEndpoint"})]
         public ActionResult Delete(int id)
         {
             try

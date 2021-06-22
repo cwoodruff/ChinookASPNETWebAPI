@@ -23,10 +23,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [SwaggerOperation(
-            Summary = "Gets all Album",
-            Description = "Gets all Album",
-            OperationId = "Album.GetAll",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets all Genre",
+            Description = "Gets all Genre",
+            OperationId = "Genre.GetAll",
+            Tags = new[] { "GenreEndpoint"})]
         [Produces(typeof(List<GenreApiModel>))]
         public ActionResult<List<GenreApiModel>> Get()
         {
@@ -42,10 +42,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(
-            Summary = "Gets a specific Album",
-            Description = "Gets a specific Album",
-            OperationId = "Album.GetOne",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets a specific Genre",
+            Description = "Gets a specific Genre",
+            OperationId = "Genre.GetOne",
+            Tags = new[] { "GenreEndpoint"})]
         [Produces(typeof(GenreApiModel))]
         public ActionResult<GenreApiModel> Get(int id)
         {
@@ -63,10 +63,10 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [SwaggerOperation(
-            Summary = "Creates a new Album",
-            Description = "Creates a new Album",
-            OperationId = "Album.Create",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Creates a new Genre",
+            Description = "Creates a new Genre",
+            OperationId = "Genre.Create",
+            Tags = new[] { "GenreEndpoint"})]
         public ActionResult<GenreApiModel> Post([FromBody] GenreApiModel input)
         {
             try
@@ -84,10 +84,10 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(
-            Summary = "Update an Album",
-            Description = "Update an Album",
-            OperationId = "Album.Update",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Update an Genre",
+            Description = "Update an Genre",
+            OperationId = "Genre.Update",
+            Tags = new[] { "GenreEndpoint"})]
         public ActionResult<GenreApiModel> Put(int id, [FromBody] GenreApiModel input)
         {
             try
@@ -110,10 +110,10 @@ namespace Chinook.API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(
-            Summary = "Delete a Album",
-            Description = "Delete a Album",
-            OperationId = "Album.Delete",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Delete a Genre",
+            Description = "Delete a Genre",
+            OperationId = "Genre.Delete",
+            Tags = new[] { "GenreEndpoint"})]
         public ActionResult Delete(int id)
         {
             try

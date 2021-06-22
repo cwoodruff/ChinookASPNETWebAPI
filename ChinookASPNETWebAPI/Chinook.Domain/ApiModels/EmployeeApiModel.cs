@@ -31,20 +31,20 @@ namespace Chinook.Domain.ApiModels
             new Employee
             {
                 Id = Id,
-                LastName = LastName,
-                FirstName = FirstName,
-                Title = Title,
+                LastName = LastName ?? string.Empty,
+                FirstName = FirstName ?? string.Empty,
+                Title = Title ?? string.Empty,
                 ReportsTo = ReportsTo,
                 BirthDate = BirthDate,
                 HireDate = HireDate,
-                Address = Address,
-                City = City,
-                State = State,
-                Country = Country,
-                PostalCode = PostalCode,
-                Phone = Phone,
-                Fax = Fax,
-                Email = Email
+                Address = Address ?? string.Empty,
+                City = City ?? string.Empty,
+                State = State ?? string.Empty,
+                Country = Country ?? string.Empty,
+                PostalCode = PostalCode ?? string.Empty,
+                Phone = Phone ?? string.Empty,
+                Fax = Fax ?? string.Empty,
+                Email = Email ?? string.Empty
             };
     }
 }

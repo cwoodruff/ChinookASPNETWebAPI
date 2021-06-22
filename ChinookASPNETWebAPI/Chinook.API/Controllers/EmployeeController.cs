@@ -22,10 +22,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [SwaggerOperation(
-            Summary = "Gets all Album",
-            Description = "Gets all Album",
-            OperationId = "Album.GetAll",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets all Employee",
+            Description = "Gets all Employee",
+            OperationId = "Employee.GetAll",
+            Tags = new[] { "EmployeeEndpoint"})]
         [Produces(typeof(List<EmployeeApiModel>))]
         public ActionResult<List<EmployeeApiModel>> Get()
         {
@@ -41,10 +41,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(
-            Summary = "Gets a specific Album",
-            Description = "Gets a specific Album",
-            OperationId = "Album.GetOne",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets a specific Employee",
+            Description = "Gets a specific Employee",
+            OperationId = "Employee.GetOne",
+            Tags = new[] { "EmployeeEndpoint"})]
         [Produces(typeof(EmployeeApiModel))]
         public ActionResult<EmployeeApiModel> Get(int id)
         {
@@ -66,10 +66,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("reportsto/{id}")]
         [SwaggerOperation(
-            Summary = "Gets Albums by Artist",
-            Description = "Gets Albums by Artist",
-            OperationId = "Album.GetByArtist",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets Reports to by Employee",
+            Description = "Gets Reports to by Employee",
+            OperationId = "Employee.GetReportsTo",
+            Tags = new[] { "EmployeeEndpoint"})]
         [Produces(typeof(List<EmployeeApiModel>))]
         public ActionResult<List<EmployeeApiModel>> GetReportsTo(int id)
         {
@@ -91,10 +91,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("directreports/{id}")]
         [SwaggerOperation(
-            Summary = "Gets Albums by Artist",
-            Description = "Gets Albums by Artist",
-            OperationId = "Album.GetByArtist",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets Employee direct reports",
+            Description = "Gets Employee direct reports",
+            OperationId = "Employee.GetByArtist",
+            Tags = new[] { "EmployeeEndpoint"})]
         [Produces(typeof(EmployeeApiModel))]
         public ActionResult<EmployeeApiModel> GetDirectReports(int id)
         {
@@ -112,10 +112,10 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [SwaggerOperation(
-            Summary = "Creates a new Album",
-            Description = "Creates a new Album",
-            OperationId = "Album.Create",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Creates a new Employee",
+            Description = "Creates a new Employee",
+            OperationId = "Employee.Create",
+            Tags = new[] { "EmployeeEndpoint"})]
         public ActionResult<EmployeeApiModel> Post([FromBody] EmployeeApiModel input)
         {
             try
@@ -133,10 +133,10 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(
-            Summary = "Update an Album",
-            Description = "Update an Album",
-            OperationId = "Album.Update",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Update an Employee",
+            Description = "Update an Employee",
+            OperationId = "Employee.Update",
+            Tags = new[] { "EmployeeEndpoint"})]
         public ActionResult<EmployeeApiModel> Put(int id, [FromBody] EmployeeApiModel input)
         {
             try
@@ -159,10 +159,10 @@ namespace Chinook.API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(
-            Summary = "Delete a Album",
-            Description = "Delete a Album",
-            OperationId = "Album.Delete",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Delete a Employee",
+            Description = "Delete a Employee",
+            OperationId = "Employee.Delete",
+            Tags = new[] { "EmployeeEndpoint"})]
         public ActionResult Delete(int id)
         {
             try

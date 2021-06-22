@@ -56,7 +56,7 @@ namespace Chinook.Domain.Supervisor
 
             if (artist == null) return false;
             artist.Id = artistApiModel.Id;
-            artist.Name = artistApiModel.Name;
+            artist.Name = artistApiModel.Name ?? string.Empty;
 
             return _artistRepository.Update(artist);
         }

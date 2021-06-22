@@ -22,10 +22,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [SwaggerOperation(
-            Summary = "Gets all Album",
-            Description = "Gets all Album",
-            OperationId = "Album.GetAll",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets all InvoiceLine",
+            Description = "Gets all InvoiceLine",
+            OperationId = "InvoiceLine.GetAll",
+            Tags = new[] { "InvoiceLineEndpoint"})]
         [Produces(typeof(List<InvoiceLineApiModel>))]
         public ActionResult<List<InvoiceLineApiModel>> Get()
         {
@@ -41,10 +41,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(
-            Summary = "Gets a specific Album",
-            Description = "Gets a specific Album",
-            OperationId = "Album.GetOne",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets a specific InvoiceLine",
+            Description = "Gets a specific InvoiceLine",
+            OperationId = "InvoiceLine.GetOne",
+            Tags = new[] { "InvoiceLineEndpoint"})]
         [Produces(typeof(InvoiceLineApiModel))]
         public ActionResult<InvoiceLineApiModel> Get(int id)
         {
@@ -66,10 +66,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("invoice/{id}")]
         [SwaggerOperation(
-            Summary = "Gets Albums by Artist",
-            Description = "Gets Albums by Artist",
-            OperationId = "Album.GetByArtist",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets InvoiceLine by Invoice",
+            Description = "Gets InvoiceLine by Invoice",
+            OperationId = "InvoiceLine.GetByInvoice",
+            Tags = new[] { "InvoiceLineEndpoint"})]
         [Produces(typeof(List<InvoiceLineApiModel>))]
         public ActionResult<InvoiceLineApiModel> GetByInvoiceId(int id)
         {
@@ -87,10 +87,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("track/{id}")]
         [SwaggerOperation(
-            Summary = "Creates a new Album",
-            Description = "Creates a new Album",
-            OperationId = "Album.Create",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets InvoiceLine by Track",
+            Description = "Gets InvoiceLine by Track",
+            OperationId = "InvoiceLine.GetByTrackId",
+            Tags = new[] { "InvoiceLineEndpoint"})]
         [Produces(typeof(List<InvoiceLineApiModel>))]
         public ActionResult<InvoiceLineApiModel> GetByTrackId(int id)
         {
@@ -108,10 +108,10 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [SwaggerOperation(
-            Summary = "Creates a new Album",
-            Description = "Creates a new Album",
-            OperationId = "Album.Create",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Creates a new InvoiceLine",
+            Description = "Creates a new InvoiceLine",
+            OperationId = "InvoiceLine.Create",
+            Tags = new[] { "InvoiceLineEndpoint"})]
         public ActionResult<InvoiceLineApiModel> Post([FromBody] InvoiceLineApiModel input)
         {
             try
@@ -129,10 +129,10 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(
-            Summary = "Update an Album",
-            Description = "Update an Album",
-            OperationId = "Album.Update",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Update an InvoiceLine",
+            Description = "Update an InvoiceLine",
+            OperationId = "InvoiceLine.Update",
+            Tags = new[] { "InvoiceLineEndpoint"})]
         public ActionResult<InvoiceLineApiModel> Put(int id, [FromBody] InvoiceLineApiModel input)
         {
             try
@@ -155,10 +155,10 @@ namespace Chinook.API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(
-            Summary = "Delete a Album",
-            Description = "Delete a Album",
-            OperationId = "Album.Delete",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Delete a InvoiceLine",
+            Description = "Delete a InvoiceLine",
+            OperationId = "InvoiceLine.Delete",
+            Tags = new[] { "InvoiceLineEndpoint"})]
         public ActionResult Delete(int id)
         {
             try

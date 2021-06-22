@@ -70,20 +70,20 @@ namespace Chinook.Domain.Supervisor
 
             if (employee == null) return false;
             employee.Id = employeeApiModel.Id;
-            employee.LastName = employeeApiModel.LastName;
-            employee.FirstName = employeeApiModel.FirstName;
-            employee.Title = employeeApiModel.Title;
+            employee.LastName = employeeApiModel.LastName ?? string.Empty;
+            employee.FirstName = employeeApiModel.FirstName ?? string.Empty;
+            employee.Title = employeeApiModel.Title ?? string.Empty;
             employee.ReportsTo = employeeApiModel.ReportsTo;
             employee.BirthDate = employeeApiModel.BirthDate;
             employee.HireDate = employeeApiModel.HireDate;
-            employee.Address = employeeApiModel.Address;
-            employee.City = employeeApiModel.City;
-            employee.State = employeeApiModel.State;
-            employee.Country = employeeApiModel.Country;
-            employee.PostalCode = employeeApiModel.PostalCode;
-            employee.Phone = employeeApiModel.Phone;
-            employee.Fax = employeeApiModel.Fax;
-            employee.Email = employeeApiModel.Email;
+            employee.Address = employeeApiModel.Address ?? string.Empty;
+            employee.City = employeeApiModel.City ?? string.Empty;
+            employee.State = employeeApiModel.State ?? string.Empty;
+            employee.Country = employeeApiModel.Country ?? string.Empty;
+            employee.PostalCode = employeeApiModel.PostalCode ?? string.Empty;
+            employee.Phone = employeeApiModel.Phone ?? string.Empty;
+            employee.Fax = employeeApiModel.Fax ?? string.Empty;
+            employee.Email = employeeApiModel.Email ?? string.Empty;
 
             return _employeeRepository.Update(employee);
         }

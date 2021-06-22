@@ -22,10 +22,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [SwaggerOperation(
-            Summary = "Gets all Album",
-            Description = "Gets all Album",
-            OperationId = "Album.GetAll",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets all Playlist",
+            Description = "Gets all Playlist",
+            OperationId = "Playlist.GetAll",
+            Tags = new[] { "PlaylistEndpoint"})]
         [Produces(typeof(List<PlaylistApiModel>))]
         public ActionResult<List<PlaylistApiModel>> Get()
         {
@@ -41,10 +41,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(
-            Summary = "Gets a specific Album",
-            Description = "Gets a specific Album",
-            OperationId = "Album.GetOne",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets a specific Playlist",
+            Description = "Gets a specific Playlist",
+            OperationId = "Playlist.GetOne",
+            Tags = new[] { "PlaylistEndpoint"})]
         [Produces(typeof(PlaylistApiModel))]
         public ActionResult<PlaylistApiModel> Get(int id)
         {
@@ -62,10 +62,10 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [SwaggerOperation(
-            Summary = "Creates a new Album",
-            Description = "Creates a new Album",
-            OperationId = "Album.Create",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Creates a new Playlist",
+            Description = "Creates a new Playlist",
+            OperationId = "Playlist.Create",
+            Tags = new[] { "PlaylistEndpoint"})]
         public ActionResult<PlaylistApiModel> Post([FromBody] PlaylistApiModel input)
         {
             try
@@ -83,10 +83,10 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(
-            Summary = "Update an Album",
-            Description = "Update an Album",
-            OperationId = "Album.Update",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Update an Playlist",
+            Description = "Update an Playlist",
+            OperationId = "Playlist.Update",
+            Tags = new[] { "PlaylistEndpoint"})]
         public ActionResult<PlaylistApiModel> Put(int id, [FromBody] PlaylistApiModel input)
         {
             try
@@ -109,10 +109,10 @@ namespace Chinook.API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(
-            Summary = "Delete a Album",
-            Description = "Delete a Album",
-            OperationId = "Album.Delete",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Delete a Playlist",
+            Description = "Delete a Playlist",
+            OperationId = "Playlist.Delete",
+            Tags = new[] { "PlaylistEndpoint"})]
         public ActionResult Delete(int id)
         {
             try
@@ -132,10 +132,10 @@ namespace Chinook.API.Controllers
         
         [HttpGet("track/{id}")]
         [SwaggerOperation(
-            Summary = "Gets Albums by Artist",
-            Description = "Gets Albums by Artist",
-            OperationId = "Album.GetByArtist",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets Playlist by Track",
+            Description = "Gets Playlist by Track",
+            OperationId = "Playlist.GetByTrackId",
+            Tags = new[] { "PlaylistEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
         public ActionResult<TrackApiModel> GetByTrackId(int id)
         {

@@ -22,10 +22,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [SwaggerOperation(
-            Summary = "Gets all Album",
-            Description = "Gets all Album",
-            OperationId = "Album.GetAll",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets all Track",
+            Description = "Gets all Track",
+            OperationId = "Track.GetAll",
+            Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
         public ActionResult<List<TrackApiModel>> Get()
         {
@@ -41,10 +41,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(
-            Summary = "Gets a specific Album",
-            Description = "Gets a specific Album",
-            OperationId = "Album.GetOne",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets a specific Track",
+            Description = "Gets a specific Track",
+            OperationId = "Track.GetOne",
+            Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(TrackApiModel))]
         public ActionResult<TrackApiModel> Get(int id)
         {
@@ -62,10 +62,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("album/{id}")]
         [SwaggerOperation(
-            Summary = "Gets Albums by Artist",
-            Description = "Gets Albums by Artist",
-            OperationId = "Album.GetByArtist",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets Track by Album",
+            Description = "Gets Track by Album",
+            OperationId = "Track.GetByAlbumId",
+            Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
         public ActionResult<TrackApiModel> GetByAlbumId(int id)
         {
@@ -81,10 +81,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("mediatype/{id}")]
         [SwaggerOperation(
-            Summary = "Gets Albums by Artist",
-            Description = "Gets Albums by Artist",
-            OperationId = "Album.GetByArtist",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets Track by MediaType",
+            Description = "Gets Track by MediaType",
+            OperationId = "Track.GetByMediaTypeId",
+            Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
         public ActionResult<TrackApiModel> GetByMediaTypeId(int id)
         {
@@ -100,10 +100,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("genre/{id}")]
         [SwaggerOperation(
-            Summary = "Gets Albums by Artist",
-            Description = "Gets Albums by Artist",
-            OperationId = "Album.GetByArtist",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets Track by Genre",
+            Description = "Gets Track by Genre",
+            OperationId = "Track.GetByGenreId",
+            Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
         public ActionResult<TrackApiModel> GetByGenreId(int id)
         {
@@ -119,10 +119,10 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [SwaggerOperation(
-            Summary = "Creates a new Album",
-            Description = "Creates a new Album",
-            OperationId = "Album.Create",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Creates a new Track",
+            Description = "Creates a new Track",
+            OperationId = "Track.Create",
+            Tags = new[] { "TrackEndpoint"})]
         public ActionResult<TrackApiModel> Post([FromBody] TrackApiModel input)
         {
             try
@@ -140,10 +140,10 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(
-            Summary = "Update an Album",
-            Description = "Update an Album",
-            OperationId = "Album.Update",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Update an Track",
+            Description = "Update an Track",
+            OperationId = "Track.Update",
+            Tags = new[] { "TrackEndpoint"})]
         public ActionResult<TrackApiModel> Put(int id, [FromBody] TrackApiModel input)
         {
             try
@@ -166,10 +166,10 @@ namespace Chinook.API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(
-            Summary = "Delete a Album",
-            Description = "Delete a Album",
-            OperationId = "Album.Delete",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Delete a Track",
+            Description = "Delete a Track",
+            OperationId = "Track.Delete",
+            Tags = new[] { "TrackEndpoint"})]
         public ActionResult Delete(int id)
         {
             try
@@ -189,10 +189,10 @@ namespace Chinook.API.Controllers
         
         [HttpGet("artist/{id}")]
         [SwaggerOperation(
-            Summary = "Gets Albums by Artist",
-            Description = "Gets Albums by Artist",
-            OperationId = "Album.GetByArtist",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets Track by Artist",
+            Description = "Gets Track by Artist",
+            OperationId = "Track.GetByArtistId",
+            Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
         public ActionResult<TrackApiModel> GetByArtistId(int id)
         {
@@ -208,10 +208,10 @@ namespace Chinook.API.Controllers
         
         [HttpGet("invoice/{id}")]
         [SwaggerOperation(
-            Summary = "Gets Albums by Artist",
-            Description = "Gets Albums by Artist",
-            OperationId = "Album.GetByArtist",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets Track by Invoice",
+            Description = "Gets Track by Invoice",
+            OperationId = "Track.GetByInvoiceId",
+            Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
         public ActionResult<TrackApiModel> GetByInvoiceId(int id)
         {

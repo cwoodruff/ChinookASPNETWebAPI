@@ -22,10 +22,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet]
         [SwaggerOperation(
-            Summary = "Gets all Album",
-            Description = "Gets all Album",
-            OperationId = "Album.GetAll",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets all Invoice",
+            Description = "Gets all Invoice",
+            OperationId = "Invoice.GetAll",
+            Tags = new[] { "InvoiceEndpoint"})]
         [Produces(typeof(List<InvoiceApiModel>))]
         public ActionResult<List<InvoiceApiModel>> Get()
         {
@@ -41,10 +41,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(
-            Summary = "Gets a specific Album",
-            Description = "Gets a specific Album",
-            OperationId = "Album.GetOne",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets a specific Invoice",
+            Description = "Gets a specific Invoice",
+            OperationId = "Invoice.GetOne",
+            Tags = new[] { "InvoiceEndpoint"})]
         [Produces(typeof(InvoiceApiModel))]
         public ActionResult<InvoiceApiModel> Get(int id)
         {
@@ -66,10 +66,10 @@ namespace Chinook.API.Controllers
 
         [HttpGet("customer/{id}")]
         [SwaggerOperation(
-            Summary = "Gets Albums by Artist",
-            Description = "Gets Albums by Artist",
-            OperationId = "Album.GetByArtist",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets Invoices by Customer",
+            Description = "Gets Invoices by Customer",
+            OperationId = "Invoice.GetByArtist",
+            Tags = new[] { "InvoiceEndpoint"})]
         [Produces(typeof(List<InvoiceApiModel>))]
         public ActionResult<InvoiceApiModel> GetByCustomerId(int id)
         {
@@ -85,10 +85,10 @@ namespace Chinook.API.Controllers
 
         [HttpPost]
         [SwaggerOperation(
-            Summary = "Creates a new Album",
-            Description = "Creates a new Album",
-            OperationId = "Album.Create",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Creates a new Invoice",
+            Description = "Creates a new Invoice",
+            OperationId = "Invoice.Create",
+            Tags = new[] { "InvoiceEndpoint"})]
         public ActionResult<InvoiceApiModel> Post([FromBody] InvoiceApiModel input)
         {
             try
@@ -106,10 +106,10 @@ namespace Chinook.API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(
-            Summary = "Update an Album",
-            Description = "Update an Album",
-            OperationId = "Album.Update",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Update an Invoice",
+            Description = "Update an Invoice",
+            OperationId = "Invoice.Update",
+            Tags = new[] { "InvoiceEndpoint"})]
         public ActionResult<InvoiceApiModel> Put(int id, [FromBody] InvoiceApiModel input)
         {
             try
@@ -132,10 +132,10 @@ namespace Chinook.API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(
-            Summary = "Delete a Album",
-            Description = "Delete a Album",
-            OperationId = "Album.Delete",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Delete a Invoice",
+            Description = "Delete a Invoice",
+            OperationId = "Invoice.Delete",
+            Tags = new[] { "InvoiceEndpoint"})]
         public ActionResult Delete(int id)
         {
             try
@@ -155,10 +155,10 @@ namespace Chinook.API.Controllers
         
         [HttpGet("employee/{id}")]
         [SwaggerOperation(
-            Summary = "Creates a new Album",
-            Description = "Creates a new Album",
-            OperationId = "Album.Create",
-            Tags = new[] { "AlbumEndpoint"})]
+            Summary = "Gets Invoices by Employee",
+            Description = "Gets Invoices by Employee",
+            OperationId = "Invoice.Create",
+            Tags = new[] { "InvoiceEndpoint"})]
         [Produces(typeof(List<InvoiceApiModel>))]
         public ActionResult<InvoiceApiModel> GetByEmployeeId(int id)
         {

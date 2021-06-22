@@ -7,11 +7,6 @@ namespace Chinook.API.Controllers
     public class HomeController : ControllerBase
     {
         [HttpGet]
-        [SwaggerOperation(
-            Summary = "Creates a new Album",
-            Description = "Creates a new Album",
-            OperationId = "Album.Create",
-            Tags = new[] { "AlbumEndpoint"})]
         [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Index()
         {

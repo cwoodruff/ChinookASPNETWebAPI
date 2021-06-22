@@ -18,7 +18,7 @@ namespace Chinook.Domain.ApiModels
             {
                 Id = Id,
                 ArtistId = ArtistId,
-                Title = Title
+                Title = Title ?? string.Empty
             };
     }
 }

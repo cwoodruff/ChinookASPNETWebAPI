@@ -3,6 +3,8 @@ using Chinook.Domain.Repositories;
 using Chinook.Domain.Supervisor;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using  Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Chinook.API.Configurations
 {
@@ -58,6 +60,12 @@ namespace Chinook.API.Configurations
                         .AllowAnyMethod()
                         .AllowAnyHeader());
             });
+        }
+        
+        public static void AddApiExplorerServices(IServiceCollection services)
+        {
+            services.TryAddSingleton<IApiDescriptionGroupCollectionProvider, ApiDescriptionGroupCollectionProvider>();
+            services.TryAddEnumerable(ServiceDescriptor.Transient<IApiDescriptionProvider, DefaultApiDescriptionProvider>());
         }
     }
 }
