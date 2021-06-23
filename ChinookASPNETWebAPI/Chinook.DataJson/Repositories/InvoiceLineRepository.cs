@@ -52,7 +52,7 @@ namespace Chinook.DataJson.Repositories
 
         public InvoiceLine GetById(int id)
         {
-            var sqlcomm = new SqlCommand("dbo.sproc_GetInvoiceDetails", _sqlconn)
+            var sqlcomm = new SqlCommand("dbo.sproc_GetInvoiceLineDetails", _sqlconn)
             {
                 CommandType = CommandType.StoredProcedure
             };
