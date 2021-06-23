@@ -26,8 +26,14 @@ namespace Chinook.DataEFCore.Repositories
 
         public void Dispose() => _context.Dispose();
 
-        public List<Invoice> GetAll() =>
-            _context.Invoices.ToList();
+        // public List<Invoice> GetAll() =>
+        //     _context.Invoices.ToList();
+
+        public List<Invoice> GetAll()
+        {
+            var invoices = _context.Invoices;
+            return invoices.ToList();
+        }
 
         public Invoice GetById(int id) =>
             _context.Invoices.Find(id);

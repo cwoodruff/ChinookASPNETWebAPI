@@ -8,8 +8,10 @@ namespace Chinook.DataEF
 {
     public partial class ChinookContext : DbContext
     {
-        public ChinookContext(DbContextOptions options) : base(options) 
-            => Interlocked.Increment(ref InstanceCount);
+        public ChinookContext(DbContextOptions<ChinookContext> options)
+            : base(options)
+        {
+        }
 
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<Artist> Artists { get; set; }
@@ -22,16 +24,10 @@ namespace Chinook.DataEF
         public virtual DbSet<Playlist> Playlists { get; set; }
         public virtual DbSet<PlaylistTrack> PlaylistTracks { get; set; }
         public virtual DbSet<Track> Tracks { get; set; }
-        
-        public static long InstanceCount;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-6C4SF7E;Database=Chinook;Trusted_Connection=True;");
-            }
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

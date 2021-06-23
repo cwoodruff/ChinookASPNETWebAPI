@@ -20,7 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Chinook.DataDapper\Chinook.DataDapper.csproj" />
     <ProjectReference Include="..\Chinook.DataEF\Chinook.DataEF.csproj" />
+    <ProjectReference Include="..\Chinook.DataJson\Chinook.DataJson.csproj" />
   </ItemGroup>
 
 </Project>

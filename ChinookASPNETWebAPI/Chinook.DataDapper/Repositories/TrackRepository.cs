@@ -101,7 +101,7 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            var tracks = cn.Query<Track>("SELECT T.TrackId, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN InvoiceLine AS IL ON T.TrackId = IL.TrackId WHERE IL.InvoiceID = @Id", new { id });
+            var tracks = cn.Query<Track>("SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN InvoiceLine AS IL ON T.Id = IL.TrackId WHERE IL.InvoiceID = @Id", new { id });
             return tracks.ToList();
         }
 
@@ -109,7 +109,7 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            var tracks = cn.Query<Track>("SELECT T.TrackId, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN PlaylistTrack AS PLT ON T.TrackId = PLT.TrackId WHERE PLT.PlayListId = @Id", new { id });
+            var tracks = cn.Query<Track>("SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN PlaylistTrack AS PLT ON T.Id = PLT.TrackId WHERE PLT.PlayListId = @Id", new { id });
             return tracks.ToList();
         }
 
@@ -117,7 +117,7 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            var tracks = cn.Query<Track>("SELECT T.TrackId, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN Album AS A ON T.AlbumId = A.AlbumId WHERE A.ArtistId = @Id", new { id });
+            var tracks = cn.Query<Track>("SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN Album AS A ON T.AlbumId = A.Id WHERE A.Id = @Id", new { id });
             return tracks.ToList();
         }
 

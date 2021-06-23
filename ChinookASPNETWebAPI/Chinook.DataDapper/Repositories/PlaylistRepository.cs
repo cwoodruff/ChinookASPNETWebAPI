@@ -60,7 +60,7 @@ namespace Chinook.DataDapper.Repositories
             using var cn = Connection;
             cn.Open();
             var tracks = cn.Query<Track>(
-                "SELECT Track.* FROM Playlist INNER JOIN PlaylistTrack ON Playlist.PlaylistId = PlaylistTrack.PlaylistId INNER JOIN Track ON PlaylistTrack.TrackId = Track.TrackId WHERE Playlist.PlaylistId = @Id", new { id });
+                "SELECT Track.* FROM Playlist INNER JOIN PlaylistTrack ON Playlist.PlaylistId = PlaylistTrack.PlaylistId INNER JOIN Track ON PlaylistTrack.TrackId = Track.Id WHERE Playlist.PlaylistId = @Id", new { id });
             return tracks.ToList();
         }
 
@@ -101,7 +101,7 @@ namespace Chinook.DataDapper.Repositories
             using var cn = Connection;
             cn.Open();
             var playlists = cn.Query<Playlist>(
-                "SELECT PL.PlaylistId, PL.Name FROM Playlist AS PL INNER JOIN PlaylistTrack PLT ON PL.PlaylistId = PLT.PlaylistId WHERE PLT.TrackID = @Id", new { id });
+                "SELECT PL.Id, PL.Name FROM Playlist AS PL INNER JOIN PlaylistTrack PLT ON PL.Id = PLT.PlaylistId WHERE PLT.TrackID = @Id", new { id });
             return playlists.ToList();
         }
     }

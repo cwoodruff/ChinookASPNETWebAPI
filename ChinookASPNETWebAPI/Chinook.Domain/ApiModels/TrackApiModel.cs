@@ -8,7 +8,7 @@ namespace Chinook.Domain.ApiModels
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public int AlbumId { get; set; }
+        public int? AlbumId { get; set; }
         public string? AlbumName { get; set; }
         public int MediaTypeId { get; set; }
         public string? MediaTypeName { get; set; }

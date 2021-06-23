@@ -39,7 +39,7 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            var playListTracks = cn.Query<PlaylistTrack>("Select * From PlaylistTrack WHERE ArtistId = @Id", new { id });
+            var playListTracks = cn.Query<PlaylistTrack>("Select * From PlaylistTrack WHERE PlaylistId = @Id", new { id });
             return playListTracks.ToList();
         }
 
@@ -47,7 +47,7 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            var playListTracks = cn.Query<PlaylistTrack>("Select * From PlaylistTrack WHERE ArtistId = @Id", new { id });
+            var playListTracks = cn.Query<PlaylistTrack>("Select * From PlaylistTrack WHERE TrackId = @Id", new { id });
             return playListTracks.ToList();
         }
 

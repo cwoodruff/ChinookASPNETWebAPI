@@ -31,7 +31,7 @@ namespace Chinook.Domain.Supervisor
             else
             {
                 var employeeApiModel = (_employeeRepository.GetById(id)).Convert();
-                employeeApiModel.Customers = (GetCustomerBySupportRepId(employeeApiModel.Id)).ToList();
+                //employeeApiModel.Customers = (GetCustomerBySupportRepId(employeeApiModel.Id)).ToList();
                 //employeeApiModel.DirectReports = (GetEmployeeDirectReports(employeeApiModel.EmployeeId)).ToList();
                 // employeeApiModel.Manager = employeeApiModel.ReportsTo.HasValue
                 //     ? GetEmployeeReportsTo(id)

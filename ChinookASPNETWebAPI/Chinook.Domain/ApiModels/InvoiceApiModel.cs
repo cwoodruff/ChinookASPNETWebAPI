@@ -5,7 +5,7 @@ using Chinook.Domain.Entities;
 
 namespace Chinook.Domain.ApiModels
 {
-    public sealed class InvoiceApiModel : IConvertModel<InvoiceApiModel, Invoice>
+    public class InvoiceApiModel : IConvertModel<InvoiceApiModel, Invoice>
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }

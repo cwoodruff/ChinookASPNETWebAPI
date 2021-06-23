@@ -33,7 +33,7 @@ namespace Chinook.Domain.Supervisor
             else
             {
                 var genre = _genreRepository.GetById(id);
-                if (genre != null) return null;
+                if (genre == null) return null;
                 var genreApiModel = genre.Convert();
                 genreApiModel.Tracks = (GetTrackByGenreId(genreApiModel.Id)).ToList();
                 

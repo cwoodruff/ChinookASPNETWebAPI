@@ -1,10 +1,12 @@
-﻿using Chinook.DataEFCore.Repositories;
-using Chinook.Domain.Repositories;
+﻿using Chinook.Domain.Repositories;
 using Chinook.Domain.Supervisor;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using  Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+//using Chinook.DataEFCore.Repositories;
+//using Chinook.DataJson.Repositories;
+using Chinook.DataDapper.Repositories;
 
 namespace Chinook.API.Configurations
 {
