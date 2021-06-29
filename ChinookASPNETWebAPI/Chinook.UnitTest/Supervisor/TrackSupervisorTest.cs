@@ -4,13 +4,11 @@ using Xunit;
 
 namespace Chinook.UnitTest.Supervisor
 {
-    public class TrackRepositoryTest
+    public class TrackSupervisorTest
     {
         private readonly IChinookSupervisor _super;
 
-        public TrackRepositoryTest()
-        {
-        }
+        public TrackSupervisorTest(IChinookSupervisor s) => _super = s;
 
         [Fact]
         public void TrackGetAll()

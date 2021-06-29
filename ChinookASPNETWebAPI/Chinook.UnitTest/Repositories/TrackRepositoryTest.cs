@@ -7,9 +7,7 @@ namespace Chinook.UnitTest.Repository
     {
         private readonly ITrackRepository _repo;
 
-        public TrackRepositoryTest()
-        {
-        }
+        public TrackRepositoryTest(ITrackRepository t) => _repo = t;
 
         [Fact]
         public void TrackGetAll()

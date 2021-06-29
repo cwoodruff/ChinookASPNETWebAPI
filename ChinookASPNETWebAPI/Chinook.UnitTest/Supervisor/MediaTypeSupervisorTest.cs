@@ -4,13 +4,11 @@ using Xunit;
 
 namespace Chinook.UnitTest.Supervisor
 {
-    public class MediaTypeRepositoryTest
+    public class MediaTypeSupervisorTest
     {
         private readonly IChinookSupervisor _super;
 
-        public MediaTypeRepositoryTest()
-        {
-        }
+        public MediaTypeSupervisorTest(IChinookSupervisor s) => _super = s;
 
         [Fact]
         public void MediaTypeGetAll()

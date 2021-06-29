@@ -7,9 +7,7 @@ namespace Chinook.UnitTest.Repository
     {
         private readonly IInvoiceLineRepository _repo;
 
-        public InvoiceLineRepositoryTest()
-        {
-        }
+        public InvoiceLineRepositoryTest(IInvoiceLineRepository i) => _repo = i;
 
         [Fact]
         public void InvoiceLineGetAll()

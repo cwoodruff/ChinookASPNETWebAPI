@@ -4,13 +4,11 @@ using Xunit;
 
 namespace Chinook.UnitTest.Supervisor
 {
-    public class AlbumRepositoryTest
+    public class AlbumSupervisorTest
     {
         private readonly IChinookSupervisor _super;
 
-        public AlbumRepositoryTest()
-        {
-        }
+        public AlbumSupervisorTest(IChinookSupervisor s) => _super = s;
 
         [Fact]
         public void AlbumGetAll()

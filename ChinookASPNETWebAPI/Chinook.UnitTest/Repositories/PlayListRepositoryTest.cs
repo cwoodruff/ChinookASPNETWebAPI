@@ -7,9 +7,7 @@ namespace Chinook.UnitTest.Repository
     {
         private readonly IPlaylistRepository _repo;
 
-        public PlayListRepositoryTest()
-        {
-        }
+        public PlayListRepositoryTest(IPlaylistRepository p) => _repo = p;
 
         [Fact]
         public void PlayListGetAll()

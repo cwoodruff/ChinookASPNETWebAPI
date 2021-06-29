@@ -1,4 +1,5 @@
-﻿using Chinook.Domain.Repositories;
+﻿using Chinook.DataEFCore.Repositories;
+using Chinook.Domain.Repositories;
 using Xunit;
 
 namespace Chinook.UnitTest.Repository
@@ -7,9 +8,7 @@ namespace Chinook.UnitTest.Repository
     {
         private readonly IAlbumRepository _repo;
 
-        public AlbumRepositoryTest()
-        {
-        }
+        public AlbumRepositoryTest(IAlbumRepository a) => _repo = a;
 
         [Fact]
         public void AlbumGetAll()

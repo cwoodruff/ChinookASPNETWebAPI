@@ -4,13 +4,11 @@ using Xunit;
 
 namespace Chinook.UnitTest.Supervisor
 {
-    public class CustomerRepositoryTest
+    public class CustomerSupervisorTest
     {
         private readonly IChinookSupervisor _super;
 
-        public CustomerRepositoryTest()
-        {
-        }
+        public CustomerSupervisorTest(IChinookSupervisor s) => _super = s;
 
         [Fact]
         public void CustomerGetAll()

@@ -7,9 +7,7 @@ namespace Chinook.UnitTest.Repository
     {
         private readonly IEmployeeRepository _repo;
 
-        public EmployeeRepositoryTest()
-        {
-        }
+        public EmployeeRepositoryTest(IEmployeeRepository e) => _repo = e;
 
         [Fact]
         public void EmployeeGetAll()

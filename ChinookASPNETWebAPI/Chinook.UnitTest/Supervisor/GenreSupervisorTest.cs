@@ -4,13 +4,11 @@ using Xunit;
 
 namespace Chinook.UnitTest.Supervisor
 {
-    public class GenreRepositoryTest
+    public class GenreSupervisorTest
     {
         private readonly IChinookSupervisor _super;
 
-        public GenreRepositoryTest()
-        {
-        }
+        public GenreSupervisorTest(IChinookSupervisor s) => _super = s;
 
         [Fact]
         public void GenreGetAll()

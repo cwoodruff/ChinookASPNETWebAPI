@@ -7,9 +7,7 @@ namespace Chinook.UnitTest.Repository
     {
         private readonly IMediaTypeRepository _repo;
 
-        public MediaTypeRepositoryTest()
-        {
-        }
+        public MediaTypeRepositoryTest(IMediaTypeRepository m) => _repo = m;
 
         [Fact]
         public void MediaTypeGetAll()

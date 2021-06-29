@@ -4,13 +4,11 @@ using Xunit;
 
 namespace Chinook.UnitTest.Supervisor
 {
-    public class PlayListRepositoryTest
+    public class PlayListSupervisorTest
     {
         private readonly IChinookSupervisor _super;
 
-        public PlayListRepositoryTest()
-        {
-        }
+        public PlayListSupervisorTest(IChinookSupervisor s) => _super = s;
 
         [Fact]
         public void PlayListGetAll()

@@ -7,9 +7,7 @@ namespace Chinook.UnitTest.Repository
     {
         private readonly IGenreRepository _repo;
 
-        public GenreRepositoryTest()
-        {
-        }
+        public GenreRepositoryTest(IGenreRepository g) => _repo = g;
 
         [Fact]
         public void GenreGetAll()

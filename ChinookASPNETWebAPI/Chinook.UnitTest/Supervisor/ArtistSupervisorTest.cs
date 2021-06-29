@@ -4,13 +4,11 @@ using Xunit;
 
 namespace Chinook.UnitTest.Supervisor
 {
-    public class ArtistRepositoryTest
+    public class ArtistSupervisorTest
     {
         private readonly IChinookSupervisor _super;
 
-        public ArtistRepositoryTest()
-        {
-        }
+        public ArtistSupervisorTest(IChinookSupervisor s) => _super = s;
         
         [Fact]
         public void ArtistGetAll()
