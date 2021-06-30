@@ -1,25 +1,52 @@
 ﻿using System.Linq;
+using Chinook.DataEF;
+using Chinook.DataEFCore.Repositories;
 using Chinook.Domain.Supervisor;
 using Xunit;
+using Microsoft.EntityFrameworkCore;
+using FluentAssertions;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.UnitTest.Supervisor
 {
     public class AlbumSupervisorTest
     {
         private readonly IChinookSupervisor _super;
+        private readonly AlbumRepository _albumRepo;
+        private readonly ChinookContext _context;
 
-        public AlbumSupervisorTest(IChinookSupervisor s) => _super = s;
+        public AlbumSupervisorTest()
+        {
+            var builder = new DbContextOptionsBuilder<ChinookContext>();
+            builder.UseInMemoryDatabase("ChinookUnitTests");
+            _context = new ChinookContext(builder.Options);
+            _albumRepo = new AlbumRepository(_context);
+            _super = new ChinookSupervisor(_albumRepo, null, null, null, null, null, null, null, null, null, new MemoryCache(new MemoryCacheOptions()));
+        }
 
         [Fact]
         public void AlbumGetAll()
         {
+            var album1 = new Domain.Entities.Album {
+                Id = 12,
+            };
+            var album2 = new Domain.Entities.Album
+            {
+                Id = 123,
+            };
+
             // Arrange
+            _context.Albums.Add(album1);
+            _context.Albums.Add(album2);
+            _context.SaveChanges();
 
             // Act
             var albums = _super.GetAllAlbum().ToList();
 
             // Assert
-            Assert.True(albums.Count > 1, "The number of albums was not greater than 1");
+            albums.Count.Should().Be(2);
+            albums.Should().Contain(x => x.Id == 12);
+            albums.Should().Contain(x => x.Id == 123);
         }
 
         [Fact]
