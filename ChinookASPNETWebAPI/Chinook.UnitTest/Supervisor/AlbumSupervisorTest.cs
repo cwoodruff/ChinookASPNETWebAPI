@@ -70,6 +70,7 @@ namespace Chinook.UnitTest.Supervisor
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
         public void Dispose()
         {
+            _context?.Database.EnsureDeleted();
             _albumRepo?.Dispose();
             _context?.Dispose();
         }
