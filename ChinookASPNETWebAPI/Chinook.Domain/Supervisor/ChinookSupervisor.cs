@@ -17,7 +17,7 @@ namespace Chinook.Domain.Supervisor
         private readonly IPlaylistRepository _playlistRepository;
         private readonly ITrackRepository _trackRepository;
         private readonly IMemoryCache _cache;
-        
+
         private readonly AlbumValidator _albumValidator;
         private readonly ArtistValidator _artistValidator;
         private readonly CustomerValidator _customerValidator;
@@ -29,10 +29,6 @@ namespace Chinook.Domain.Supervisor
         private readonly PlaylistValidator _playlistValidator;
         private readonly PlaylistTrackValidator _playlistTrackValidator;
         private readonly TrackValidator _trackValidator;
-
-        public ChinookSupervisor()
-        {
-        }
 
         public ChinookSupervisor(IAlbumRepository albumRepository,
             IArtistRepository artistRepository,
@@ -58,7 +54,7 @@ namespace Chinook.Domain.Supervisor
             _playlistRepository = playlistRepository;
             _trackRepository = trackRepository;
             _cache = memoryCache;
-            
+
             _albumValidator = new AlbumValidator();
             _artistValidator = new ArtistValidator();
             _customerValidator = new CustomerValidator();

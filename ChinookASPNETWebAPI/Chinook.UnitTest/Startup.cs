@@ -5,6 +5,7 @@ using Chinook.Domain.Supervisor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.UnitTest
 {
@@ -29,7 +30,8 @@ namespace Chinook.UnitTest
                 .AddTransient<IMediaTypeRepository, MediaTypeRepository>()
                 .AddTransient<IPlaylistRepository, PlaylistRepository>()
                 .AddTransient<ITrackRepository, TrackRepository>()
-                .AddTransient<IChinookSupervisor, ChinookSupervisor>();
+                .AddTransient<IChinookSupervisor, ChinookSupervisor>()
+                .AddTransient<IMemoryCache, MemoryCache>();
         }
     }
 }

@@ -1,38 +1,78 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using Chinook.DataEF;
+using Chinook.DataEFCore.Repositories;
+using Chinook.Domain.Entities;
 using Chinook.Domain.Supervisor;
 using Xunit;
+using Microsoft.EntityFrameworkCore;
+using FluentAssertions;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.UnitTest.Supervisor
 {
-    public class AlbumSupervisorTest
+    public class AlbumSupervisorTest : IDisposable
     {
         private readonly IChinookSupervisor _super;
+        private readonly AlbumRepository _albumRepo;
+        private readonly ChinookContext _context;
 
-        public AlbumSupervisorTest(IChinookSupervisor s) => _super = s;
+        public AlbumSupervisorTest()
+        {
+            var builder = new DbContextOptionsBuilder<ChinookContext>();
+            builder.UseInMemoryDatabase("ChinookUnitTests");
+            _context = new ChinookContext(builder.Options);
+            _albumRepo = new AlbumRepository(_context);
+            var artistRepo = new ArtistRepository(_context);
+            _super = new ChinookSupervisor(_albumRepo, artistRepo, null, null, null, null, null, null, null, null, new MemoryCache(new MemoryCacheOptions()));
+        }
 
         [Fact]
-        public void AlbumGetAll()
+        public void GetAllAlbum_GivenTwoAlbumsInTheDatabase_ReturnsBoth()
         {
+            var album1 = new Album { Id = 12 };
+            var album2 = new Album { Id = 123 };
+
             // Arrange
+            _context.Albums.Add(album1);
+            _context.Albums.Add(album2);
+            _context.SaveChanges();
 
             // Act
             var albums = _super.GetAllAlbum().ToList();
 
             // Assert
-            Assert.True(albums.Count > 1, "The number of albums was not greater than 1");
+            albums.Count.Should().Be(2);
+            albums.Should().Contain(x => x.Id == 12);
+            albums.Should().Contain(x => x.Id == 123);
         }
 
         [Fact]
-        public void AlbumGetOne()
+        public void GetAlbumByID_MatchingAlbumInDB_ReturnsIt()
         {
             // Arrange
-            var id = 1;
+            var albumId = 1;
+            var artistId = 1234;
+
+            // We are currently required to care about an Artist ID because the convert part of album specifically references the artist repository as well.
+            _context.Artists.Add(new Artist() {Id = artistId});
+            _context.Albums.Add(new Album() {Id = 1, ArtistId = 1234});
+            _context.SaveChanges();
 
             // Act
-            var album = _super.GetAlbumById(id);
+            var album = _super.GetAlbumById(albumId);
 
             // Assert
-            Assert.Equal(id, album.Id);
+            album.Id.Should().Be(1);
+        }
+
+        /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+        public void Dispose()
+        {
+            _context?.Database.EnsureDeleted();
+            _albumRepo?.Dispose();
+            _context?.Dispose();
         }
     }
 }
