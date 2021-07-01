@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Chinook.Domain.ApiModels
 {
@@ -18,10 +20,25 @@ namespace Chinook.Domain.ApiModels
         public int Milliseconds { get; set; }
         public int? Bytes { get; set; }
         public decimal UnitPrice { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public IList<InvoiceLineApiModel>? InvoiceLines { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public IList<PlaylistTrackApiModel>? PlaylistTracks { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public AlbumApiModel? Album { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public GenreApiModel? Genre { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public MediaTypeApiModel? MediaType { get; set; }
 
         public Track Convert() =>

@@ -1,5 +1,7 @@
-﻿using Chinook.Domain.Converters;
+﻿using System.Text.Json.Serialization;
+using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Chinook.Domain.ApiModels
 {
@@ -7,7 +9,13 @@ namespace Chinook.Domain.ApiModels
     {
         public int PlaylistId { get; set; }
         public int TrackId { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public PlaylistApiModel Playlist { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public TrackApiModel Track { get; set; }
 
         public PlaylistTrack Convert() =>

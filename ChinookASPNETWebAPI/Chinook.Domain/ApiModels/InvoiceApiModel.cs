@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Chinook.Domain.ApiModels
 {
@@ -17,7 +19,13 @@ namespace Chinook.Domain.ApiModels
         public string BillingCountry { get; set; }
         public string BillingPostalCode { get; set; }
         public decimal Total { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public IList<InvoiceLineApiModel> InvoiceLines { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public CustomerApiModel Customer { get; set; }
 
         public Invoice Convert() =>

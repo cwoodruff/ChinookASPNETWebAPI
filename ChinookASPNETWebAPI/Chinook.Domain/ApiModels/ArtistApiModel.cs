@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Chinook.Domain.ApiModels
 {
@@ -8,6 +10,9 @@ namespace Chinook.Domain.ApiModels
     {
         public int Id { get; set; }
         public string? Name { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public IList<AlbumApiModel>? Albums { get; set; }
 
         public Artist Convert() =>

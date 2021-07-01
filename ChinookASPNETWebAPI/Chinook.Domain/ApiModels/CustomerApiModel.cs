@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Chinook.Domain.ApiModels
 {
@@ -19,8 +21,17 @@ namespace Chinook.Domain.ApiModels
         public string? Fax { get; set; }
         public string? Email { get; set; }
         public int? SupportRepId { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public string? SupportRepName { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public IList<InvoiceApiModel>? Invoices { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public EmployeeApiModel? SupportRep { get; set; }
 
 

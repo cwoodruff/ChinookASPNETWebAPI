@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Chinook.Domain.ApiModels
 {
@@ -23,8 +25,17 @@ namespace Chinook.Domain.ApiModels
         public string? Phone { get; set; }
         public string? Fax { get; set; }
         public string? Email { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public List<CustomerApiModel>? Customers { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public EmployeeApiModel? Manager { get; set; }
+        
+        [ValidateNever]
+        [JsonIgnore]
         public ICollection<EmployeeApiModel>? DirectReports { get; set; }
 
         public Employee Convert() =>
