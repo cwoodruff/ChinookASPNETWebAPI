@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Chinook.API.Controllers
@@ -14,10 +15,12 @@ namespace Chinook.API.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IChinookSupervisor _chinookSupervisor;
+        private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(IChinookSupervisor chinookSupervisor)
+        public EmployeeController(IChinookSupervisor chinookSupervisor, ILogger<EmployeeController> logger)
         {
             _chinookSupervisor = chinookSupervisor;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -35,11 +38,12 @@ namespace Chinook.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                _logger.LogError($"Something went wrong inside the AlbumController Get action: {ex}");
+                return StatusCode(500, "Internal server error");
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetEmployeeById")]
         [SwaggerOperation(
             Summary = "Gets a specific Employee",
             Description = "Gets a specific Employee",
@@ -60,7 +64,8 @@ namespace Chinook.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                _logger.LogError($"Something went wrong inside the AlbumController Get action: {ex}");
+                return StatusCode(500, "Internal server error");
             }
         }
 
@@ -85,7 +90,8 @@ namespace Chinook.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                _logger.LogError($"Something went wrong inside the AlbumController Get action: {ex}");
+                return StatusCode(500, "Internal server error");
             }
         }
 
@@ -106,7 +112,8 @@ namespace Chinook.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                _logger.LogError($"Something went wrong inside the AlbumController Get action: {ex}");
+                return StatusCode(500, "Internal server error");
             }
         }
 
@@ -121,13 +128,22 @@ namespace Chinook.API.Controllers
             try
             {
                 if (input == null)
-                    return BadRequest();
-
-                return StatusCode(201, _chinookSupervisor.AddEmployee(input));
+                {
+                    return BadRequest("Employee is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid Employee object");
+                }
+                
+                var employee = _chinookSupervisor.AddEmployee(input);
+        
+                return CreatedAtRoute("GetEmployeeById", new { id = employee.Id }, employee);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                _logger.LogError($"Something went wrong inside the AlbumController Get action: {ex}");
+                return StatusCode(500, "Internal server error");
             }
         }
 
@@ -142,18 +158,25 @@ namespace Chinook.API.Controllers
             try
             {
                 if (input == null)
-                    return BadRequest();
+                {
+                    return BadRequest("Employee is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid Employee object");
+                }
 
                 if (_chinookSupervisor.UpdateEmployee(input))
                 {
-                    return Ok(input);
+                    return CreatedAtRoute("GetEmployeeById", new { id = input.Id }, input);
                 }
 
                 return StatusCode(500);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                _logger.LogError($"Something went wrong inside the AlbumController Get action: {ex}");
+                return StatusCode(500, "Internal server error");
             }
         }
 
@@ -176,7 +199,8 @@ namespace Chinook.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                _logger.LogError($"Something went wrong inside the AlbumController Get action: {ex}");
+                return StatusCode(500, "Internal server error");
             }
         }
     }

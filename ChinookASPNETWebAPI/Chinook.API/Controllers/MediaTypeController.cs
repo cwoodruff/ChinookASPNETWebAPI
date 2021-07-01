@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Chinook.API.Controllers
@@ -15,14 +16,15 @@ namespace Chinook.API.Controllers
     public class MediaTypeController : ControllerBase
     {
         private readonly IChinookSupervisor _chinookSupervisor;
+        private readonly ILogger<MediaTypeController> _logger;
 
-        public MediaTypeController(IChinookSupervisor chinookSupervisor)
+        public MediaTypeController(IChinookSupervisor chinookSupervisor, ILogger<MediaTypeController> logger)
         {
             _chinookSupervisor = chinookSupervisor;
+            _logger = logger;
         }
 
         [HttpGet]
-        
         [SwaggerOperation(
             Summary = "Gets all MediaType",
             Description = "Gets all MediaType",
@@ -38,11 +40,12 @@ namespace Chinook.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                _logger.LogError($"Something went wrong inside the AlbumController Get action: {ex}");
+                return StatusCode(500, "Internal server error");
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetMediaTypeById")]
         [SwaggerOperation(
             Summary = "Gets a specific MediaType",
             Description = "Gets a specific MediaType",
@@ -59,7 +62,8 @@ namespace Chinook.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                _logger.LogError($"Something went wrong inside the AlbumController Get action: {ex}");
+                return StatusCode(500, "Internal server error");
             }
         }
 
@@ -74,13 +78,22 @@ namespace Chinook.API.Controllers
             try
             {
                 if (input == null)
-                    return BadRequest();
-
-                return StatusCode(201, _chinookSupervisor.AddMediaType(input));
+                {
+                    return BadRequest("Media Type is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid Media Type object");
+                }
+                
+                var mediaType = _chinookSupervisor.AddMediaType(input);
+        
+                return CreatedAtRoute("GetMediaTypeById", new { id = mediaType.Id }, mediaType);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                _logger.LogError($"Something went wrong inside the AlbumController Get action: {ex}");
+                return StatusCode(500, "Internal server error");
             }
         }
 
@@ -95,18 +108,25 @@ namespace Chinook.API.Controllers
             try
             {
                 if (input == null)
-                    return BadRequest();
+                {
+                    return BadRequest("Media Type is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid Media Type object");
+                }
 
                 if (_chinookSupervisor.UpdateMediaType(input))
                 {
-                    return Ok(input);
+                    return CreatedAtRoute("GetMediaTypeById", new { id = input.Id }, input);
                 }
 
                 return StatusCode(500);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                _logger.LogError($"Something went wrong inside the AlbumController Get action: {ex}");
+                return StatusCode(500, "Internal server error");
             }
         }
 
@@ -129,7 +149,8 @@ namespace Chinook.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                _logger.LogError($"Something went wrong inside the AlbumController Get action: {ex}");
+                return StatusCode(500, "Internal server error");
             }
         }
     }
