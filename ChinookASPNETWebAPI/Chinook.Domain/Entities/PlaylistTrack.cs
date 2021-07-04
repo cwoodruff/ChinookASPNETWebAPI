@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Chinook.Domain.Converters;
 using Chinook.Domain.ApiModels;
 
@@ -15,6 +16,13 @@ namespace Chinook.Domain.Entities
         public virtual Track Track { get; set; }
 
         public PlaylistTrackApiModel Convert() =>
+            new PlaylistTrackApiModel
+            {
+                PlaylistId = PlaylistId,
+                TrackId = TrackId
+            };
+        
+        public async Task<PlaylistTrackApiModel> ConvertAsync() =>
             new PlaylistTrackApiModel
             {
                 PlaylistId = PlaylistId,

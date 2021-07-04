@@ -1,4 +1,5 @@
-﻿using Chinook.Domain.Repositories;
+﻿using System.Threading.Tasks;
+using Chinook.Domain.Repositories;
 using Xunit;
 
 namespace Chinook.UnitTest.Repository
@@ -10,10 +11,10 @@ namespace Chinook.UnitTest.Repository
         public EmployeeRepositoryTest(IEmployeeRepository e) => _repo = e;
 
         [Fact]
-        public void EmployeeGetAll()
+        public async Task EmployeeGetAll()
         {
             // Act
-            var employees = _repo.GetAll();
+            var employees = await _repo.GetAll();
 
             // Assert
             Assert.True(employees.Count > 1, "The number of employees was not greater than 1");

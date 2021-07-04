@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using Chinook.Domain.ApiModels;
+using Chinook.Domain.Entities;
 using Chinook.Domain.Extensions;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -9,18 +10,19 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public IEnumerable<EmployeeApiModel> GetAllEmployee()
+        public async Task<IEnumerable<EmployeeApiModel>> GetAllEmployee()
         {
-            var employees = _employeeRepository.GetAll().ConvertAll();
-            foreach (var employee in employees)
+            List<Employee> employees = await _employeeRepository.GetAll();
+            var employeeApiModels = employees.ConvertAll();
+            foreach (var employee in employeeApiModels)
             {
                 var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
                 _cache.Set(string.Concat((object?) "Employee-", employee.Id), employee, cacheEntryOptions);
             }
-            return employees;
+            return employeeApiModels;
         }
 
-        public EmployeeApiModel GetEmployeeById(int id)
+        public async Task<EmployeeApiModel> GetEmployeeById(int id)
         {
             var employeeApiModelCached = _cache.Get<EmployeeApiModel>(string.Concat("Employee-", id));
 
@@ -30,7 +32,7 @@ namespace Chinook.Domain.Supervisor
             }
             else
             {
-                var employeeApiModel = (_employeeRepository.GetById(id)).Convert();
+                var employeeApiModel = await (await _employeeRepository.GetById(id)).ConvertAsync();
                 //employeeApiModel.Customers = (GetCustomerBySupportRepId(employeeApiModel.Id)).ToList();
                 //employeeApiModel.DirectReports = (GetEmployeeDirectReports(employeeApiModel.EmployeeId)).ToList();
                 // employeeApiModel.Manager = employeeApiModel.ReportsTo.HasValue
@@ -49,24 +51,24 @@ namespace Chinook.Domain.Supervisor
             }
         }
 
-        public EmployeeApiModel GetEmployeeReportsTo(int id)
+        public async Task<EmployeeApiModel> GetEmployeeReportsTo(int id)
         {
-            var employee = _employeeRepository.GetReportsTo(id);
-            return employee.Convert();
+            var employee = await _employeeRepository.GetReportsTo(id);
+            return await employee.ConvertAsync();
         }
 
-        public EmployeeApiModel AddEmployee(EmployeeApiModel newEmployeeApiModel)
+        public async Task<EmployeeApiModel> AddEmployee(EmployeeApiModel newEmployeeApiModel)
         {
-            var employee = newEmployeeApiModel.Convert();
+            var employee = await newEmployeeApiModel.ConvertAsync();
 
-            employee = _employeeRepository.Add(employee);
+            employee = await _employeeRepository.Add(employee);
             newEmployeeApiModel.Id = employee.Id;
             return newEmployeeApiModel;
         }
 
-        public bool UpdateEmployee(EmployeeApiModel employeeApiModel)
+        public async Task<bool> UpdateEmployee(EmployeeApiModel employeeApiModel)
         {
-            var employee = _employeeRepository.GetById(employeeApiModel.Id);
+            var employee = await _employeeRepository.GetById(employeeApiModel.Id);
 
             if (employee == null) return false;
             employee.Id = employeeApiModel.Id;
@@ -85,21 +87,21 @@ namespace Chinook.Domain.Supervisor
             employee.Fax = employeeApiModel.Fax ?? string.Empty;
             employee.Email = employeeApiModel.Email ?? string.Empty;
 
-            return _employeeRepository.Update(employee);
+            return await _employeeRepository.Update(employee);
         }
 
-        public bool DeleteEmployee(int id) 
+        public Task<bool> DeleteEmployee(int id) 
             => _employeeRepository.Delete(id);
 
-        public IEnumerable<EmployeeApiModel> GetEmployeeDirectReports(int id)
+        public async Task<IEnumerable<EmployeeApiModel>> GetEmployeeDirectReports(int id)
         {
-            var employees = _employeeRepository.GetDirectReports(id);
+            var employees = await _employeeRepository.GetDirectReports(id);
             return employees.ConvertAll();
         }
 
-        public IEnumerable<EmployeeApiModel> GetDirectReports(int id)
+        public async Task<IEnumerable<EmployeeApiModel>> GetDirectReports(int id)
         {
-            var employees = _employeeRepository.GetDirectReports(id);
+            var employees = await _employeeRepository.GetDirectReports(id);
             return employees.ConvertAll();
         }
     }

@@ -1,16 +1,17 @@
 ﻿using Chinook.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Chinook.Domain.Repositories
 {
     public interface IPlaylistRepository : IDisposable
     {
-        List<Playlist> GetAll();
-        Playlist GetById(int id);
-        Playlist Add(Playlist newPlaylist);
-        bool Update(Playlist playlist);
-        bool Delete(int id);
-        List<Playlist> GetByTrackId(int id);
+        Task<List<Playlist>> GetAll();
+        Task<Playlist> GetById(int id);
+        Task<Playlist> Add(Playlist newPlaylist);
+        Task<bool> Update(Playlist playlist);
+        Task<bool> Delete(int id);
+        Task<List<Playlist>> GetByTrackId(int id);
     }
 }

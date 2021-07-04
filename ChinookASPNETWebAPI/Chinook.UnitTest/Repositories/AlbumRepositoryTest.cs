@@ -1,4 +1,5 @@
-﻿using Chinook.DataEFCore.Repositories;
+﻿using System.Threading.Tasks;
+using Chinook.DataEFCore.Repositories;
 using Chinook.Domain.Repositories;
 using Xunit;
 
@@ -11,12 +12,12 @@ namespace Chinook.UnitTest.Repository
         public AlbumRepositoryTest(IAlbumRepository a) => _repo = a;
 
         [Fact]
-        public void AlbumGetAll()
+        public async Task AlbumGetAll()
         {
             // Arrange
 
             // Act
-            var albums = _repo.GetAll();
+            var albums = await _repo.GetAll();
 
             // Assert
             Assert.True(albums.Count > 1, "The number of albums was not greater than 1");

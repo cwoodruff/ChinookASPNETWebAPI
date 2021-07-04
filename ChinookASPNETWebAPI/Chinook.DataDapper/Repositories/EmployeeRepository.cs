@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.Domain.DbInfo;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
@@ -27,37 +28,37 @@ namespace Chinook.DataDapper.Repositories
             
         }
 
-        private bool EmployeeExists(int id) =>
-            Connection.ExecuteScalar<bool>("select count(1) from Employee where Id = @id", new {id});
+        private async Task<bool> EmployeeExists(int id) =>
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from Employee where Id = @id", new {id});
 
-        public List<Employee> GetAll()
+        public async Task<List<Employee>> GetAll()
         {
             using IDbConnection cn = Connection;
             cn.Open();
-            var employees = Connection.Query<Employee>("Select * From Employee");
+            var employees = await cn.QueryAsync<Employee>("Select * From Employee");
             return employees.ToList();
         }
 
-        public Employee GetById(int id)
+        public async Task<Employee> GetById(int id)
         {
             using var cn = Connection;
             cn.Open();
             return cn.QueryFirstOrDefault<Employee>("Select * From Employee WHERE Id = @Id", new {id});
         }
 
-        public Employee GetReportsTo(int id)
+        public async Task<Employee> GetReportsTo(int id)
         {
             using var cn = Connection;
             cn.Open();
             return cn.QueryFirstOrDefault<Employee>("Select * From Employee WHERE ReportsTo = @Id", new {id});
         }
 
-        public Employee Add(Employee newEmployee)
+        public async Task<Employee> Add(Employee newEmployee)
         {
             using var cn = Connection;
             cn.Open();
 
-            newEmployee.Id = (int) cn.Insert(
+            newEmployee.Id = await cn.InsertAsync(
                 new Employee
                 {
                     LastName = newEmployee.LastName,
@@ -79,16 +80,16 @@ namespace Chinook.DataDapper.Repositories
             return newEmployee;
         }
 
-        public bool Update(Employee employee)
+        public async Task<bool> Update(Employee employee)
         {
-            if (!EmployeeExists(employee.Id))
+            if (!await EmployeeExists(employee.Id))
                 return false;
 
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Update(employee);
+                return await cn.UpdateAsync(employee);
             }
             catch(Exception)
             {
@@ -96,13 +97,13 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Delete(new Employee {Id = id});
+                return await cn.DeleteAsync(new Employee {Id = id});
             }
             catch(Exception)
             {
@@ -110,11 +111,11 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public List<Employee> GetDirectReports(int id)
+        public async Task<List<Employee>> GetDirectReports(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var employees = cn.Query<Employee>("Select * From Employee WHERE ReportsTo = @Id", new { id });
+            var employees = await cn.QueryAsync<Employee>("Select * From Employee WHERE ReportsTo = @Id", new { id });
             return employees.ToList();
         }
     }

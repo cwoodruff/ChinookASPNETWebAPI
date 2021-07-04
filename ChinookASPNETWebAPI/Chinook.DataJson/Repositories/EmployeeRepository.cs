@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
 using Microsoft.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace Chinook.DataJson.Repositories
         {
         }
 
-        private bool EmployeeExists(int id)
+        private async Task<bool> EmployeeExists(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_CheckEmployee", _sqlconn)
             {
@@ -36,7 +37,7 @@ namespace Chinook.DataJson.Repositories
             return Convert.ToBoolean(dset.Tables[0].Rows[0][0]);
         }
 
-        public List<Employee> GetAll()
+        public async Task<List<Employee>> GetAll()
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetEmployee", _sqlconn)
             {
@@ -50,7 +51,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public Employee GetById(int id)
+        public async Task<Employee> GetById(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetEmployeeDetails", _sqlconn)
             {
@@ -66,7 +67,7 @@ namespace Chinook.DataJson.Repositories
             return converted.FirstOrDefault();
         }
 
-        public Employee GetReportsTo(int id)
+        public async Task<Employee> GetReportsTo(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetEmployeeReportTo", _sqlconn)
             {
@@ -82,14 +83,14 @@ namespace Chinook.DataJson.Repositories
             return converted.FirstOrDefault();
         }
 
-        public Employee Add(Employee newEmployee)
+        public async Task<Employee> Add(Employee newEmployee)
         {
             return newEmployee;
         }
 
-        public bool Update(Employee employee)
+        public async Task<bool> Update(Employee employee)
         {
-            if (!EmployeeExists(employee.Id))
+            if (!await EmployeeExists(employee.Id))
                 return false;
 
             try
@@ -102,7 +103,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
@@ -114,7 +115,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public List<Employee> GetDirectReports(int id)
+        public async Task<List<Employee>> GetDirectReports(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetEmployeeDirectReports", _sqlconn)
             {

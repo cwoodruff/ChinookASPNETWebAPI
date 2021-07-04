@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
@@ -30,11 +31,11 @@ namespace Chinook.API.Controllers
             OperationId = "Employee.GetAll",
             Tags = new[] { "EmployeeEndpoint"})]
         [Produces(typeof(List<EmployeeApiModel>))]
-        public ActionResult<List<EmployeeApiModel>> Get()
+        public async Task<ActionResult<List<EmployeeApiModel>>> Get()
         {
             try
             {
-                return new ObjectResult(_chinookSupervisor.GetAllEmployee());
+                return new ObjectResult(await _chinookSupervisor.GetAllEmployee());
             }
             catch (Exception ex)
             {
@@ -50,11 +51,11 @@ namespace Chinook.API.Controllers
             OperationId = "Employee.GetOne",
             Tags = new[] { "EmployeeEndpoint"})]
         [Produces(typeof(EmployeeApiModel))]
-        public ActionResult<EmployeeApiModel> Get(int id)
+        public async Task<ActionResult<EmployeeApiModel>> Get(int id)
         {
             try
             {
-                var employee = _chinookSupervisor.GetEmployeeById(id);
+                var employee = await _chinookSupervisor.GetEmployeeById(id);
                 if ( employee == null)
                 {
                     return NotFound();
@@ -76,11 +77,11 @@ namespace Chinook.API.Controllers
             OperationId = "Employee.GetReportsTo",
             Tags = new[] { "EmployeeEndpoint"})]
         [Produces(typeof(List<EmployeeApiModel>))]
-        public ActionResult<List<EmployeeApiModel>> GetReportsTo(int id)
+        public async Task<ActionResult<List<EmployeeApiModel>>> GetReportsTo(int id)
         {
             try
             {
-                var employee = _chinookSupervisor.GetEmployeeById(id);
+                var employee = await _chinookSupervisor.GetEmployeeById(id);
                 if ( employee == null)
                 {
                     return NotFound();
@@ -102,11 +103,11 @@ namespace Chinook.API.Controllers
             OperationId = "Employee.GetByArtist",
             Tags = new[] { "EmployeeEndpoint"})]
         [Produces(typeof(EmployeeApiModel))]
-        public ActionResult<EmployeeApiModel> GetDirectReports(int id)
+        public async Task<ActionResult<EmployeeApiModel>> GetDirectReports(int id)
         {
             try
             {
-                var employee = _chinookSupervisor.GetEmployeeById(id);
+                var employee = await _chinookSupervisor.GetEmployeeById(id);
 
                 return Ok(employee);
             }
@@ -123,7 +124,7 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Employee",
             OperationId = "Employee.Create",
             Tags = new[] { "EmployeeEndpoint"})]
-        public ActionResult<EmployeeApiModel> Post([FromBody] EmployeeApiModel input)
+        public async Task<ActionResult<EmployeeApiModel>> Post([FromBody] EmployeeApiModel input)
         {
             try
             {
@@ -136,7 +137,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Employee object");
                 }
                 
-                var employee = _chinookSupervisor.AddEmployee(input);
+                var employee = await _chinookSupervisor.AddEmployee(input);
         
                 return CreatedAtRoute("GetEmployeeById", new { id = employee.Id }, employee);
             }
@@ -153,7 +154,7 @@ namespace Chinook.API.Controllers
             Description = "Update an Employee",
             OperationId = "Employee.Update",
             Tags = new[] { "EmployeeEndpoint"})]
-        public ActionResult<EmployeeApiModel> Put(int id, [FromBody] EmployeeApiModel input)
+        public async Task<ActionResult<EmployeeApiModel>> Put(int id, [FromBody] EmployeeApiModel input)
         {
             try
             {
@@ -166,7 +167,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Employee object");
                 }
 
-                if (_chinookSupervisor.UpdateEmployee(input))
+                if (await _chinookSupervisor.UpdateEmployee(input))
                 {
                     return CreatedAtRoute("GetEmployeeById", new { id = input.Id }, input);
                 }
@@ -186,11 +187,11 @@ namespace Chinook.API.Controllers
             Description = "Delete a Employee",
             OperationId = "Employee.Delete",
             Tags = new[] { "EmployeeEndpoint"})]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                if (_chinookSupervisor.DeleteEmployee(id))
+                if (await _chinookSupervisor.DeleteEmployee(id))
                 {
                     return Ok();
                 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
@@ -30,11 +31,11 @@ namespace Chinook.API.Controllers
             OperationId = "Artist.GetAll",
             Tags = new[] { "ArtistEndpoint"})]
         [Produces(typeof(List<ArtistApiModel>))]
-        public ActionResult<List<ArtistApiModel>> Get()
+        public async Task<ActionResult<List<ArtistApiModel>>> Get()
         {
             try
             {
-                return new ObjectResult(_chinookSupervisor.GetAllArtist());
+                return new ObjectResult(await _chinookSupervisor.GetAllArtist());
             }
             catch (Exception ex)
             {
@@ -50,11 +51,11 @@ namespace Chinook.API.Controllers
             OperationId = "Artist.GetOne",
             Tags = new[] { "ArtistEndpoint"})]
         [Produces(typeof(ArtistApiModel))]
-        public ActionResult<ArtistApiModel> Get(int id)
+        public async Task<ActionResult<ArtistApiModel>> Get(int id)
         {
             try
             {
-                var artist = _chinookSupervisor.GetArtistById(id);
+                var artist = await _chinookSupervisor.GetArtistById(id);
 
                 return Ok(artist);
             }
@@ -71,7 +72,7 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Artist",
             OperationId = "Artist.Create",
             Tags = new[] { "ArtistEndpoint"})]
-        public ActionResult<ArtistApiModel> Post([FromBody] ArtistApiModel input)
+        public async Task<ActionResult<ArtistApiModel>> Post([FromBody] ArtistApiModel input)
         {
             try
             {
@@ -84,7 +85,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Artist object");
                 }
                 
-                var artist = _chinookSupervisor.AddArtist(input);
+                var artist = await _chinookSupervisor.AddArtist(input);
         
                 return CreatedAtRoute("GetArtistById", new { id = artist.Id }, artist);
             }
@@ -101,7 +102,7 @@ namespace Chinook.API.Controllers
             Description = "Update a Artist",
             OperationId = "Artist.Update",
             Tags = new[] { "ArtistEndpoint"})]
-        public ActionResult<ArtistApiModel> Put(int id, [FromBody] ArtistApiModel input)
+        public async Task<ActionResult<ArtistApiModel>> Put(int id, [FromBody] ArtistApiModel input)
         {
             try
             {
@@ -114,7 +115,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Artist object");
                 }
 
-                if (_chinookSupervisor.UpdateArtist(input))
+                if (await _chinookSupervisor.UpdateArtist(input))
                 {
                     return CreatedAtRoute("GetArtistById", new { id = input.Id }, input);
                 }
@@ -134,16 +135,16 @@ namespace Chinook.API.Controllers
             Description = "Delete an Artist",
             OperationId = "Artist.Create",
             Tags = new[] { "ArtistEndpoint"})]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                if (_chinookSupervisor.GetAlbumById(id) == null)
+                if (await _chinookSupervisor.GetAlbumById(id) == null)
                 {
                     return NotFound();
                 }
 
-                if (_chinookSupervisor.DeleteAlbum(id))
+                if (await _chinookSupervisor.DeleteAlbum(id))
                 {
                     return Ok();
                 }

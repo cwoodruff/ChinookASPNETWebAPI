@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.DataEF;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chinook.DataEFCore.Repositories
 {
@@ -15,48 +17,48 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private bool PlaylistExists(int id) =>
-            _context.Playlists.Any(i => i.Id == id);
+        private async Task<bool> PlaylistExists(int id) =>
+            await _context.Playlists.AnyAsync(i => i.Id == id);
 
         public void Dispose() => _context.Dispose();
 
-        public List<Playlist> GetAll() =>
-            _context.Playlists.ToList();
+        public async Task<List<Playlist>> GetAll() =>
+            await _context.Playlists.ToListAsync();
 
-        public Playlist GetById(int id) =>
-            _context.Playlists.Find(id);
+        public async Task<Playlist> GetById(int id) =>
+            await _context.Playlists.FindAsync(id);
 
-        public Playlist Add(Playlist newPlaylist)
+        public async Task<Playlist> Add(Playlist newPlaylist)
         {
-            _context.Playlists.Add(newPlaylist);
-            _context.SaveChanges();
+            await _context.Playlists.AddAsync(newPlaylist);
+            await _context.SaveChangesAsync();
             return newPlaylist;
         }
 
-        public bool Update(Playlist playlist)
+        public async Task<bool> Update(Playlist playlist)
         {
-            if (!PlaylistExists(playlist.Id))
+            if (!await PlaylistExists(playlist.Id))
                 return false;
             _context.Playlists.Update(playlist);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            if (!PlaylistExists(id))
+            if (!await PlaylistExists(id))
                 return false;
-            var toRemove = _context.Playlists.Find(id);
+            var toRemove = await _context.Playlists.FindAsync(id);
             _context.Playlists.Remove(toRemove);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public List<Playlist> GetByTrackId(int id)
+        public async Task<List<Playlist>> GetByTrackId(int id)
         {
-            return _context.Playlists
+            return await _context.Playlists
                 .Where(c => c.PlaylistTracks.Any(o => o.TrackId == id))
-                .ToList();
+                .ToListAsync();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.Domain.DbInfo;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
@@ -27,31 +28,31 @@ namespace Chinook.DataDapper.Repositories
             
         }
 
-        public List<PlaylistTrack> GetAll()
+        public async Task<List<PlaylistTrack>> GetAll()
         {
             using IDbConnection cn = Connection;
             cn.Open();
-            var playListTracks = Connection.Query<PlaylistTrack>("Select * From PlaylistTrack");
+            var playListTracks = await cn.QueryAsync<PlaylistTrack>("Select * From PlaylistTrack");
             return playListTracks.ToList();
         }
 
-        public List<PlaylistTrack> GetByPlaylistId(int id)
+        public async Task<List<PlaylistTrack>> GetByPlaylistId(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var playListTracks = cn.Query<PlaylistTrack>("Select * From PlaylistTrack WHERE PlaylistId = @Id", new { id });
+            var playListTracks = await cn.QueryAsync<PlaylistTrack>("Select * From PlaylistTrack WHERE PlaylistId = @Id", new { id });
             return playListTracks.ToList();
         }
 
-        public List<PlaylistTrack> GetByTrackId(int id)
+        public async Task<List<PlaylistTrack>> GetByTrackId(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var playListTracks = cn.Query<PlaylistTrack>("Select * From PlaylistTrack WHERE TrackId = @Id", new { id });
+            var playListTracks = await cn.QueryAsync<PlaylistTrack>("Select * From PlaylistTrack WHERE TrackId = @Id", new { id });
             return playListTracks.ToList();
         }
 
-        public PlaylistTrack Add(PlaylistTrack newPlaylistTrack)
+        public async Task<PlaylistTrack> Add(PlaylistTrack newPlaylistTrack)
         {
             using var cn = Connection;
             cn.Open();
@@ -61,13 +62,13 @@ namespace Chinook.DataDapper.Repositories
             return newPlaylistTrack;
         }
 
-        public bool Update(PlaylistTrack playlistTrack)
+        public async Task<bool> Update(PlaylistTrack playlistTrack)
         {
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Update(playlistTrack);
+                return await cn.UpdateAsync(playlistTrack);
             }
             catch(Exception)
             {
@@ -75,13 +76,13 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Delete(new PlaylistTrack {PlaylistId = id});
+                return await cn.DeleteAsync(new PlaylistTrack {PlaylistId = id});
             }
             catch(Exception)
             {

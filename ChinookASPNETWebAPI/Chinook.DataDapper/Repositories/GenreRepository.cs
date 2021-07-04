@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.Domain.DbInfo;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
@@ -27,44 +28,44 @@ namespace Chinook.DataDapper.Repositories
             
         }
 
-        private bool GenreExists(int id) =>
-            Connection.ExecuteScalar<bool>("select count(1) from Genre where Id = @id", new {id});
+        private async Task<bool> GenreExists(int id) =>
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from Genre where Id = @id", new {id});
 
-        public List<Genre> GetAll()
+        public async Task<List<Genre>> GetAll()
         {
             using IDbConnection cn = Connection;
             cn.Open();
-            var genres = Connection.Query<Genre>("Select * From Genre");
+            var genres = await cn.QueryAsync<Genre>("Select * From Genre");
             return genres.ToList();
         }
 
-        public Genre GetById(int id)
+        public async Task<Genre> GetById(int id)
         {
             using var cn = Connection;
             cn.Open();
             return cn.QueryFirstOrDefault<Genre>("Select * From Genre WHERE Id = @Id", new {id});
         }
 
-        public Genre Add(Genre newGenre)
+        public async Task<Genre> Add(Genre newGenre)
         {
             using var cn = Connection;
             cn.Open();
 
-            newGenre.Id = (int) cn.Insert(new Genre {Name = newGenre.Name});
+            newGenre.Id = await cn.InsertAsync(new Genre {Name = newGenre.Name});
 
             return newGenre;
         }
 
-        public bool Update(Genre genre)
+        public async Task<bool> Update(Genre genre)
         {
-            if (!GenreExists(genre.Id))
+            if (!await GenreExists(genre.Id))
                 return false;
 
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Update(genre);
+                return await cn.UpdateAsync(genre);
             }
             catch(Exception)
             {
@@ -72,13 +73,13 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Delete(new Genre {Id = id});
+                return await cn.DeleteAsync(new Genre {Id = id});
             }
             catch(Exception)
             {

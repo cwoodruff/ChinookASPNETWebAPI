@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
@@ -30,11 +31,11 @@ namespace Chinook.API.Controllers
             OperationId = "Track.GetAll",
             Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
-        public ActionResult<List<TrackApiModel>> Get()
+        public async Task<ActionResult<List<TrackApiModel>>> Get()
         {
             try
             {
-                return new ObjectResult(_chinookSupervisor.GetAllTrack());
+                return new ObjectResult(await _chinookSupervisor.GetAllTrack());
             }
             catch (Exception ex)
             {
@@ -50,11 +51,11 @@ namespace Chinook.API.Controllers
             OperationId = "Track.GetOne",
             Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(TrackApiModel))]
-        public ActionResult<TrackApiModel> Get(int id)
+        public async Task<ActionResult<TrackApiModel>> Get(int id)
         {
             try
             {
-                var track = _chinookSupervisor.GetTrackById(id);
+                var track = await _chinookSupervisor.GetTrackById(id);
 
                 return Ok(track);
             }
@@ -72,11 +73,11 @@ namespace Chinook.API.Controllers
             OperationId = "Track.GetByAlbumId",
             Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
-        public ActionResult<TrackApiModel> GetByAlbumId(int id)
+        public async Task<ActionResult<TrackApiModel>> GetByAlbumId(int id)
         {
             try
             {
-                return Ok(_chinookSupervisor.GetTrackByAlbumId(id));
+                return Ok(await _chinookSupervisor.GetTrackByAlbumId(id));
             }
             catch (Exception ex)
             {
@@ -92,11 +93,11 @@ namespace Chinook.API.Controllers
             OperationId = "Track.GetByMediaTypeId",
             Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
-        public ActionResult<TrackApiModel> GetByMediaTypeId(int id)
+        public async Task<ActionResult<TrackApiModel>> GetByMediaTypeId(int id)
         {
             try
             {
-                return Ok(_chinookSupervisor.GetTrackByMediaTypeId(id));
+                return Ok(await _chinookSupervisor.GetTrackByMediaTypeId(id));
             }
             catch (Exception ex)
             {
@@ -112,11 +113,11 @@ namespace Chinook.API.Controllers
             OperationId = "Track.GetByGenreId",
             Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
-        public ActionResult<TrackApiModel> GetByGenreId(int id)
+        public async Task<ActionResult<TrackApiModel>> GetByGenreId(int id)
         {
             try
             {
-                return Ok(_chinookSupervisor.GetTrackByGenreId(id));
+                return Ok(await _chinookSupervisor.GetTrackByGenreId(id));
             }
             catch (Exception ex)
             {
@@ -131,7 +132,7 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Track",
             OperationId = "Track.Create",
             Tags = new[] { "TrackEndpoint"})]
-        public ActionResult<TrackApiModel> Post([FromBody] TrackApiModel input)
+        public async Task<ActionResult<TrackApiModel>> Post([FromBody] TrackApiModel input)
         {
             try
             {
@@ -144,7 +145,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Track object");
                 }
                 
-                var track = _chinookSupervisor.AddTrack(input);
+                var track = await _chinookSupervisor.AddTrack(input);
         
                 return CreatedAtRoute("GetTrackById", new { id = track.Id }, track);
             }
@@ -161,7 +162,7 @@ namespace Chinook.API.Controllers
             Description = "Update an Track",
             OperationId = "Track.Update",
             Tags = new[] { "TrackEndpoint"})]
-        public ActionResult<TrackApiModel> Put(int id, [FromBody] TrackApiModel input)
+        public async Task<ActionResult<TrackApiModel>> Put(int id, [FromBody] TrackApiModel input)
         {
             try
             {
@@ -174,7 +175,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Track object");
                 }
 
-                if (_chinookSupervisor.UpdateTrack(input))
+                if (await _chinookSupervisor.UpdateTrack(input))
                 {
                     return CreatedAtRoute("GetTrackById", new { id = input.Id }, input);
                 }
@@ -194,11 +195,11 @@ namespace Chinook.API.Controllers
             Description = "Delete a Track",
             OperationId = "Track.Delete",
             Tags = new[] { "TrackEndpoint"})]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                if (_chinookSupervisor.DeleteTrack(id))
+                if (await _chinookSupervisor.DeleteTrack(id))
                 {
                     return Ok();
                 }
@@ -219,11 +220,11 @@ namespace Chinook.API.Controllers
             OperationId = "Track.GetByArtistId",
             Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
-        public ActionResult<TrackApiModel> GetByArtistId(int id)
+        public async Task<ActionResult<TrackApiModel>> GetByArtistId(int id)
         {
             try
             {
-                return Ok(_chinookSupervisor.GetTrackByArtistId(id));
+                return Ok(await _chinookSupervisor.GetTrackByArtistId(id));
             }
             catch (Exception ex)
             {
@@ -239,11 +240,11 @@ namespace Chinook.API.Controllers
             OperationId = "Track.GetByInvoiceId",
             Tags = new[] { "TrackEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
-        public ActionResult<TrackApiModel> GetByInvoiceId(int id)
+        public async Task<ActionResult<TrackApiModel>> GetByInvoiceId(int id)
         {
             try
             {
-                return Ok(_chinookSupervisor.GetTrackByInvoiceId(id));
+                return Ok(await _chinookSupervisor.GetTrackByInvoiceId(id));
             }
             catch (Exception ex)
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
 using Microsoft.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace Chinook.DataJson.Repositories
         {
         }
 
-        private bool CustomerExists(int id)
+        private async Task<bool> CustomerExists(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_CheckCustomer", _sqlconn)
             {
@@ -36,7 +37,7 @@ namespace Chinook.DataJson.Repositories
             return Convert.ToBoolean(dset.Tables[0].Rows[0][0]);
         }
 
-        public List<Customer> GetAll()
+        public async Task<List<Customer>> GetAll()
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetCustomer", _sqlconn)
             {
@@ -50,7 +51,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public Customer GetById(int id)
+        public async Task<Customer> GetById(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetCustomerDetails", _sqlconn)
             {
@@ -66,7 +67,7 @@ namespace Chinook.DataJson.Repositories
             return converted.FirstOrDefault();
         }
 
-        public List<Customer> GetBySupportRepId(int id)
+        public async Task<List<Customer>> GetBySupportRepId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetCustomerBySupportRep", _sqlconn)
             {
@@ -81,14 +82,14 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public Customer Add(Customer newCustomer)
+        public async Task<Customer> Add(Customer newCustomer)
         {
             return newCustomer;
         }
 
-        public bool Update(Customer customer)
+        public async Task<bool> Update(Customer customer)
         {
-            if (!CustomerExists(customer.Id))
+            if (!await CustomerExists(customer.Id))
                 return false;
 
             try
@@ -101,7 +102,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {

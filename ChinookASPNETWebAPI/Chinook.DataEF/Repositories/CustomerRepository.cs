@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.DataEF;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chinook.DataEFCore.Repositories
 {
@@ -15,43 +17,43 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private bool CustomerExists(int id) =>
-            _context.Customers.Any(c => c.Id == id);
+        private async Task<bool> CustomerExists(int id) =>
+            await _context.Customers.AnyAsync(c => c.Id == id);
 
         public void Dispose() => _context.Dispose();
 
-        public List<Customer> GetAll() =>
-            _context.Customers.ToList();
+        public async Task<List<Customer>> GetAll() =>
+            await _context.Customers.ToListAsync();
 
-        public Customer GetById(int id) =>
-            _context.Customers.Find(id);
+        public async Task<Customer> GetById(int id) =>
+            await _context.Customers.FindAsync(id);
 
-        public Customer Add(Customer newCustomer)
+        public async Task<Customer> Add(Customer newCustomer)
         {
-            _context.Customers.Add(newCustomer);
-            _context.SaveChanges();
+            await _context.Customers.AddAsync(newCustomer);
+            await _context.SaveChangesAsync();
             return newCustomer;
         }
 
-        public bool Update(Customer customer)
+        public async Task<bool> Update(Customer customer)
         {
-            if (!CustomerExists(customer.Id))
+            if (!await CustomerExists(customer.Id))
                 return false;
             _context.Customers.Update(customer);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            if (!CustomerExists(id))
+            if (!await CustomerExists(id))
                 return false;
-            var toRemove = _context.Customers.Find(id);
+            var toRemove = await _context.Customers.FindAsync(id);
             _context.Customers.Remove(toRemove);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public List<Customer> GetBySupportRepId(int id) => _context.Customers.Where(a => a.SupportRepId == id).ToList();
+        public async Task<List<Customer>> GetBySupportRepId(int id) => await _context.Customers.Where(a => a.SupportRepId == id).ToListAsync();
     }
 }

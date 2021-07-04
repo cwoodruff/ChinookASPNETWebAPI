@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
@@ -39,6 +40,26 @@ namespace Chinook.Domain.ApiModels
         public ICollection<EmployeeApiModel>? DirectReports { get; set; }
 
         public Employee Convert() =>
+            new Employee
+            {
+                Id = Id,
+                LastName = LastName ?? string.Empty,
+                FirstName = FirstName ?? string.Empty,
+                Title = Title ?? string.Empty,
+                ReportsTo = ReportsTo,
+                BirthDate = BirthDate,
+                HireDate = HireDate,
+                Address = Address ?? string.Empty,
+                City = City ?? string.Empty,
+                State = State ?? string.Empty,
+                Country = Country ?? string.Empty,
+                PostalCode = PostalCode ?? string.Empty,
+                Phone = Phone ?? string.Empty,
+                Fax = Fax ?? string.Empty,
+                Email = Email ?? string.Empty
+            };
+        
+        public async Task<Employee> ConvertAsync() =>
             new Employee
             {
                 Id = Id,

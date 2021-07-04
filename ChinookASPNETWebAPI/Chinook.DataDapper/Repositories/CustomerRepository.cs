@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.Domain.DbInfo;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
@@ -27,38 +28,38 @@ namespace Chinook.DataDapper.Repositories
             
         }
 
-        private bool CustomerExists(int id) => 
-            Connection.ExecuteScalar<bool>("select count(1) from Customer where Id = @id", new {id});
+        private async Task<bool> CustomerExists(int id) => 
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from Customer where Id = @id", new {id});
 
-        public List<Customer> GetAll()
+        public async Task<List<Customer>> GetAll()
         {
             using IDbConnection cn = Connection;
             cn.Open();
-            var customers = Connection.Query<Customer>("Select * From Customer");
+            var customers = await cn.QueryAsync<Customer>("Select * From Customer");
             return customers.ToList();
         }
 
-        public Customer GetById(int id)
+        public async Task<Customer> GetById(int id)
         {
             using var cn = Connection;
             cn.Open();
             return cn.QueryFirstOrDefault<Customer>("Select * From Customer WHERE Id = @Id", new {id});
         }
 
-        public List<Customer> GetBySupportRepId(int id)
+        public async Task<List<Customer>> GetBySupportRepId(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var customers = cn.Query<Customer>("Select * From Customer WHERE ArtistId = @Id", new {id});
+            var customers = await cn.QueryAsync<Customer>("Select * From Customer WHERE ArtistId = @Id", new {id});
             return customers.ToList();
         }
 
-        public Customer Add(Customer newCustomer)
+        public async Task<Customer> Add(Customer newCustomer)
         {
             using var cn = Connection;
             cn.Open();
 
-            newCustomer.Id = (int) cn.Insert(
+            newCustomer.Id = await cn.InsertAsync(
                 new Customer
                 {
                     Id = newCustomer.Id,
@@ -79,16 +80,16 @@ namespace Chinook.DataDapper.Repositories
             return newCustomer;
         }
 
-        public bool Update(Customer customer)
+        public async Task<bool> Update(Customer customer)
         {
-            if (!CustomerExists(customer.Id))
+            if (!await CustomerExists(customer.Id))
                 return false;
 
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Update(customer);
+                return await cn.UpdateAsync(customer);
             }
             catch(Exception)
             {
@@ -96,13 +97,13 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Delete(new Customer {Id = id});
+                return await cn.DeleteAsync(new Customer {Id = id});
             }
             catch(Exception)
             {

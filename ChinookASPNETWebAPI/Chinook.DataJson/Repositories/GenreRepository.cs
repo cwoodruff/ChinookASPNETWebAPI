@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
 using Microsoft.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace Chinook.DataJson.Repositories
         {
         }
 
-        private bool GenreExists(int id)
+        private async Task<bool> GenreExists(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_CheckGenre", _sqlconn)
             {
@@ -36,7 +37,7 @@ namespace Chinook.DataJson.Repositories
             return Convert.ToBoolean(dset.Tables[0].Rows[0][0]);
         }
 
-        public List<Genre> GetAll()
+        public async Task<List<Genre>> GetAll()
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetGenre", _sqlconn)
             {
@@ -50,7 +51,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public Genre GetById(int id)
+        public async Task<Genre> GetById(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetGenreDetails", _sqlconn)
             {
@@ -66,14 +67,14 @@ namespace Chinook.DataJson.Repositories
             return converted.FirstOrDefault();
         }
 
-        public Genre Add(Genre newGenre)
+        public async Task<Genre> Add(Genre newGenre)
         {
             return newGenre;
         }
 
-        public bool Update(Genre genre)
+        public async Task<bool> Update(Genre genre)
         {
-            if (!GenreExists(genre.Id))
+            if (!await GenreExists(genre.Id))
                 return false;
 
             try
@@ -86,7 +87,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {

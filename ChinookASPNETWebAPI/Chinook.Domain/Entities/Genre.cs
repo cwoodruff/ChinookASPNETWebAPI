@@ -3,6 +3,7 @@ using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Chinook.Domain.Entities
 {
@@ -22,6 +23,13 @@ namespace Chinook.Domain.Entities
         public virtual ICollection<Track> Tracks { get; set; }
         
         public GenreApiModel Convert() =>
+            new GenreApiModel
+            {
+                Id = Id,
+                Name = Name
+            };
+        
+        public async Task<GenreApiModel> ConvertAsync() =>
             new GenreApiModel
             {
                 Id = Id,

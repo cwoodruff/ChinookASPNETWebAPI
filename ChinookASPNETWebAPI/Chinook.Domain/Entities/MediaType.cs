@@ -2,6 +2,7 @@
 using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Chinook.Domain.Entities
 {
@@ -19,6 +20,13 @@ namespace Chinook.Domain.Entities
         public virtual ICollection<Track> Tracks { get; set; }
         
         public MediaTypeApiModel Convert() =>
+            new MediaTypeApiModel
+            {
+                Id = Id,
+                Name = Name
+            };
+        
+        public async Task<MediaTypeApiModel> ConvertAsync() =>
             new MediaTypeApiModel
             {
                 Id = Id,

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.Domain.ApiModels;
+using Chinook.Domain.Entities;
 using Chinook.Domain.Extensions;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -9,18 +11,19 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public IEnumerable<ArtistApiModel> GetAllArtist()
+        public async Task<IEnumerable<ArtistApiModel>> GetAllArtist()
         {
-            var artists = _artistRepository.GetAll().ConvertAll();
-            foreach (var artist in artists)
+            List<Artist> artists = await _artistRepository.GetAll();
+            var artistApiModels = artists.ConvertAll();
+            foreach (var artist in artistApiModels)
             {
                 var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
                 _cache.Set(string.Concat((object?) "Artist-", artist.Id), artist, cacheEntryOptions);
             }
-            return artists;
+            return artistApiModels;
         }
 
-        public ArtistApiModel GetArtistById(int id)
+        public async Task<ArtistApiModel> GetArtistById(int id)
         {
             var artistApiModelCached = _cache.Get<ArtistApiModel>(string.Concat("Artist-", id));
 
@@ -30,8 +33,8 @@ namespace Chinook.Domain.Supervisor
             }
             else
             {
-                var artistApiModel = (_artistRepository.GetById(id)).Convert();
-                artistApiModel.Albums = (GetAlbumByArtistId(artistApiModel.Id)).ToList();
+                var artistApiModel = await (await _artistRepository.GetById(id)).ConvertAsync();
+                artistApiModel.Albums = (await GetAlbumByArtistId(artistApiModel.Id)).ToList();
 
                 var cacheEntryOptions =
                     new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
@@ -41,27 +44,27 @@ namespace Chinook.Domain.Supervisor
             }
         }
 
-        public ArtistApiModel AddArtist(ArtistApiModel newArtistApiModel)
+        public async Task<ArtistApiModel> AddArtist(ArtistApiModel newArtistApiModel)
         {
-            var artist = newArtistApiModel.Convert();
+            var artist = await newArtistApiModel.ConvertAsync();
 
-            artist = _artistRepository.Add(artist);
+            artist = await _artistRepository.Add(artist);
             newArtistApiModel.Id = artist.Id;
             return newArtistApiModel;
         }
 
-        public bool UpdateArtist(ArtistApiModel artistApiModel)
+        public async Task<bool> UpdateArtist(ArtistApiModel artistApiModel)
         {
-            var artist = _artistRepository.GetById(artistApiModel.Id);
+            var artist = await _artistRepository.GetById(artistApiModel.Id);
 
             if (artist == null) return false;
             artist.Id = artistApiModel.Id;
             artist.Name = artistApiModel.Name ?? string.Empty;
 
-            return _artistRepository.Update(artist);
+            return await _artistRepository.Update(artist);
         }
 
-        public bool DeleteArtist(int id) 
+        public Task<bool> DeleteArtist(int id) 
             => _artistRepository.Delete(id);
     }
 }

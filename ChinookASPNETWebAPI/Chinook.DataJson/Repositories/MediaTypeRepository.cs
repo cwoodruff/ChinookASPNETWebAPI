@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
 using Microsoft.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace Chinook.DataJson.Repositories
         {
         }
 
-        private bool MediaTypeExists(int id)
+        private async Task<bool> MediaTypeExists(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_CheckMediaType", _sqlconn)
             {
@@ -36,7 +37,7 @@ namespace Chinook.DataJson.Repositories
             return Convert.ToBoolean(dset.Tables[0].Rows[0][0]);
         }
 
-        public List<MediaType> GetAll()
+        public async Task<List<MediaType>> GetAll()
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetMediaType", _sqlconn)
             {
@@ -50,7 +51,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public MediaType GetById(int id)
+        public async Task<MediaType> GetById(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetMediaTypeDetails", _sqlconn)
             {
@@ -66,14 +67,14 @@ namespace Chinook.DataJson.Repositories
             return converted.FirstOrDefault();
         }
 
-        public MediaType Add(MediaType newMediaType)
+        public async Task<MediaType> Add(MediaType newMediaType)
         {
             return newMediaType;
         }
 
-        public bool Update(MediaType mediaType)
+        public async Task<bool> Update(MediaType mediaType)
         {
-            if (!MediaTypeExists(mediaType.Id))
+            if (!await MediaTypeExists(mediaType.Id))
                 return false;
 
             try
@@ -86,7 +87,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {

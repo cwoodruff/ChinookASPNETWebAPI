@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
@@ -30,11 +31,11 @@ namespace Chinook.API.Controllers
             OperationId = "Customer.GetAll",
             Tags = new[] { "CustomerEndpoint"})]
         [Produces(typeof(List<CustomerApiModel>))]
-        public ActionResult<List<CustomerApiModel>> Get()
+        public async Task<ActionResult<List<CustomerApiModel>>> Get()
         {
             try
             {
-                return new ObjectResult(_chinookSupervisor.GetAllCustomer());
+                return new ObjectResult(await _chinookSupervisor.GetAllCustomer());
             }
             catch (Exception ex)
             {
@@ -50,11 +51,11 @@ namespace Chinook.API.Controllers
             OperationId = "Customer.GetOne",
             Tags = new[] { "CustomerEndpoint"})]
         [Produces(typeof(CustomerApiModel))]
-        public ActionResult<CustomerApiModel> Get(int id)
+        public async Task<ActionResult<CustomerApiModel>> Get(int id)
         {
             try
             {
-                var customer = _chinookSupervisor.GetCustomerById(id);
+                var customer = await _chinookSupervisor.GetCustomerById(id);
                 if ( customer == null)
                 {
                     return NotFound();
@@ -76,11 +77,11 @@ namespace Chinook.API.Controllers
             OperationId = "Customer.GetBySupportRep",
             Tags = new[] { "CustomerEndpoint"})]
         [Produces(typeof(List<CustomerApiModel>))]
-        public ActionResult<CustomerApiModel> GetBySupportRepId(int id)
+        public async Task<ActionResult<CustomerApiModel>> GetBySupportRepId(int id)
         {
             try
             {
-                var rep = _chinookSupervisor.GetEmployeeById(id);
+                var rep = await _chinookSupervisor.GetEmployeeById(id);
 
                 return Ok(rep);
             }
@@ -97,7 +98,7 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Customer",
             OperationId = "Customer.Create",
             Tags = new[] { "CustomerEndpoint"})]
-        public ActionResult<CustomerApiModel> Post([FromBody] CustomerApiModel input)
+        public async Task<ActionResult<CustomerApiModel>> Post([FromBody] CustomerApiModel input)
         {
             try
             {
@@ -110,7 +111,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Customer object");
                 }
                 
-                var customer = _chinookSupervisor.AddCustomer(input);
+                var customer = await _chinookSupervisor.AddCustomer(input);
         
                 return CreatedAtRoute("GetCustomerById", new { id = customer.Id }, customer);
             }
@@ -127,7 +128,7 @@ namespace Chinook.API.Controllers
             Description = "Update Customer",
             OperationId = "Customer.Update",
             Tags = new[] { "CustomerEndpoint"})]
-        public ActionResult<CustomerApiModel> Put(int id, [FromBody] CustomerApiModel input)
+        public async Task<ActionResult<CustomerApiModel>> Put(int id, [FromBody] CustomerApiModel input)
         {
             try
             {
@@ -140,7 +141,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Customer object");
                 }
 
-                if (_chinookSupervisor.UpdateCustomer(input))
+                if (await _chinookSupervisor.UpdateCustomer(input))
                 {
                     return CreatedAtRoute("GetCustomerById", new { id = input.Id }, input);
                 }
@@ -160,11 +161,11 @@ namespace Chinook.API.Controllers
             Description = "Delete Customer",
             OperationId = "Customer.Delete",
             Tags = new[] { "CustomerEndpoint"})]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                if (_chinookSupervisor.DeleteCustomer(id))
+                if (await _chinookSupervisor.DeleteCustomer(id))
                 {
                     return Ok();
                 }

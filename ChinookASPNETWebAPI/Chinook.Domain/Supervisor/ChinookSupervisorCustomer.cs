@@ -2,7 +2,9 @@
     
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Chinook.Domain.ApiModels;
+    using Chinook.Domain.Entities;
     using Chinook.Domain.Extensions;
     using Microsoft.Extensions.Caching.Memory;
 
@@ -10,18 +12,19 @@
     {
         public partial class ChinookSupervisor
         {
-            public IEnumerable<CustomerApiModel> GetAllCustomer()
+            public async Task<IEnumerable<CustomerApiModel>> GetAllCustomer()
             {
-                var customers = _customerRepository.GetAll().ConvertAll();
-                foreach (var customer in customers)
+                List<Customer> customers = await _customerRepository.GetAll();
+                var customerApiModels = customers.ConvertAll();
+                foreach (var customer in customerApiModels)
                 {
                     var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
                     _cache.Set(string.Concat((object?) "Customer-", customer.Id), customer, cacheEntryOptions);
                 }
-                return customers;
+                return customerApiModels;
             }
 
-            public CustomerApiModel GetCustomerById(int id)
+            public async Task<CustomerApiModel> GetCustomerById(int id)
             {
                 var customerApiModelCached = _cache.Get<CustomerApiModel>(string.Concat("Customer-", id));
 
@@ -31,10 +34,10 @@
                 }
                 else
                 {
-                    var customerApiModel = (_customerRepository.GetById(id)).Convert();
-                    customerApiModel.Invoices = (GetInvoiceByCustomerId(customerApiModel.Id)).ToList();
+                    var customerApiModel = await (await _customerRepository.GetById(id)).ConvertAsync();
+                    customerApiModel.Invoices = (await GetInvoiceByCustomerId(customerApiModel.Id)).ToList();
                     customerApiModel.SupportRep =
-                        GetEmployeeById(customerApiModel.SupportRepId.GetValueOrDefault());
+                        await GetEmployeeById(customerApiModel.SupportRepId.GetValueOrDefault());
                     customerApiModel.SupportRepName =
                         $"{customerApiModel.SupportRep.LastName}, {customerApiModel.SupportRep.FirstName}";
 
@@ -46,24 +49,24 @@
                 }
             }
 
-            public IEnumerable<CustomerApiModel> GetCustomerBySupportRepId(int id)
+            public async Task<IEnumerable<CustomerApiModel>> GetCustomerBySupportRepId(int id)
             {
-                var customers = _customerRepository.GetBySupportRepId(id);
+                var customers = await _customerRepository.GetBySupportRepId(id);
                 return customers.ConvertAll();
             }
 
-            public CustomerApiModel AddCustomer(CustomerApiModel newCustomerApiModel)
+            public async Task<CustomerApiModel> AddCustomer(CustomerApiModel newCustomerApiModel)
             {
-                var customer = newCustomerApiModel.Convert();
+                var customer = await newCustomerApiModel.ConvertAsync();
 
-                customer = _customerRepository.Add(customer);
+                customer = await _customerRepository.Add(customer);
                 newCustomerApiModel.Id = customer.Id;
                 return newCustomerApiModel;
             }
 
-            public bool UpdateCustomer(CustomerApiModel customerApiModel)
+            public async Task<bool> UpdateCustomer(CustomerApiModel customerApiModel)
             {
-                var customer = _customerRepository.GetById(customerApiModel.Id);
+                var customer = await _customerRepository.GetById(customerApiModel.Id);
 
                 if (customer == null) return false;
                 customer.FirstName = customerApiModel.FirstName;
@@ -79,10 +82,10 @@
                 customer.Email = customerApiModel.Email;
                 customer.SupportRepId = customerApiModel.SupportRepId;
 
-                return _customerRepository.Update(customer);
+                return await _customerRepository.Update(customer);
             }
 
-            public bool DeleteCustomer(int id) 
+            public Task<bool> DeleteCustomer(int id) 
                 => _customerRepository.Delete(id);
         }
     }

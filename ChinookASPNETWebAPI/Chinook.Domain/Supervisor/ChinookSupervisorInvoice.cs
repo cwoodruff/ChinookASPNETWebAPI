@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.Domain.ApiModels;
+using Chinook.Domain.Entities;
 using Chinook.Domain.Extensions;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -9,18 +11,19 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public IEnumerable<InvoiceApiModel> GetAllInvoice()
+        public async Task<IEnumerable<InvoiceApiModel>> GetAllInvoice()
         {
-            var invoices = _invoiceRepository.GetAll().ConvertAll();
-            foreach (var invoice in invoices)
+            List<Invoice> invoices = await _invoiceRepository.GetAll();
+            var invoiceApiModels = invoices.ConvertAll();
+            foreach (var invoice in invoiceApiModels)
             {
                 var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
                 _cache.Set(string.Concat((object?) "Invoice-", invoice.Id), invoice, cacheEntryOptions);
             }
-            return invoices;
+            return invoiceApiModels;
         }
         
-        public InvoiceApiModel GetInvoiceById(int id)
+        public async Task<InvoiceApiModel> GetInvoiceById(int id)
         {
             var invoiceApiModelCached = _cache.Get<InvoiceApiModel>(string.Concat("Invoice-", id));
 
@@ -30,9 +33,9 @@ namespace Chinook.Domain.Supervisor
             }
             else
             {
-                var invoiceApiModel = (_invoiceRepository.GetById(id)).Convert();
-                invoiceApiModel.Customer = GetCustomerById(invoiceApiModel.CustomerId);
-                invoiceApiModel.InvoiceLines = (GetInvoiceLineByInvoiceId(invoiceApiModel.Id)).ToList();
+                var invoiceApiModel = await (await _invoiceRepository.GetById(id)).ConvertAsync();
+                invoiceApiModel.Customer = await GetCustomerById(invoiceApiModel.CustomerId);
+                invoiceApiModel.InvoiceLines = (await GetInvoiceLineByInvoiceId(invoiceApiModel.Id)).ToList();
                 invoiceApiModel.CustomerName =
                     $"{invoiceApiModel.Customer.LastName}, {invoiceApiModel.Customer.FirstName}";
 
@@ -44,24 +47,24 @@ namespace Chinook.Domain.Supervisor
             }
         }
 
-        public IEnumerable<InvoiceApiModel> GetInvoiceByCustomerId(int id)
+        public async Task<IEnumerable<InvoiceApiModel>> GetInvoiceByCustomerId(int id)
         {
-            var invoices = _invoiceRepository.GetByCustomerId(id);
+            var invoices = await _invoiceRepository.GetByCustomerId(id);
             return invoices.ConvertAll();
         }
 
-        public InvoiceApiModel AddInvoice(InvoiceApiModel newInvoiceApiModel)
+        public async Task<InvoiceApiModel> AddInvoice(InvoiceApiModel newInvoiceApiModel)
         {
-            var invoice = newInvoiceApiModel.Convert();
+            var invoice = await newInvoiceApiModel.ConvertAsync();
 
-            invoice = _invoiceRepository.Add(invoice);
+            invoice = await _invoiceRepository.Add(invoice);
             newInvoiceApiModel.Id = invoice.Id;
             return newInvoiceApiModel;
         }
 
-        public bool UpdateInvoice(InvoiceApiModel invoiceApiModel)
+        public async Task<bool> UpdateInvoice(InvoiceApiModel invoiceApiModel)
         {
-            var invoice = _invoiceRepository.GetById(invoiceApiModel.Id);
+            var invoice = await _invoiceRepository.GetById(invoiceApiModel.Id);
 
             if (invoice == null) return false;
             invoice.Id = invoiceApiModel.Id;
@@ -74,16 +77,16 @@ namespace Chinook.Domain.Supervisor
             invoice.BillingPostalCode = invoiceApiModel.BillingPostalCode;
             invoice.Total = invoiceApiModel.Total;
 
-            return _invoiceRepository.Update(invoice);
+            return await _invoiceRepository.Update(invoice);
         }
 
-        public bool DeleteInvoice(int id) 
+        public Task<bool> DeleteInvoice(int id) 
             => _invoiceRepository.Delete(id);
         
         
-        public IEnumerable<InvoiceApiModel> GetInvoiceByEmployeeId(int id)
+        public async Task<IEnumerable<InvoiceApiModel>> GetInvoiceByEmployeeId(int id)
         {
-            var invoices = _invoiceRepository.GetByEmployeeId(id);
+            var invoices = await _invoiceRepository.GetByEmployeeId(id);
             return invoices.ConvertAll();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
@@ -23,6 +24,16 @@ namespace Chinook.Domain.ApiModels
         public TrackApiModel Track { get; set; }
 
         public InvoiceLine Convert() =>
+            new InvoiceLine
+            {
+                Id = Id,
+                InvoiceId = InvoiceId,
+                TrackId = TrackId,
+                UnitPrice = UnitPrice,
+                Quantity = Quantity
+            };
+        
+        public async Task<InvoiceLine> ConvertAsync() =>
             new InvoiceLine
             {
                 Id = Id,

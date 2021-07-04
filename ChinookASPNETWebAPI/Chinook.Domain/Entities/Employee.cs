@@ -3,6 +3,7 @@ using Chinook.Domain.ApiModels;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Chinook.Domain.Entities
 {
@@ -38,6 +39,26 @@ namespace Chinook.Domain.Entities
         public virtual ICollection<Employee> InverseReportsToNavigation { get; set; }
         
         public EmployeeApiModel Convert() =>
+            new EmployeeApiModel
+            {
+                Id = Id,
+                LastName = LastName,
+                FirstName = FirstName,
+                Title = Title,
+                ReportsTo = ReportsTo,
+                BirthDate = BirthDate,
+                HireDate = HireDate,
+                Address = Address,
+                City = City,
+                State = State,
+                Country = Country,
+                PostalCode = PostalCode,
+                Phone = Phone,
+                Fax = Fax,
+                Email = Email
+            };
+        
+        public async Task<EmployeeApiModel> ConvertAsync() =>
             new EmployeeApiModel
             {
                 Id = Id,

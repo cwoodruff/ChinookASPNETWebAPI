@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Chinook.DataEF;
 using Chinook.DataEFCore.Repositories;
 using Chinook.Domain.Entities;
@@ -29,7 +30,7 @@ namespace Chinook.UnitTest.Supervisor
         }
 
         [Fact]
-        public void GetAllAlbum_GivenTwoAlbumsInTheDatabase_ReturnsBoth()
+        public async Task GetAllAlbum_GivenTwoAlbumsInTheDatabase_ReturnsBoth()
         {
             var album1 = new Album { Id = 12 };
             var album2 = new Album { Id = 123 };
@@ -40,7 +41,7 @@ namespace Chinook.UnitTest.Supervisor
             _context.SaveChanges();
 
             // Act
-            var albums = _super.GetAllAlbum().ToList();
+            var albums = (await _super.GetAllAlbum()).ToList();
 
             // Assert
             albums.Count.Should().Be(2);

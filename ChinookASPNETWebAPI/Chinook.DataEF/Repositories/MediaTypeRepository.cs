@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.DataEF;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chinook.DataEFCore.Repositories
 {
@@ -15,40 +17,40 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private bool MediaTypeExists(int id) =>
-            _context.MediaTypes.Any(i => i.Id == id);
+        private async Task<bool> MediaTypeExists(int id) =>
+            await _context.MediaTypes.AnyAsync(i => i.Id == id);
 
         public void Dispose() => _context.Dispose();
 
-        public List<MediaType> GetAll() =>
-            _context.MediaTypes.ToList();
+        public async Task<List<MediaType>> GetAll() =>
+            await _context.MediaTypes.ToListAsync();
 
-        public MediaType GetById(int id) =>
-            _context.MediaTypes.Find(id);
+        public async Task<MediaType> GetById(int id) =>
+            await _context.MediaTypes.FindAsync(id);
 
-        public MediaType Add(MediaType newMediaType)
+        public async Task<MediaType> Add(MediaType newMediaType)
         {
-            _context.MediaTypes.Add(newMediaType);
-            _context.SaveChanges();
+            _context.MediaTypes.AddAsync(newMediaType);
+            await _context.SaveChangesAsync();
             return newMediaType;
         }
 
-        public bool Update(MediaType mediaType)
+        public async Task<bool> Update(MediaType mediaType)
         {
-            if (!MediaTypeExists(mediaType.Id))
+            if (!await MediaTypeExists(mediaType.Id))
                 return false;
             _context.MediaTypes.Update(mediaType);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            if (!MediaTypeExists(id))
+            if (!await MediaTypeExists(id))
                 return false;
-            var toRemove = _context.MediaTypes.Find(id);
+            var toRemove = await _context.MediaTypes.FindAsync(id);
             _context.MediaTypes.Remove(toRemove);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
     }

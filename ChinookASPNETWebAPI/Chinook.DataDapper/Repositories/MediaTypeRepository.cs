@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.Domain.DbInfo;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
@@ -27,44 +28,44 @@ namespace Chinook.DataDapper.Repositories
             
         }
 
-        private bool MediaTypeExists(int id) =>
-            Connection.ExecuteScalar<bool>("select count(1) from MediaType where Id = @id", new {id});
+        private async Task<bool> MediaTypeExists(int id) =>
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from MediaType where Id = @id", new {id});
 
-        public List<MediaType> GetAll()
+        public async Task<List<MediaType>> GetAll()
         {
             using IDbConnection cn = Connection;
             cn.Open();
-            var mediaTypes = Connection.Query<MediaType>("Select * From MediaType");
+            var mediaTypes = await cn.QueryAsync<MediaType>("Select * From MediaType");
             return mediaTypes.ToList();
         }
 
-        public MediaType GetById(int id)
+        public async Task<MediaType> GetById(int id)
         {
             using var cn = Connection;
             cn.Open();
             return cn.QueryFirstOrDefault<MediaType>("Select * From MediaType WHERE Id = @Id", new {id});
         }
 
-        public MediaType Add(MediaType newMediaType)
+        public async Task<MediaType> Add(MediaType newMediaType)
         {
             using var cn = Connection;
             cn.Open();
 
-            newMediaType.Id = (int) cn.Insert(new MediaType {Name = newMediaType.Name});
+            newMediaType.Id = await cn.InsertAsync(new MediaType {Name = newMediaType.Name});
 
             return newMediaType;
         }
 
-        public bool Update(MediaType mediaType)
+        public async Task<bool> Update(MediaType mediaType)
         {
-            if (!MediaTypeExists(mediaType.Id))
+            if (!await MediaTypeExists(mediaType.Id))
                 return false;
 
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Update(mediaType);
+                return await cn.UpdateAsync(mediaType);
             }
             catch(Exception)
             {
@@ -72,13 +73,13 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Delete(new MediaType {Id = id});
+                return await cn.DeleteAsync(new MediaType {Id = id});
             }
             catch(Exception)
             {

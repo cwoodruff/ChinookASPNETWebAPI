@@ -1,8 +1,9 @@
-﻿﻿using System.Collections.Generic;
- using System.Text.Json.Serialization;
- using Chinook.Domain.Converters;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
- using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
  namespace Chinook.Domain.ApiModels
 {
@@ -25,6 +26,14 @@ using Chinook.Domain.Entities;
         public IList<TrackApiModel>? Tracks { get; set; }
 
         public Album Convert() =>
+            new Album
+            {
+                Id = Id,
+                ArtistId = ArtistId,
+                Title = Title ?? string.Empty
+            };
+        
+        public async Task<Album> ConvertAsync() =>
             new Album
             {
                 Id = Id,

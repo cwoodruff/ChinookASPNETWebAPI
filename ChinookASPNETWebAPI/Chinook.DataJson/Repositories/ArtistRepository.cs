@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
 using Microsoft.Data.SqlClient;
@@ -23,7 +24,7 @@ namespace Chinook.DataJson.Repositories
             
         }
 
-        private bool ArtistExists(int id)
+        private async Task<bool> ArtistExists(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_CheckArtist", _sqlconn)
             {
@@ -37,7 +38,7 @@ namespace Chinook.DataJson.Repositories
             return Convert.ToBoolean(dset.Tables[0].Rows[0][0]);
         }
 
-        public List<Artist> GetAll()
+        public async Task<List<Artist>> GetAll()
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetArtist", _sqlconn)
             {
@@ -51,7 +52,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public Artist GetById(int id)
+        public async Task<Artist> GetById(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetArtistDetails", _sqlconn)
             {
@@ -67,15 +68,15 @@ namespace Chinook.DataJson.Repositories
             return converted.FirstOrDefault();
         }
 
-        public Artist Add(Artist newArtist)
+        public async Task<Artist> Add(Artist newArtist)
         {
 
             return newArtist;
         }
 
-        public bool Update(Artist artist)
+        public async Task<bool> Update(Artist artist)
         {
-            if (!ArtistExists(artist.Id))
+            if (!await ArtistExists(artist.Id))
                 return false;
 
             try
@@ -88,7 +89,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
