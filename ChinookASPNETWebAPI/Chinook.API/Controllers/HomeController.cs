@@ -1,19 +1,19 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace Chinook.API.Controllers
 {
     public class HomeController : ControllerBase
     {
         private readonly ILogger<HomeController> _logger;
-        
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
-        
+
+        [MapToApiVersion("1.0")]
         [HttpGet]
         [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Index()

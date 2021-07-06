@@ -1,6 +1,5 @@
 using System;
 using Chinook.API.Configurations;
-using Chinook.API.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -40,10 +39,11 @@ namespace Chinook.API
             services.AddConnectionProvider(Configuration);
             services.AddAppSettings(Configuration);
             services.AddCaching();
-            //services.AddCORS();
-            
+            services.AddVersioningServices();
+            services.AddAPILogging();
+
             services.AddHealthChecks();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -56,12 +56,12 @@ namespace Chinook.API
                     {
                         Name = "Chris Woodruff",
                         Email = string.Empty,
-                        Url = new Uri("https://chriswoodruff.com"),
+                        Url = new Uri("https://chriswoodruff.com")
                     },
                     License = new OpenApiLicense
                     {
                         Name = "Use under MIT",
-                        Url = new Uri("https://opensource.org/licenses/MIT"),
+                        Url = new Uri("https://opensource.org/licenses/MIT")
                     }
                 });
                 c.EnableAnnotations();
@@ -74,22 +74,16 @@ namespace Chinook.API
         {
             //app.ApplyEntityValidation();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+
             app.UseSwagger();
             app.UseSwaggerUI(s => s.SwaggerEndpoint("/swagger/v1/swagger.json", "v1 docs"));
-            
+
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

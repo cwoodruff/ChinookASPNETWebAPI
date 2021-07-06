@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
+using Chinook.Domain.Supervisor;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -14,6 +14,7 @@ namespace Chinook.API.Controllers
     [EnableCors("CorsPolicy")]
     [ApiController]
     [ResponseCache(Duration = 604800)]
+    [ApiVersion("1.0")]
     public class GenreController : ControllerBase
     {
         private readonly IChinookSupervisor _chinookSupervisor;
@@ -25,12 +26,13 @@ namespace Chinook.API.Controllers
             _logger = logger;
         }
 
+        [MapToApiVersion("1.0")]
         [HttpGet]
         [SwaggerOperation(
             Summary = "Gets all Genre",
             Description = "Gets all Genre",
             OperationId = "Genre.GetAll",
-            Tags = new[] { "GenreEndpoint"})]
+            Tags = new[] { "GenreEndpoint" })]
         [Produces(typeof(List<GenreApiModel>))]
         public async Task<ActionResult<List<GenreApiModel>>> Get()
         {
@@ -45,12 +47,13 @@ namespace Chinook.API.Controllers
             }
         }
 
+        [MapToApiVersion("1.0")]
         [HttpGet("{id}", Name = "GetGenreById")]
         [SwaggerOperation(
             Summary = "Gets a specific Genre",
             Description = "Gets a specific Genre",
             OperationId = "Genre.GetOne",
-            Tags = new[] { "GenreEndpoint"})]
+            Tags = new[] { "GenreEndpoint" })]
         [Produces(typeof(GenreApiModel))]
         public async Task<ActionResult<GenreApiModel>> Get(int id)
         {
@@ -67,27 +70,22 @@ namespace Chinook.API.Controllers
             }
         }
 
+        [MapToApiVersion("1.0")]
         [HttpPost]
         [SwaggerOperation(
             Summary = "Creates a new Genre",
             Description = "Creates a new Genre",
             OperationId = "Genre.Create",
-            Tags = new[] { "GenreEndpoint"})]
+            Tags = new[] { "GenreEndpoint" })]
         public async Task<ActionResult<GenreApiModel>> Post([FromBody] GenreApiModel input)
         {
             try
             {
-                if (input == null)
-                {
-                    return BadRequest("Genre is null");
-                }
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid Genre object");
-                }
-                
+                if (input == null) return BadRequest("Genre is null");
+                if (!ModelState.IsValid) return BadRequest("Invalid Genre object");
+
                 var genre = await _chinookSupervisor.AddGenre(input);
-        
+
                 return CreatedAtRoute("GetGenreById", new { id = genre.Id }, genre);
             }
             catch (Exception ex)
@@ -97,29 +95,22 @@ namespace Chinook.API.Controllers
             }
         }
 
+        [MapToApiVersion("1.0")]
         [HttpPut("{id}")]
         [SwaggerOperation(
             Summary = "Update an Genre",
             Description = "Update an Genre",
             OperationId = "Genre.Update",
-            Tags = new[] { "GenreEndpoint"})]
+            Tags = new[] { "GenreEndpoint" })]
         public async Task<ActionResult<GenreApiModel>> Put(int id, [FromBody] GenreApiModel input)
         {
             try
             {
-                if (input == null)
-                {
-                    return BadRequest("Genre is null");
-                }
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid Genre object");
-                }
+                if (input == null) return BadRequest("Genre is null");
+                if (!ModelState.IsValid) return BadRequest("Invalid Genre object");
 
                 if (await _chinookSupervisor.UpdateGenre(input))
-                {
                     return CreatedAtRoute("GetGenreById", new { id = input.Id }, input);
-                }
 
                 return StatusCode(500);
             }
@@ -130,20 +121,18 @@ namespace Chinook.API.Controllers
             }
         }
 
+        [MapToApiVersion("1.0")]
         [HttpDelete("{id}")]
         [SwaggerOperation(
             Summary = "Delete a Genre",
             Description = "Delete a Genre",
             OperationId = "Genre.Delete",
-            Tags = new[] { "GenreEndpoint"})]
+            Tags = new[] { "GenreEndpoint" })]
         public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                if (await _chinookSupervisor.DeleteGenre(id))
-                {
-                    return Ok();
-                }
+                if (await _chinookSupervisor.DeleteGenre(id)) return Ok();
 
                 return StatusCode(500);
             }
