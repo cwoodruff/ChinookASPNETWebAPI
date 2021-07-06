@@ -1,116 +1,116 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Chinook.Domain.ApiModels;
 
 namespace Chinook.Domain.Supervisor
 {
     public interface IChinookSupervisor
     {
-        IEnumerable<AlbumApiModel> GetAllAlbum();
-        AlbumApiModel? GetAlbumById(int? id);
-        IEnumerable<AlbumApiModel> GetAlbumByArtistId(int id);
+        Task<IEnumerable<AlbumApiModel>> GetAllAlbum();
+        Task<AlbumApiModel?>  GetAlbumById(int? id);
+        Task<IEnumerable<AlbumApiModel>> GetAlbumByArtistId(int id);
 
-        AlbumApiModel AddAlbum(AlbumApiModel newAlbumApiModel);
+        Task<AlbumApiModel> AddAlbum(AlbumApiModel newAlbumApiModel);
 
-        bool UpdateAlbum(AlbumApiModel albumApiModel);
-        bool DeleteAlbum(int id);
-        IEnumerable<ArtistApiModel> GetAllArtist();
-        ArtistApiModel GetArtistById(int id);
+        Task<bool> UpdateAlbum(AlbumApiModel albumApiModel);
+        Task<bool> DeleteAlbum(int id);
+        Task<IEnumerable<ArtistApiModel>> GetAllArtist();
+        Task<ArtistApiModel> GetArtistById(int id);
 
-        ArtistApiModel AddArtist(ArtistApiModel newArtistApiModel);
+        Task<ArtistApiModel> AddArtist(ArtistApiModel newArtistApiModel);
 
-        bool UpdateArtist(ArtistApiModel artistApiModel);
+        Task<bool> UpdateArtist(ArtistApiModel artistApiModel);
 
-        bool DeleteArtist(int id);
-        IEnumerable<CustomerApiModel> GetAllCustomer();
-        CustomerApiModel GetCustomerById(int id);
+        Task<bool> DeleteArtist(int id);
+        Task<IEnumerable<CustomerApiModel>> GetAllCustomer();
+        Task<CustomerApiModel> GetCustomerById(int id);
 
-        IEnumerable<CustomerApiModel> GetCustomerBySupportRepId(int id);
+        Task<IEnumerable<CustomerApiModel>> GetCustomerBySupportRepId(int id);
 
-        CustomerApiModel AddCustomer(CustomerApiModel newCustomerApiModel);
+        Task<CustomerApiModel> AddCustomer(CustomerApiModel newCustomerApiModel);
 
-        bool UpdateCustomer(CustomerApiModel customerApiModel);
+        Task<bool> UpdateCustomer(CustomerApiModel customerApiModel);
 
-        bool DeleteCustomer(int id);
-        IEnumerable<EmployeeApiModel> GetAllEmployee();
-        EmployeeApiModel GetEmployeeById(int id);
-        EmployeeApiModel GetEmployeeReportsTo(int id);
+        Task<bool> DeleteCustomer(int id);
+        Task<IEnumerable<EmployeeApiModel>> GetAllEmployee();
+        Task<EmployeeApiModel> GetEmployeeById(int id);
+        Task<EmployeeApiModel> GetEmployeeReportsTo(int id);
 
-        EmployeeApiModel AddEmployee(EmployeeApiModel newEmployeeApiModel);
+        Task<EmployeeApiModel> AddEmployee(EmployeeApiModel newEmployeeApiModel);
 
-        bool UpdateEmployee(EmployeeApiModel employeeApiModel);
+        Task<bool> UpdateEmployee(EmployeeApiModel employeeApiModel);
 
-        bool DeleteEmployee(int id);
+        Task<bool> DeleteEmployee(int id);
 
-        IEnumerable<EmployeeApiModel> GetEmployeeDirectReports(int id);
+        Task<IEnumerable<EmployeeApiModel>> GetEmployeeDirectReports(int id);
 
-        IEnumerable<EmployeeApiModel> GetDirectReports(int id);
-        IEnumerable<GenreApiModel> GetAllGenre();
-        GenreApiModel GetGenreById(int id);
+        Task<IEnumerable<EmployeeApiModel>> GetDirectReports(int id);
+        Task<IEnumerable<GenreApiModel>> GetAllGenre();
+        Task<GenreApiModel> GetGenreById(int id);
 
-        GenreApiModel AddGenre(GenreApiModel newGenreApiModel);
+        Task<GenreApiModel> AddGenre(GenreApiModel newGenreApiModel);
 
-        bool UpdateGenre(GenreApiModel genreApiModel);
-        bool DeleteGenre(int id);
-        IEnumerable<InvoiceLineApiModel> GetAllInvoiceLine();
-        InvoiceLineApiModel GetInvoiceLineById(int id);
+        Task<bool> UpdateGenre(GenreApiModel genreApiModel);
+        Task<bool> DeleteGenre(int id);
+        Task<IEnumerable<InvoiceLineApiModel>> GetAllInvoiceLine();
+        Task<InvoiceLineApiModel> GetInvoiceLineById(int id);
 
-        IEnumerable<InvoiceLineApiModel> GetInvoiceLineByInvoiceId(int id);
+        Task<IEnumerable<InvoiceLineApiModel>> GetInvoiceLineByInvoiceId(int id);
 
-        IEnumerable<InvoiceLineApiModel> GetInvoiceLineByTrackId(int id);
+        Task<IEnumerable<InvoiceLineApiModel>> GetInvoiceLineByTrackId(int id);
 
-        InvoiceLineApiModel AddInvoiceLine(InvoiceLineApiModel newInvoiceLineApiModel);
+        Task<InvoiceLineApiModel> AddInvoiceLine(InvoiceLineApiModel newInvoiceLineApiModel);
 
-        bool UpdateInvoiceLine(InvoiceLineApiModel invoiceLineApiModel);
+        Task<bool> UpdateInvoiceLine(InvoiceLineApiModel invoiceLineApiModel);
 
-        bool DeleteInvoiceLine(int id);
-        IEnumerable<InvoiceApiModel> GetAllInvoice();
-        InvoiceApiModel GetInvoiceById(int id);
+        Task<bool> DeleteInvoiceLine(int id);
+        Task<IEnumerable<InvoiceApiModel>> GetAllInvoice();
+        Task<InvoiceApiModel> GetInvoiceById(int id);
 
-        IEnumerable<InvoiceApiModel> GetInvoiceByCustomerId(int id);
+        Task<IEnumerable<InvoiceApiModel>> GetInvoiceByCustomerId(int id);
 
-        InvoiceApiModel AddInvoice(InvoiceApiModel newInvoiceApiModel);
+        Task<InvoiceApiModel> AddInvoice(InvoiceApiModel newInvoiceApiModel);
 
-        bool UpdateInvoice(InvoiceApiModel invoiceApiModel);
+        Task<bool> UpdateInvoice(InvoiceApiModel invoiceApiModel);
 
-        bool DeleteInvoice(int id);
+        Task<bool> DeleteInvoice(int id);
         
-        IEnumerable<InvoiceApiModel> GetInvoiceByEmployeeId(int id);
+        Task<IEnumerable<InvoiceApiModel>> GetInvoiceByEmployeeId(int id);
         
-        IEnumerable<MediaTypeApiModel> GetAllMediaType();
-        MediaTypeApiModel GetMediaTypeById(int id);
+        Task<IEnumerable<MediaTypeApiModel>> GetAllMediaType();
+        Task<MediaTypeApiModel> GetMediaTypeById(int id);
 
-        MediaTypeApiModel AddMediaType(MediaTypeApiModel newMediaTypeApiModel);
+        Task<MediaTypeApiModel> AddMediaType(MediaTypeApiModel newMediaTypeApiModel);
 
-        bool UpdateMediaType(MediaTypeApiModel mediaTypeApiModel);
+        Task<bool> UpdateMediaType(MediaTypeApiModel mediaTypeApiModel);
 
-        bool DeleteMediaType(int id);
-        IEnumerable<PlaylistApiModel> GetAllPlaylist();
-        PlaylistApiModel GetPlaylistById(int id);
+        Task<bool> DeleteMediaType(int id);
+        Task<IEnumerable<PlaylistApiModel>> GetAllPlaylist();
+        Task<PlaylistApiModel> GetPlaylistById(int id);
 
-        PlaylistApiModel AddPlaylist(PlaylistApiModel newPlaylistApiModel);
+        Task<PlaylistApiModel> AddPlaylist(PlaylistApiModel newPlaylistApiModel);
 
-        bool UpdatePlaylist(PlaylistApiModel playlistApiModel);
+        Task<bool> UpdatePlaylist(PlaylistApiModel playlistApiModel);
 
-        bool DeletePlaylist(int id);
+        Task<bool> DeletePlaylist(int id);
         
-        IEnumerable<PlaylistApiModel> GetPlaylistByTrackId(int id);
+        Task<IEnumerable<PlaylistApiModel>> GetPlaylistByTrackId(int id);
         
-        IEnumerable<TrackApiModel> GetAllTrack();
-        TrackApiModel GetTrackById(int id);
-        IEnumerable<TrackApiModel> GetTrackByAlbumId(int id);
-        IEnumerable<TrackApiModel> GetTrackByGenreId(int id);
+        Task<IEnumerable<TrackApiModel>> GetAllTrack();
+        Task<TrackApiModel> GetTrackById(int id);
+        Task<IEnumerable<TrackApiModel>> GetTrackByAlbumId(int id);
+        Task<IEnumerable<TrackApiModel>> GetTrackByGenreId(int id);
 
-        IEnumerable<TrackApiModel>
-            GetTrackByMediaTypeId(int id);
+        Task<IEnumerable<TrackApiModel>> GetTrackByMediaTypeId(int id);
 
-        IEnumerable<TrackApiModel> GetTrackByPlaylistId(int id);
+        Task<IEnumerable<TrackApiModel>> GetTrackByPlaylistId(int id);
 
-        TrackApiModel AddTrack(TrackApiModel newTrackApiModel);
+        Task<TrackApiModel> AddTrack(TrackApiModel newTrackApiModel);
 
-        bool UpdateTrack(TrackApiModel trackApiModel);
-        bool DeleteTrack(int id);
+        Task<bool> UpdateTrack(TrackApiModel trackApiModel);
+        Task<bool> DeleteTrack(int id);
         
-        IEnumerable<TrackApiModel> GetTrackByArtistId(int id);
-        IEnumerable<TrackApiModel> GetTrackByInvoiceId(int id);
+        Task<IEnumerable<TrackApiModel>> GetTrackByArtistId(int id);
+        Task<IEnumerable<TrackApiModel>> GetTrackByInvoiceId(int id);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.Domain.DbInfo;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
@@ -27,10 +28,10 @@ namespace Chinook.DataDapper.Repositories
             
         }
 
-        private bool InvoiceExists(int id) =>
-            Connection.ExecuteScalar<bool>("select count(1) from Invoice where Id = @id", new {id});
+        private async Task<bool> InvoiceExists(int id) =>
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from Invoice where Id = @id", new {id});
 
-        public List<Invoice> GetAll()
+        public async Task<List<Invoice>> GetAll()
         {
             using IDbConnection cn = Connection;
             cn.Open();
@@ -38,27 +39,27 @@ namespace Chinook.DataDapper.Repositories
             return invoices.ToList();
         }
 
-        public Invoice GetById(int id)
+        public async Task<Invoice> GetById(int id)
         {
             using var cn = Connection;
             cn.Open();
             return cn.QueryFirstOrDefault<Invoice>("Select * From Invoice WHERE Id = @Id", new {id});
         }
 
-        public List<Invoice> GetByCustomerId(int id)
+        public async Task<List<Invoice>> GetByCustomerId(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var invoices = cn.Query<Invoice>("Select * From Invoice WHERE CustomerId = @Id", new { id });
+            var invoices = await cn.QueryAsync<Invoice>("Select * From Invoice WHERE CustomerId = @Id", new { id });
             return invoices.ToList();
         }
 
-        public Invoice Add(Invoice newInvoice)
+        public async Task<Invoice> Add(Invoice newInvoice)
         {
             using var cn = Connection;
             cn.Open();
 
-            newInvoice.Id = (int) cn.Insert(
+            newInvoice.Id = await cn.InsertAsync(
                 new Invoice
                 {
                     Id = newInvoice.Id,
@@ -75,16 +76,16 @@ namespace Chinook.DataDapper.Repositories
             return newInvoice;
         }
 
-        public bool Update(Invoice invoice)
+        public async Task<bool> Update(Invoice invoice)
         {
-            if (!InvoiceExists(invoice.Id))
+            if (!await InvoiceExists(invoice.Id))
                 return false;
 
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Update(invoice);
+                return await cn.UpdateAsync(invoice);
             }
             catch(Exception)
             {
@@ -92,13 +93,13 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Delete(new Invoice {Id = id});
+                return await cn.DeleteAsync(new Invoice {Id = id});
             }
             catch(Exception)
             {
@@ -106,7 +107,7 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public List<Invoice> GetByEmployeeId(int id)
+        public Task<List<Invoice>> GetByEmployeeId(int id)
         {
             throw new NotImplementedException();
         }

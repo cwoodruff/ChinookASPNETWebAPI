@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
 using Microsoft.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace Chinook.DataJson.Repositories
         {
         }
 
-        private bool InvoiceExists(int id)
+        private async Task<bool> InvoiceExists(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_CheckInvoice", _sqlconn)
             {
@@ -36,7 +37,7 @@ namespace Chinook.DataJson.Repositories
             return Convert.ToBoolean(dset.Tables[0].Rows[0][0]);
         }
 
-        public List<Invoice> GetAll()
+        public async Task<List<Invoice>> GetAll()
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetInvoice", _sqlconn)
             {
@@ -50,7 +51,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public Invoice GetById(int id)
+        public async Task<Invoice> GetById(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetInvoiceDetails", _sqlconn)
             {
@@ -66,7 +67,7 @@ namespace Chinook.DataJson.Repositories
             return converted.FirstOrDefault();
         }
 
-        public List<Invoice> GetByCustomerId(int id)
+        public async Task<List<Invoice>> GetByCustomerId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetInvoiceByCustomer", _sqlconn)
             {
@@ -81,14 +82,14 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public Invoice Add(Invoice newInvoice)
+        public async Task<Invoice> Add(Invoice newInvoice)
         {
             return newInvoice;
         }
 
-        public bool Update(Invoice invoice)
+        public async Task<bool> Update(Invoice invoice)
         {
-            if (!InvoiceExists(invoice.Id))
+            if (!await InvoiceExists(invoice.Id))
                 return false;
 
             try
@@ -101,7 +102,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
@@ -113,7 +114,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public List<Invoice> GetByEmployeeId(int id)
+        public async Task<List<Invoice>> GetByEmployeeId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetInvoiceByEmployee", _sqlconn)
             {

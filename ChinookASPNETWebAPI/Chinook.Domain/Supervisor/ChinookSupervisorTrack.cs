@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Chinook.Domain.ApiModels;
+using Chinook.Domain.Entities;
 using Chinook.Domain.Extensions;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -8,18 +10,19 @@ namespace Chinook.Domain.Supervisor
 {
     public partial class ChinookSupervisor
     {
-        public IEnumerable<TrackApiModel> GetAllTrack()
+        public async Task<IEnumerable<TrackApiModel>> GetAllTrack()
         {
-            var tracks = _trackRepository.GetAll().ConvertAll();
-            foreach (var track in tracks)
+            List<Track> tracks = await _trackRepository.GetAll();
+            var trackApiModels = tracks.ConvertAll();
+            foreach (var track in trackApiModels)
             {
                 var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
                 _cache.Set(string.Concat((object?) "Track-", track.Id), track, cacheEntryOptions);
             }
-            return tracks;
+            return trackApiModels;
         }
 
-        public TrackApiModel GetTrackById(int id)
+        public async Task<TrackApiModel> GetTrackById(int id)
         {
             var trackApiModelCached = _cache.Get<TrackApiModel>(string.Concat("Track-", id));
 
@@ -29,10 +32,10 @@ namespace Chinook.Domain.Supervisor
             }
             else
             {
-                var trackApiModel = (_trackRepository.GetById(id)).Convert();
-                trackApiModel.Genre = GetGenreById(trackApiModel.GenreId.GetValueOrDefault());
-                trackApiModel.Album = GetAlbumById(trackApiModel.AlbumId);
-                trackApiModel.MediaType = GetMediaTypeById(trackApiModel.MediaTypeId);
+                var trackApiModel = await(await _trackRepository.GetById(id)).ConvertAsync();
+                trackApiModel.Genre = await GetGenreById(trackApiModel.GenreId.GetValueOrDefault());
+                trackApiModel.Album = await GetAlbumById(trackApiModel.AlbumId);
+                trackApiModel.MediaType = await GetMediaTypeById(trackApiModel.MediaTypeId);
                 if (trackApiModel.Album != null)
                 {
                     trackApiModel.AlbumName = trackApiModel.Album.Title;
@@ -51,42 +54,42 @@ namespace Chinook.Domain.Supervisor
             }
         }
 
-        public IEnumerable<TrackApiModel> GetTrackByAlbumId(int id)
+        public async Task<IEnumerable<TrackApiModel>> GetTrackByAlbumId(int id)
         {
-            var tracks = _trackRepository.GetByAlbumId(id);
+            var tracks = await _trackRepository.GetByAlbumId(id);
             return tracks.ConvertAll();
         }
 
-        public IEnumerable<TrackApiModel> GetTrackByGenreId(int id)
+        public async Task<IEnumerable<TrackApiModel>> GetTrackByGenreId(int id)
         {
-            var tracks = _trackRepository.GetByGenreId(id);
+            var tracks = await _trackRepository.GetByGenreId(id);
             return tracks.ConvertAll();
         }
 
-        public IEnumerable<TrackApiModel> GetTrackByMediaTypeId(int id)
+        public async Task<IEnumerable<TrackApiModel>> GetTrackByMediaTypeId(int id)
         {
-            var tracks = _trackRepository.GetByMediaTypeId(id);
+            var tracks = await _trackRepository.GetByMediaTypeId(id);
             return tracks.ConvertAll();
         }
 
-        public IEnumerable<TrackApiModel> GetTrackByPlaylistId(int id)
+        public async Task<IEnumerable<TrackApiModel>> GetTrackByPlaylistId(int id)
         {
-            var tracks = _trackRepository.GetByPlaylistId(id);
+            var tracks = await _trackRepository.GetByPlaylistId(id);
             return tracks.ConvertAll();
         }
 
-        public TrackApiModel AddTrack(TrackApiModel newTrackApiModel)
+        public async Task<TrackApiModel> AddTrack(TrackApiModel newTrackApiModel)
         {
-            var track = newTrackApiModel.Convert();
+            var track = await newTrackApiModel.ConvertAsync();
 
             _trackRepository.Add(track);
             newTrackApiModel.Id = track.Id;
             return newTrackApiModel;
         }
 
-        public bool UpdateTrack(TrackApiModel trackApiModel)
+        public async Task<bool> UpdateTrack(TrackApiModel trackApiModel)
         {
-            var track = _trackRepository.GetById(trackApiModel.Id);
+            var track = await _trackRepository.GetById(trackApiModel.Id);
 
             if (track == null) return false;
             track.Id = trackApiModel.Id;
@@ -99,21 +102,21 @@ namespace Chinook.Domain.Supervisor
             track.Bytes = trackApiModel.Bytes;
             track.UnitPrice = trackApiModel.UnitPrice;
 
-            return _trackRepository.Update(track);
+            return await _trackRepository.Update(track);
         }
 
-        public bool DeleteTrack(int id) 
+        public Task<bool> DeleteTrack(int id) 
             => _trackRepository.Delete(id);
         
-        public IEnumerable<TrackApiModel> GetTrackByArtistId(int id)
+        public async Task<IEnumerable<TrackApiModel>> GetTrackByArtistId(int id)
         {
-            var tracks = _trackRepository.GetByArtistId(id);
+            var tracks = await _trackRepository.GetByArtistId(id);
             return tracks.ConvertAll();
         }
 
-        public IEnumerable<TrackApiModel> GetTrackByInvoiceId(int id)
+        public async Task<IEnumerable<TrackApiModel>> GetTrackByInvoiceId(int id)
         {
-            var tracks = _trackRepository.GetByInvoiceId(id);
+            var tracks = await _trackRepository.GetByInvoiceId(id);
             return tracks.ConvertAll();
         }
     }

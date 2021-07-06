@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
 using Microsoft.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace Chinook.DataJson.Repositories
         {
         }
 
-        private bool AlbumExists(int id)
+        private async Task<bool> AlbumExists(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_CheckAlbum", _sqlconn)
             {
@@ -36,7 +37,7 @@ namespace Chinook.DataJson.Repositories
             return Convert.ToBoolean(dset.Tables[0].Rows[0][0]);
         }
 
-        public List<Album> GetAll()
+        public async Task<List<Album>> GetAll()
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetAlbum", _sqlconn)
             {
@@ -50,7 +51,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public Album GetById(int? id)
+        public async Task<Album> GetById(int? id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetAlbumDetails", _sqlconn)
             {
@@ -66,7 +67,7 @@ namespace Chinook.DataJson.Repositories
             return converted.FirstOrDefault();
         }
 
-        public List<Album> GetByArtistId(int id)
+        public async Task<List<Album>> GetByArtistId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetAlbumByArtist", _sqlconn)
             {
@@ -81,14 +82,14 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public Album Add(Album newAlbum)
+        public async Task<Album> Add(Album newAlbum)
         {
             return newAlbum;
         }
 
-        public bool Update(Album album)
+        public async Task<bool> Update(Album album)
         {
-            if (!AlbumExists(album.Id))
+            if (!await AlbumExists(album.Id))
                 return false;
 
             try
@@ -101,7 +102,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.DataEF;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chinook.DataEFCore.Repositories
 {
@@ -15,43 +17,43 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private bool GenreExists(int id) =>
-            _context.Genres.Any(g => g.Id == id);
+        private async Task<bool> GenreExists(int id) =>
+            await _context.Genres.AnyAsync(g => g.Id == id);
 
         public void Dispose() => _context.Dispose();
 
-        public List<Genre> GetAll() =>
-            _context.Genres.ToList();
+        public async Task<List<Genre>> GetAll() =>
+            await _context.Genres.ToListAsync();
 
-        public Genre GetById(int id)
+        public async Task<Genre> GetById(int id)
         {
-            var dbGenre = _context.Genres.Find(id);
+            var dbGenre = await _context.Genres.FindAsync(id);
             return dbGenre;
         }
 
-        public Genre Add(Genre newGenre)
+        public async Task<Genre> Add(Genre newGenre)
         {
-            _context.Genres.Add(newGenre);
-            _context.SaveChanges();
+            await _context.Genres.AddAsync(newGenre);
+            await _context.SaveChangesAsync();
             return newGenre;
         }
 
-        public bool Update(Genre genre)
+        public async Task<bool> Update(Genre genre)
         {
-            if (!GenreExists(genre.Id))
+            if (!await GenreExists(genre.Id))
                 return false;
             _context.Genres.Update(genre);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            if (!GenreExists(id))
+            if (!await GenreExists(id))
                 return false;
-            var toRemove = _context.Genres.Find(id);
+            var toRemove = await _context.Genres.FindAsync(id);
             _context.Genres.Remove(toRemove);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
     }

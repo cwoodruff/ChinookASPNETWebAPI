@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
 using Microsoft.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace Chinook.DataJson.Repositories
         {
         }
 
-        private bool PlaylistExists(int id)
+        private async Task<bool> PlaylistExists(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_CheckPlaylist", _sqlconn)
             {
@@ -36,7 +37,7 @@ namespace Chinook.DataJson.Repositories
             return Convert.ToBoolean(dset.Tables[0].Rows[0][0]);
         }
 
-        public List<Playlist> GetAll()
+        public async Task<List<Playlist>> GetAll()
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetPlaylist", _sqlconn)
             {
@@ -50,7 +51,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public Playlist GetById(int id)
+        public async Task<Playlist> GetById(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetPlaylistDetails", _sqlconn)
             {
@@ -66,14 +67,14 @@ namespace Chinook.DataJson.Repositories
             return converted.FirstOrDefault();
         }
 
-        public Playlist Add(Playlist newPlaylist)
+        public async Task<Playlist> Add(Playlist newPlaylist)
         {
             return newPlaylist;
         }
 
-        public bool Update(Playlist playlist)
+        public async Task<bool> Update(Playlist playlist)
         {
-            if (!PlaylistExists(playlist.Id))
+            if (!await PlaylistExists(playlist.Id))
                 return false;
 
             try
@@ -86,7 +87,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
@@ -98,7 +99,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public List<Playlist> GetByTrackId(int id)
+        public async Task<List<Playlist>> GetByTrackId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetPlaylistByTrack", _sqlconn)
             {

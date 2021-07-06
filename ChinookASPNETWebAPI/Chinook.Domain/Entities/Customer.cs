@@ -2,6 +2,7 @@
 using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Chinook.Domain.Entities
 {
@@ -32,6 +33,24 @@ namespace Chinook.Domain.Entities
         public virtual ICollection<Invoice> Invoices { get; set; }
         
         public CustomerApiModel Convert() =>
+            new CustomerApiModel
+            {
+                Id = Id,
+                FirstName = FirstName,
+                LastName = LastName,
+                Company = Company,
+                Address = Address,
+                City = City,
+                State = State,
+                Country = Country,
+                PostalCode = PostalCode,
+                Phone = Phone,
+                Fax = Fax,
+                Email = Email,
+                SupportRepId = SupportRepId
+            };
+        
+        public async Task<CustomerApiModel> ConvertAsync() =>
             new CustomerApiModel
             {
                 Id = Id,

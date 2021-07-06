@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.Domain.DbInfo;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
@@ -27,44 +28,44 @@ namespace Chinook.DataDapper.Repositories
             
         }
 
-        private bool ArtistExists(int id) =>
-            Connection.ExecuteScalar<bool>("select count(1) from Artist where Id = @id", new {id});
+        private async Task<bool> ArtistExists(int id) =>
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from Artist where Id = @id", new {id});
 
-        public List<Artist> GetAll()
+        public async Task<List<Artist>> GetAll()
         {
             using IDbConnection cn = Connection;
             cn.Open();
-            var artists = Connection.Query<Artist>("Select * From Artist");
+            var artists = await cn.QueryAsync<Artist>("Select * From Artist");
             return artists.ToList();
         }
 
-        public Artist GetById(int id)
+        public async Task<Artist> GetById(int id)
         {
             using var cn = Connection;
             cn.Open();
             return cn.QueryFirstOrDefault<Artist>("Select * From Artist WHERE Id = @Id", new {id});
         }
 
-        public Artist Add(Artist newArtist)
+        public async Task<Artist> Add(Artist newArtist)
         {
             using var cn = Connection;
             cn.Open();
 
-            newArtist.Id = (int) cn.Insert(new Artist {Name = newArtist.Name});
+            newArtist.Id = await cn.InsertAsync(new Artist {Name = newArtist.Name});
 
             return newArtist;
         }
 
-        public bool Update(Artist artist)
+        public async Task<bool> Update(Artist artist)
         {
-            if (!ArtistExists(artist.Id))
+            if (!await ArtistExists(artist.Id))
                 return false;
 
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Update(artist);
+                return await cn.UpdateAsync(artist);
             }
             catch(Exception)
             {
@@ -72,13 +73,13 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Delete(new Artist {Id = id});
+                return await cn.DeleteAsync(new Artist {Id = id});
             }
             catch(Exception)
             {

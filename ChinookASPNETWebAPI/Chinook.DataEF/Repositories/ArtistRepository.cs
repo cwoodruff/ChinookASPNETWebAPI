@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.DataEF;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chinook.DataEFCore.Repositories
 {
@@ -15,40 +17,40 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private bool ArtistExists(int id) =>
-            _context.Artists.Any(a => a.Id == id);
+        private async Task<bool> ArtistExists(int id) =>
+            await _context.Artists.AnyAsync(a => a.Id == id);
 
         public void Dispose() => _context.Dispose();
 
-        public List<Artist> GetAll() =>
-            _context.Artists.ToList();
+        public async Task<List<Artist>> GetAll() =>
+            await _context.Artists.ToListAsync();
 
-        public Artist GetById(int id) =>
-            _context.Artists.Find(id);
+        public async Task<Artist> GetById(int id) =>
+            await _context.Artists.FindAsync(id);
 
-        public Artist Add(Artist newArtist)
+        public async Task<Artist> Add(Artist newArtist)
         {
-            _context.Artists.Add(newArtist);
-            _context.SaveChanges();
+            await _context.Artists.AddAsync(newArtist);
+            await _context.SaveChangesAsync();
             return newArtist;
         }
 
-        public bool Update(Artist artist)
+        public async Task<bool> Update(Artist artist)
         {
-            if (!ArtistExists(artist.Id))
+            if (!await ArtistExists(artist.Id))
                 return false;
             _context.Artists.Update(artist);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            if (!ArtistExists(id))
+            if (!await ArtistExists(id))
                 return false;
-            var toRemove = _context.Artists.Find(id);
+            var toRemove = await _context.Artists.FindAsync(id);
             _context.Artists.Remove(toRemove);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
     }

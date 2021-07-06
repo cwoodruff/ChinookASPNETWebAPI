@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
@@ -31,11 +32,11 @@ namespace Chinook.API.Controllers
             OperationId = "Genre.GetAll",
             Tags = new[] { "GenreEndpoint"})]
         [Produces(typeof(List<GenreApiModel>))]
-        public ActionResult<List<GenreApiModel>> Get()
+        public async Task<ActionResult<List<GenreApiModel>>> Get()
         {
             try
             {
-                return new ObjectResult(_chinookSupervisor.GetAllGenre());
+                return new ObjectResult(await _chinookSupervisor.GetAllGenre());
             }
             catch (Exception ex)
             {
@@ -51,11 +52,11 @@ namespace Chinook.API.Controllers
             OperationId = "Genre.GetOne",
             Tags = new[] { "GenreEndpoint"})]
         [Produces(typeof(GenreApiModel))]
-        public ActionResult<GenreApiModel> Get(int id)
+        public async Task<ActionResult<GenreApiModel>> Get(int id)
         {
             try
             {
-                var genre = _chinookSupervisor.GetGenreById(id);
+                var genre = await _chinookSupervisor.GetGenreById(id);
 
                 return Ok(genre);
             }
@@ -72,7 +73,7 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Genre",
             OperationId = "Genre.Create",
             Tags = new[] { "GenreEndpoint"})]
-        public ActionResult<GenreApiModel> Post([FromBody] GenreApiModel input)
+        public async Task<ActionResult<GenreApiModel>> Post([FromBody] GenreApiModel input)
         {
             try
             {
@@ -85,7 +86,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Genre object");
                 }
                 
-                var genre = _chinookSupervisor.AddGenre(input);
+                var genre = await _chinookSupervisor.AddGenre(input);
         
                 return CreatedAtRoute("GetGenreById", new { id = genre.Id }, genre);
             }
@@ -102,7 +103,7 @@ namespace Chinook.API.Controllers
             Description = "Update an Genre",
             OperationId = "Genre.Update",
             Tags = new[] { "GenreEndpoint"})]
-        public ActionResult<GenreApiModel> Put(int id, [FromBody] GenreApiModel input)
+        public async Task<ActionResult<GenreApiModel>> Put(int id, [FromBody] GenreApiModel input)
         {
             try
             {
@@ -115,7 +116,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Genre object");
                 }
 
-                if (_chinookSupervisor.UpdateGenre(input))
+                if (await _chinookSupervisor.UpdateGenre(input))
                 {
                     return CreatedAtRoute("GetGenreById", new { id = input.Id }, input);
                 }
@@ -135,11 +136,11 @@ namespace Chinook.API.Controllers
             Description = "Delete a Genre",
             OperationId = "Genre.Delete",
             Tags = new[] { "GenreEndpoint"})]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                if (_chinookSupervisor.DeleteGenre(id))
+                if (await _chinookSupervisor.DeleteGenre(id))
                 {
                     return Ok();
                 }

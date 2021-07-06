@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
@@ -29,6 +30,20 @@ namespace Chinook.Domain.ApiModels
         public CustomerApiModel Customer { get; set; }
 
         public Invoice Convert() =>
+            new Invoice
+            {
+                Id = Id,
+                CustomerId = CustomerId,
+                InvoiceDate = InvoiceDate,
+                BillingAddress = BillingAddress,
+                BillingCity = BillingCity,
+                BillingState = BillingState,
+                BillingCountry = BillingCountry,
+                BillingPostalCode = BillingPostalCode,
+                Total = Total
+            };
+        
+        public async Task<Invoice> ConvertAsync() =>
             new Invoice
             {
                 Id = Id,

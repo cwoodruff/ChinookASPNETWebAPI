@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
@@ -30,11 +31,11 @@ namespace Chinook.API.Controllers
             OperationId = "Album.GetAll",
             Tags = new[] { "AlbumEndpoint"})]
         [Produces(typeof(List<AlbumApiModel>))]
-        public ActionResult<List<AlbumApiModel>> Get()
+        public async Task<ActionResult<List<AlbumApiModel>>> Get()
         {
             try
             {
-                return new ObjectResult(_chinookSupervisor.GetAllAlbum());
+                return new ObjectResult(await _chinookSupervisor.GetAllAlbum());
             }
             catch (Exception ex)
             {
@@ -50,11 +51,11 @@ namespace Chinook.API.Controllers
             OperationId = "Album.GetOne",
             Tags = new[] { "AlbumEndpoint"})]
         [Produces(typeof(AlbumApiModel))]
-        public ActionResult<AlbumApiModel> Get(int id)
+        public async Task<ActionResult<AlbumApiModel>> Get(int id)
         {
             try
             {
-                var album = _chinookSupervisor.GetAlbumById(id);
+                var album = await _chinookSupervisor.GetAlbumById(id);
                 if (album == null)
                 {
                     return NotFound();
@@ -76,13 +77,13 @@ namespace Chinook.API.Controllers
             OperationId = "Album.GetByArtist",
             Tags = new[] { "AlbumEndpoint"})]
         [Produces(typeof(List<AlbumApiModel>))]
-        public ActionResult<List<AlbumApiModel>> GetByArtistId(int id)
+        public async Task<ActionResult<List<AlbumApiModel>>> GetByArtistId(int id)
         {
             try
             {
-                var artist = _chinookSupervisor.GetArtistById(id);
+                var artist = await _chinookSupervisor.GetArtistById(id);
 
-                return Ok(_chinookSupervisor.GetAlbumByArtistId(id));
+                return Ok(await _chinookSupervisor.GetAlbumByArtistId(id));
             }
             catch (Exception ex)
             {
@@ -97,7 +98,7 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Album",
             OperationId = "Album.Create",
             Tags = new[] { "AlbumEndpoint"})]
-        public ActionResult<AlbumApiModel> Post([FromBody] AlbumApiModel input)
+        public async Task<ActionResult<AlbumApiModel>> Post([FromBody] AlbumApiModel input)
         {
             try
             {
@@ -110,7 +111,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Album object");
                 }
 
-                var album = _chinookSupervisor.AddAlbum(input);
+                var album = await _chinookSupervisor.AddAlbum(input);
         
                 return CreatedAtRoute("GetAlbumById", new { id = album.Id }, album);
             }
@@ -127,7 +128,7 @@ namespace Chinook.API.Controllers
             Description = "Update an Album",
             OperationId = "Album.Update",
             Tags = new[] { "AlbumEndpoint"})]
-        public ActionResult<AlbumApiModel> Put(int id, [FromBody] AlbumApiModel input)
+        public async Task<ActionResult<AlbumApiModel>> Put(int id, [FromBody] AlbumApiModel input)
         {
             try
             {
@@ -139,11 +140,11 @@ namespace Chinook.API.Controllers
                 {
                     return BadRequest("Invalid Album object");
                 }
-                if (_chinookSupervisor.GetAlbumById(id) == null)
+                if (await Task.Run(() => _chinookSupervisor.GetAlbumById(id)) == null)
                 {
                     return NotFound();
                 }
-                if (_chinookSupervisor.UpdateAlbum(input))
+                if (await Task.Run(() => _chinookSupervisor.UpdateAlbum(input)))
                 {
                     return CreatedAtRoute("GetAlbumById", new { id = input.Id }, input);
                 }
@@ -163,16 +164,16 @@ namespace Chinook.API.Controllers
             Description = "Delete a Album",
             OperationId = "Album.Delete",
             Tags = new[] { "AlbumEndpoint"})]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                if (_chinookSupervisor.GetAlbumById(id) == null)
+                if (await _chinookSupervisor.GetAlbumById(id) == null)
                 {
                     return NotFound();
                 }
 
-                if (_chinookSupervisor.DeleteAlbum(id))
+                if (await _chinookSupervisor.DeleteAlbum(id))
                 {
                     return Ok();
                 }

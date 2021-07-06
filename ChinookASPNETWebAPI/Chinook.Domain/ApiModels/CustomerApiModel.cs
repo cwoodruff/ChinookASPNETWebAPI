@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
@@ -36,6 +37,24 @@ namespace Chinook.Domain.ApiModels
 
 
         public Customer Convert() =>
+            new Customer
+            {
+                Id = Id,
+                FirstName = FirstName,
+                LastName = LastName,
+                Company = Company,
+                Address = Address,
+                City = City,
+                State = State,
+                Country = Country,
+                PostalCode = PostalCode,
+                Phone = Phone,
+                Fax = Fax,
+                Email = Email,
+                SupportRepId = SupportRepId
+            };
+        
+        public async Task<Customer> ConvertAsync() =>
             new Customer
             {
                 Id = Id,

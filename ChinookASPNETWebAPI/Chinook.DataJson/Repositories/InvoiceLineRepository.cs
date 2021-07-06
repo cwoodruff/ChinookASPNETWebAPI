@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
 using Microsoft.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace Chinook.DataJson.Repositories
         {
         }
 
-        private bool InvoiceLineExists(int id)
+        private async Task<bool> InvoiceLineExists(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_CheckInvoiceLine", _sqlconn)
             {
@@ -36,7 +37,7 @@ namespace Chinook.DataJson.Repositories
             return Convert.ToBoolean(dset.Tables[0].Rows[0][0]);
         }
 
-        public List<InvoiceLine> GetAll()
+        public async Task<List<InvoiceLine>> GetAll()
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetInvoice", _sqlconn)
             {
@@ -50,7 +51,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public InvoiceLine GetById(int id)
+        public async Task<InvoiceLine> GetById(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetInvoiceLineDetails", _sqlconn)
             {
@@ -66,7 +67,7 @@ namespace Chinook.DataJson.Repositories
             return converted.FirstOrDefault();
         }
 
-        public List<InvoiceLine> GetByInvoiceId(int id)
+        public async Task<List<InvoiceLine>> GetByInvoiceId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetInvoiceLineByInvoice", _sqlconn)
             {
@@ -81,7 +82,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public List<InvoiceLine> GetByTrackId(int id)
+        public async Task<List<InvoiceLine>> GetByTrackId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetInvoiceLineByTrack", _sqlconn)
             {
@@ -103,14 +104,14 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public InvoiceLine Add(InvoiceLine newInvoiceLine)
+        public async Task<InvoiceLine> Add(InvoiceLine newInvoiceLine)
         {
             return newInvoiceLine;
         }
 
-        public bool Update(InvoiceLine invoiceLine)
+        public async Task<bool> Update(InvoiceLine invoiceLine)
         {
-            if (!InvoiceLineExists(invoiceLine.Id))
+            if (!await InvoiceLineExists(invoiceLine.Id))
                 return false;
 
             try
@@ -123,7 +124,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {

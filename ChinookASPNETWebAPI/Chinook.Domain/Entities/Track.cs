@@ -3,6 +3,7 @@ using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Chinook.Domain.Entities
 {
@@ -43,6 +44,20 @@ namespace Chinook.Domain.Entities
         public virtual ICollection<PlaylistTrack> PlaylistTracks { get; set; }
         
         public TrackApiModel Convert() =>
+            new TrackApiModel
+            {
+                Id = Id,
+                Name = Name,
+                AlbumId = AlbumId,
+                MediaTypeId = MediaTypeId,
+                GenreId = GenreId,
+                Composer = Composer,
+                Milliseconds = Milliseconds,
+                Bytes = Bytes,
+                UnitPrice = UnitPrice
+            };
+        
+        public async Task<TrackApiModel> ConvertAsync() =>
             new TrackApiModel
             {
                 Id = Id,

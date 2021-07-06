@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
@@ -16,6 +17,13 @@ namespace Chinook.Domain.ApiModels
         public IList<AlbumApiModel>? Albums { get; set; }
 
         public Artist Convert() =>
+            new Artist
+            {
+                Id = Id,
+                Name = Name ?? string.Empty
+            };
+        
+        public async Task<Artist> ConvertAsync() =>
             new Artist
             {
                 Id = Id,

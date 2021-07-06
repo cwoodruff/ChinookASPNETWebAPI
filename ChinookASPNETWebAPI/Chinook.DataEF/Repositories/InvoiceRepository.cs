@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.DataEF;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chinook.DataEFCore.Repositories
 {
@@ -21,53 +23,53 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private bool InvoiceExists(int id) =>
-            _context.Invoices.Any(i => i.Id == id);
+        private async Task<bool> InvoiceExists(int id) =>
+            await _context.Invoices.AnyAsync(i => i.Id == id);
 
         public void Dispose() => _context.Dispose();
 
         // public List<Invoice> GetAll() =>
-        //     _context.Invoices.ToList();
+        //     _context.Invoices.ToListAsync();
 
-        public List<Invoice> GetAll()
+        public async Task<List<Invoice>> GetAll()
         {
             var invoices = _context.Invoices;
-            return invoices.ToList();
+            return await invoices.ToListAsync();
         }
 
-        public Invoice GetById(int id) =>
-            _context.Invoices.Find(id);
+        public async Task<Invoice> GetById(int id) =>
+            await _context.Invoices.FindAsync(id);
 
-        public Invoice Add(Invoice newInvoice)
+        public async Task<Invoice> Add(Invoice newInvoice)
         {
-            _context.Invoices.Add(newInvoice);
-            _context.SaveChanges();
+            await _context.Invoices.AddAsync(newInvoice);
+            await _context.SaveChangesAsync();
             return newInvoice;
         }
 
-        public bool Update(Invoice invoice)
+        public async Task<bool> Update(Invoice invoice)
         {
-            if (!InvoiceExists(invoice.Id))
+            if (!await InvoiceExists(invoice.Id))
                 return false;
             _context.Invoices.Update(invoice);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            if (!InvoiceExists(id))
+            if (!await InvoiceExists(id))
                 return false;
-            var toRemove = _context.Invoices.Find(id);
+            var toRemove = await _context.Invoices.FindAsync(id);
             _context.Invoices.Remove(toRemove);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public List<Invoice> GetByEmployeeId(int id) =>
-            _context.Customers.Where(a => a.SupportRepId == 5).SelectMany(t => t.Invoices).ToList();
+        public async Task<List<Invoice>> GetByEmployeeId(int id) =>
+            await _context.Customers.Where(a => a.SupportRepId == 5).SelectMany(t => t.Invoices).ToListAsync();
 
-        public List<Invoice> GetByCustomerId(int id) =>
-            _context.Invoices.Where(i => i.CustomerId == id).ToList();
+        public async Task<List<Invoice>> GetByCustomerId(int id) =>
+            await _context.Invoices.Where(i => i.CustomerId == id).ToListAsync();
     }
 }

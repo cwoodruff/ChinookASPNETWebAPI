@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Chinook.Domain.Converters;
 using Chinook.Domain.Entities;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
@@ -42,6 +43,20 @@ namespace Chinook.Domain.ApiModels
         public MediaTypeApiModel? MediaType { get; set; }
 
         public Track Convert() =>
+            new Track
+            {
+                Id = Id,
+                Name = Name,
+                AlbumId = AlbumId,
+                MediaTypeId = MediaTypeId,
+                GenreId = GenreId,
+                Composer = Composer,
+                Milliseconds = Milliseconds,
+                Bytes = Bytes,
+                UnitPrice = UnitPrice
+            };
+        
+        public async Task<Track> ConvertAsync() =>
             new Track
             {
                 Id = Id,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
@@ -32,11 +33,11 @@ namespace Chinook.API.Controllers
             Tags = new[] { "MediaTypeEndpoint"})]
         [Produces(typeof(List<MediaTypeApiModel>))]
         [ResponseCache(Duration = 604800)] // cache for a week
-        public ActionResult<List<MediaTypeApiModel>> Get()
+        public async Task<ActionResult<List<MediaTypeApiModel>>> Get()
         {
             try
             {
-                return new ObjectResult(_chinookSupervisor.GetAllMediaType());
+                return new ObjectResult(await _chinookSupervisor.GetAllMediaType());
             }
             catch (Exception ex)
             {
@@ -52,11 +53,11 @@ namespace Chinook.API.Controllers
             OperationId = "MediaType.GetOne",
             Tags = new[] { "MediaTypeEndpoint"})]
         [Produces(typeof(MediaTypeApiModel))]
-        public ActionResult<MediaTypeApiModel> Get(int id)
+        public async Task<ActionResult<MediaTypeApiModel>> Get(int id)
         {
             try
             {
-                var mediaType = _chinookSupervisor.GetMediaTypeById(id);
+                var mediaType = await _chinookSupervisor.GetMediaTypeById(id);
 
                 return Ok(mediaType);
             }
@@ -73,7 +74,7 @@ namespace Chinook.API.Controllers
             Description = "Creates a new MediaType",
             OperationId = "MediaType.Create",
             Tags = new[] { "MediaTypeEndpoint"})]
-        public ActionResult<MediaTypeApiModel> Post([FromBody] MediaTypeApiModel input)
+        public async Task<ActionResult<MediaTypeApiModel>> Post([FromBody] MediaTypeApiModel input)
         {
             try
             {
@@ -86,7 +87,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Media Type object");
                 }
                 
-                var mediaType = _chinookSupervisor.AddMediaType(input);
+                var mediaType = await _chinookSupervisor.AddMediaType(input);
         
                 return CreatedAtRoute("GetMediaTypeById", new { id = mediaType.Id }, mediaType);
             }
@@ -103,7 +104,7 @@ namespace Chinook.API.Controllers
             Description = "Update an MediaType",
             OperationId = "MediaType.Update",
             Tags = new[] { "MediaTypeEndpoint"})]
-        public ActionResult<MediaTypeApiModel> Put(int id, [FromBody] MediaTypeApiModel input)
+        public async Task<ActionResult<MediaTypeApiModel>> Put(int id, [FromBody] MediaTypeApiModel input)
         {
             try
             {
@@ -116,7 +117,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Media Type object");
                 }
 
-                if (_chinookSupervisor.UpdateMediaType(input))
+                if (await _chinookSupervisor.UpdateMediaType(input))
                 {
                     return CreatedAtRoute("GetMediaTypeById", new { id = input.Id }, input);
                 }
@@ -136,11 +137,11 @@ namespace Chinook.API.Controllers
             Description = "Delete a MediaType",
             OperationId = "MediaType.Delete",
             Tags = new[] { "MediaTypeEndpoint"})]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                if (_chinookSupervisor.DeleteMediaType(id))
+                if (await _chinookSupervisor.DeleteMediaType(id))
                 {
                     return Ok();
                 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.Domain.DbInfo;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
@@ -27,34 +28,34 @@ namespace Chinook.DataDapper.Repositories
             
         }
 
-        private bool AlbumExists(int id) =>
-            Connection.ExecuteScalar<bool>("select count(1) from Album where Id = @id", new {id});
+        private async Task<bool> AlbumExists(int id) =>
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from Album where Id = @id", new {id});
 
-        public List<Album> GetAll()
+        public async Task<List<Album>> GetAll()
         {
             using IDbConnection cn = Connection;
             cn.Open();
-            var albums = Connection.Query<Album>("Select * From Album");
+            var albums = await cn.QueryAsync<Album>("Select * From Album");
             return albums.ToList();
         }
 
-        public Album GetById(int? id)
+        public async Task<Album> GetById(int? id)
         {
             using var cn = Connection;
             cn.Open();
-            var album = cn.QueryFirstOrDefault<Album>("Select * From Album WHERE Id = @id", new {id});
+            var album = await cn.QueryFirstOrDefaultAsync<Album>("Select * From Album WHERE Id = @id", new {id});
             return album;
         }
 
-        public List<Album> GetByArtistId(int id)
+        public async Task<List<Album>> GetByArtistId(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var albums = cn.Query<Album>("Select * From Album WHERE ArtistId = @Id", new {id});
+            var albums = await cn.QueryAsync<Album>("Select * From Album WHERE ArtistId = @Id", new {id});
             return albums.ToList();
         }
 
-        public Album Add(Album newAlbum)
+        public async Task<Album> Add(Album newAlbum)
         {
             using var cn = Connection;
             cn.Open();
@@ -64,16 +65,16 @@ namespace Chinook.DataDapper.Repositories
             return newAlbum;
         }
 
-        public bool Update(Album album)
+        public async Task<bool> Update(Album album)
         {
-            if (!AlbumExists(album.Id))
+            if (!await AlbumExists(album.Id))
                 return false;
 
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Update(album);
+                return await cn.UpdateAsync(album);
             }
             catch(Exception)
             {
@@ -81,13 +82,13 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Delete(new Album {Id = id});
+                return await cn.DeleteAsync(new Album {Id = id});
             }
             catch(Exception)
             {

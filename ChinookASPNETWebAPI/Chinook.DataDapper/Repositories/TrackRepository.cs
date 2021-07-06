@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.Domain.DbInfo;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
@@ -27,30 +28,30 @@ namespace Chinook.DataDapper.Repositories
             
         }
 
-        private bool TrackExists(int id) =>
-            Connection.ExecuteScalar<bool>("select count(1) from Track where Id = @id", new {id});
+        private async Task<bool> TrackExists(int id) =>
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from Track where Id = @id", new {id});
 
-        public List<Track> GetAll()
+        public async Task<List<Track>> GetAll()
         {
             using IDbConnection cn = Connection;
             cn.Open();
-            var tracks = Connection.Query<Track>("Select * From Track");
+            var tracks = await cn.QueryAsync<Track>("Select * From Track");
             return tracks.ToList();
         }
 
-        public Track GetById(int id)
+        public async Task<Track> GetById(int id)
         {
             using var cn = Connection;
             cn.Open();
-            return cn.QueryFirstOrDefault<Track>("Select * From Track WHERE Id = @Id", new {id});
+            return await cn.QueryFirstOrDefaultAsync<Track>("Select * From Track WHERE Id = @Id", new {id});
         }
 
-        public Track Add(Track newTrack)
+        public async Task<Track> Add(Track newTrack)
         {
             using var cn = Connection;
             cn.Open();
 
-            newTrack.Id = (int) cn.Insert(
+            newTrack.Id = await cn.InsertAsync(
                 new Track
                 {
                     Name = newTrack.Name,
@@ -66,16 +67,16 @@ namespace Chinook.DataDapper.Repositories
             return newTrack;
         }
 
-        public bool Update(Track track)
+        public async Task<bool> Update(Track track)
         {
-            if (!TrackExists(track.Id))
+            if (!await TrackExists(track.Id))
                 return false;
 
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Update(track);
+                return await cn.UpdateAsync(track);
             }
             catch(Exception)
             {
@@ -83,13 +84,13 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
                 using var cn = Connection;
                 cn.Open();
-                return cn.Delete(new Track {Id = id});
+                return await cn.DeleteAsync(new Track {Id = id});
             }
             catch(Exception)
             {
@@ -97,51 +98,51 @@ namespace Chinook.DataDapper.Repositories
             }
         }
 
-        public List<Track> GetByInvoiceId(int id)
+        public async Task<List<Track>> GetByInvoiceId(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var tracks = cn.Query<Track>("SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN InvoiceLine AS IL ON T.Id = IL.TrackId WHERE IL.InvoiceID = @Id", new { id });
+            var tracks = await cn.QueryAsync<Track>("SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN InvoiceLine AS IL ON T.Id = IL.TrackId WHERE IL.InvoiceID = @Id", new { id });
             return tracks.ToList();
         }
 
-        public List<Track> GetByPlaylistId(int id)
+        public async Task<List<Track>> GetByPlaylistId(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var tracks = cn.Query<Track>("SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN PlaylistTrack AS PLT ON T.Id = PLT.TrackId WHERE PLT.PlayListId = @Id", new { id });
+            var tracks = await cn.QueryAsync<Track>("SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN PlaylistTrack AS PLT ON T.Id = PLT.TrackId WHERE PLT.PlayListId = @Id", new { id });
             return tracks.ToList();
         }
 
-        public List<Track> GetByArtistId(int id)
+        public async Task<List<Track>> GetByArtistId(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var tracks = cn.Query<Track>("SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN Album AS A ON T.AlbumId = A.Id WHERE A.Id = @Id", new { id });
+            var tracks = await cn.QueryAsync<Track>("SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN Album AS A ON T.AlbumId = A.Id WHERE A.Id = @Id", new { id });
             return tracks.ToList();
         }
 
-        public List<Track> GetByAlbumId(int id)
+        public async Task<List<Track>> GetByAlbumId(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var tracks = cn.Query<Track>("Select * From Track WHERE AlbumId = @Id", new { id });
+            var tracks = await cn.QueryAsync<Track>("Select * From Track WHERE AlbumId = @Id", new { id });
             return tracks.ToList();
         }
 
-        public List<Track> GetByGenreId(int id)
+        public async Task<List<Track>> GetByGenreId(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var tracks = cn.Query<Track>("Select * From Track WHERE GenreId = @Id", new { id });
+            var tracks = await cn.QueryAsync<Track>("Select * From Track WHERE GenreId = @Id", new { id });
             return tracks.ToList();
         }
 
-        public List<Track> GetByMediaTypeId(int id)
+        public async Task<List<Track>> GetByMediaTypeId(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var tracks = cn.Query<Track>("Select * From Track WHERE MediaTypeId = @Id", new { id });
+            var tracks = await cn.QueryAsync<Track>("Select * From Track WHERE MediaTypeId = @Id", new { id });
             return tracks.ToList();
         }
     }

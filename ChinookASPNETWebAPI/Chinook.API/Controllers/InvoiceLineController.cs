@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
@@ -30,11 +31,11 @@ namespace Chinook.API.Controllers
             OperationId = "InvoiceLine.GetAll",
             Tags = new[] { "InvoiceLineEndpoint"})]
         [Produces(typeof(List<InvoiceLineApiModel>))]
-        public ActionResult<List<InvoiceLineApiModel>> Get()
+        public async Task<ActionResult<List<InvoiceLineApiModel>>> Get()
         {
             try
             {
-                return new ObjectResult(_chinookSupervisor.GetAllInvoiceLine());
+                return new ObjectResult(await _chinookSupervisor.GetAllInvoiceLine());
             }
             catch (Exception ex)
             {
@@ -50,11 +51,11 @@ namespace Chinook.API.Controllers
             OperationId = "InvoiceLine.GetOne",
             Tags = new[] { "InvoiceLineEndpoint"})]
         [Produces(typeof(InvoiceLineApiModel))]
-        public ActionResult<InvoiceLineApiModel> Get(int id)
+        public async Task<ActionResult<InvoiceLineApiModel>> Get(int id)
         {
             try
             {
-                var invoiceLine = _chinookSupervisor.GetInvoiceLineById(id);
+                var invoiceLine = await _chinookSupervisor.GetInvoiceLineById(id);
                 if ( invoiceLine == null)
                 {
                     return NotFound();
@@ -76,11 +77,11 @@ namespace Chinook.API.Controllers
             OperationId = "InvoiceLine.GetByInvoice",
             Tags = new[] { "InvoiceLineEndpoint"})]
         [Produces(typeof(List<InvoiceLineApiModel>))]
-        public ActionResult<InvoiceLineApiModel> GetByInvoiceId(int id)
+        public async Task<ActionResult<InvoiceLineApiModel>> GetByInvoiceId(int id)
         {
             try
             {
-                var invoiceLines = _chinookSupervisor.GetInvoiceLineByInvoiceId(id);
+                var invoiceLines = await _chinookSupervisor.GetInvoiceLineByInvoiceId(id);
 
                 return Ok(invoiceLines);
             }
@@ -98,11 +99,11 @@ namespace Chinook.API.Controllers
             OperationId = "InvoiceLine.GetByTrackId",
             Tags = new[] { "InvoiceLineEndpoint"})]
         [Produces(typeof(List<InvoiceLineApiModel>))]
-        public ActionResult<InvoiceLineApiModel> GetByTrackId(int id)
+        public async Task<ActionResult<InvoiceLineApiModel>> GetByTrackId(int id)
         {
             try
             {
-                var invoiceLines = _chinookSupervisor.GetInvoiceLineByTrackId(id);
+                var invoiceLines = await _chinookSupervisor.GetInvoiceLineByTrackId(id);
 
                 return Ok(invoiceLines);
             }
@@ -119,7 +120,7 @@ namespace Chinook.API.Controllers
             Description = "Creates a new InvoiceLine",
             OperationId = "InvoiceLine.Create",
             Tags = new[] { "InvoiceLineEndpoint"})]
-        public ActionResult<InvoiceLineApiModel> Post([FromBody] InvoiceLineApiModel input)
+        public async Task<ActionResult<InvoiceLineApiModel>> Post([FromBody] InvoiceLineApiModel input)
         {
             try
             {
@@ -132,7 +133,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Invoice Line object");
                 }
                 
-                var invoiceLine = _chinookSupervisor.AddInvoiceLine(input);
+                var invoiceLine = await _chinookSupervisor.AddInvoiceLine(input);
         
                 return CreatedAtRoute("GetInvoiceLineById", new { id = invoiceLine.Id }, invoiceLine);
             }
@@ -149,7 +150,7 @@ namespace Chinook.API.Controllers
             Description = "Update an InvoiceLine",
             OperationId = "InvoiceLine.Update",
             Tags = new[] { "InvoiceLineEndpoint"})]
-        public ActionResult<InvoiceLineApiModel> Put(int id, [FromBody] InvoiceLineApiModel input)
+        public async Task<ActionResult<InvoiceLineApiModel>> Put(int id, [FromBody] InvoiceLineApiModel input)
         {
             try
             {
@@ -162,7 +163,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Invoice Line object");
                 }
 
-                if (_chinookSupervisor.UpdateInvoiceLine(input))
+                if (await _chinookSupervisor.UpdateInvoiceLine(input))
                 {
                     return CreatedAtRoute("GetInvoiceLineById", new { id = input.Id }, input);
                 }
@@ -182,11 +183,11 @@ namespace Chinook.API.Controllers
             Description = "Delete a InvoiceLine",
             OperationId = "InvoiceLine.Delete",
             Tags = new[] { "InvoiceLineEndpoint"})]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                if (_chinookSupervisor.DeleteInvoiceLine(id))
+                if (await _chinookSupervisor.DeleteInvoiceLine(id))
                 {
                     return Ok();
                 }

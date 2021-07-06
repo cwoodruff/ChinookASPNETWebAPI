@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Repositories;
 using Microsoft.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace Chinook.DataJson.Repositories
         {
         }
 
-        private bool TrackExists(int id)
+        private async Task<bool> TrackExists(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_CheckTrack", _sqlconn)
             {
@@ -36,7 +37,7 @@ namespace Chinook.DataJson.Repositories
             return Convert.ToBoolean(dset.Tables[0].Rows[0][0]);
         }
 
-        public List<Track> GetAll()
+        public async Task<List<Track>> GetAll()
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetTrack", _sqlconn)
             {
@@ -50,7 +51,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public Track GetById(int id)
+        public async Task<Track> GetById(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetTrackDetails", _sqlconn)
             {
@@ -66,14 +67,14 @@ namespace Chinook.DataJson.Repositories
             return converted.FirstOrDefault();
         }
 
-        public Track Add(Track newTrack)
+        public async Task<Track> Add(Track newTrack)
         {
             return newTrack;
         }
 
-        public bool Update(Track track)
+        public async Task<bool> Update(Track track)
         {
-            if (!TrackExists(track.Id))
+            if (!await TrackExists(track.Id))
                 return false;
 
             try
@@ -86,7 +87,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
@@ -98,7 +99,7 @@ namespace Chinook.DataJson.Repositories
             }
         }
 
-        public List<Track> GetByInvoiceId(int id)
+        public async Task<List<Track>> GetByInvoiceId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetTrackByInvoice", _sqlconn)
             {
@@ -113,7 +114,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public List<Track> GetByAlbumId(int id)
+        public async Task<List<Track>> GetByAlbumId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetTrackByAlbum", _sqlconn)
             {
@@ -128,7 +129,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public List<Track> GetByGenreId(int id)
+        public async Task<List<Track>> GetByGenreId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetTrackByGenre", _sqlconn)
             {
@@ -143,7 +144,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
 
-        public List<Track> GetByMediaTypeId(int id)
+        public async Task<List<Track>> GetByMediaTypeId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetTrackByMediaType", _sqlconn)
             {
@@ -158,7 +159,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
         
-        public List<Track> GetByPlaylistId(int id)
+        public async Task<List<Track>> GetByPlaylistId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetTrackByPlaylist", _sqlconn)
             {
@@ -173,7 +174,7 @@ namespace Chinook.DataJson.Repositories
             return converted;
         }
         
-        public List<Track> GetByArtistId(int id)
+        public async Task<List<Track>> GetByArtistId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetTrackByArtist", _sqlconn)
             {

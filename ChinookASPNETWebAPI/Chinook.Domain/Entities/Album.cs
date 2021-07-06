@@ -3,8 +3,9 @@ using Chinook.Domain.ApiModels;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+ using System.Threading.Tasks;
 
-namespace Chinook.Domain.Entities
+ namespace Chinook.Domain.Entities
 {
     public class Album : IConvertModel<Album, AlbumApiModel>
     {
@@ -27,6 +28,14 @@ namespace Chinook.Domain.Entities
         public virtual ICollection<Track> Tracks { get; set; }
 
         public AlbumApiModel Convert() =>
+            new AlbumApiModel
+            {
+                Id = Id,
+                ArtistId = ArtistId,
+                Title = Title
+            };
+        
+        public async Task<AlbumApiModel> ConvertAsync() =>
             new AlbumApiModel
             {
                 Id = Id,

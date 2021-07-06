@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.ApiModels;
@@ -30,11 +31,11 @@ namespace Chinook.API.Controllers
             OperationId = "Playlist.GetAll",
             Tags = new[] { "PlaylistEndpoint"})]
         [Produces(typeof(List<PlaylistApiModel>))]
-        public ActionResult<List<PlaylistApiModel>> Get()
+        public async Task<ActionResult<List<PlaylistApiModel>>> Get()
         {
             try
             {
-                return new ObjectResult(_chinookSupervisor.GetAllPlaylist());
+                return new ObjectResult(await _chinookSupervisor.GetAllPlaylist());
             }
             catch (Exception ex)
             {
@@ -50,11 +51,11 @@ namespace Chinook.API.Controllers
             OperationId = "Playlist.GetOne",
             Tags = new[] { "PlaylistEndpoint"})]
         [Produces(typeof(PlaylistApiModel))]
-        public ActionResult<PlaylistApiModel> Get(int id)
+        public async Task<ActionResult<PlaylistApiModel>> Get(int id)
         {
             try
             {
-                var playList = _chinookSupervisor.GetPlaylistById(id);
+                var playList = await _chinookSupervisor.GetPlaylistById(id);
 
                 return Ok(playList);
             }
@@ -71,7 +72,7 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Playlist",
             OperationId = "Playlist.Create",
             Tags = new[] { "PlaylistEndpoint"})]
-        public ActionResult<PlaylistApiModel> Post([FromBody] PlaylistApiModel input)
+        public async Task<ActionResult<PlaylistApiModel>> Post([FromBody] PlaylistApiModel input)
         {
             try
             {
@@ -84,7 +85,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Playlist object");
                 }
                 
-                var playlist = _chinookSupervisor.AddPlaylist(input);
+                var playlist = await _chinookSupervisor.AddPlaylist(input);
         
                 return CreatedAtRoute("GetPlaylistById", new { id = playlist.Id }, playlist);
             }
@@ -101,7 +102,7 @@ namespace Chinook.API.Controllers
             Description = "Update an Playlist",
             OperationId = "Playlist.Update",
             Tags = new[] { "PlaylistEndpoint"})]
-        public ActionResult<PlaylistApiModel> Put(int id, [FromBody] PlaylistApiModel input)
+        public async Task<ActionResult<PlaylistApiModel>> Put(int id, [FromBody] PlaylistApiModel input)
         {
             try
             {
@@ -114,7 +115,7 @@ namespace Chinook.API.Controllers
                     return BadRequest("Invalid Playlist object");
                 }
 
-                if (_chinookSupervisor.UpdatePlaylist(input))
+                if (await _chinookSupervisor.UpdatePlaylist(input))
                 {
                     return CreatedAtRoute("GetPlaylistById", new { id = input.Id }, input);
                 }
@@ -134,11 +135,11 @@ namespace Chinook.API.Controllers
             Description = "Delete a Playlist",
             OperationId = "Playlist.Delete",
             Tags = new[] { "PlaylistEndpoint"})]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                if (_chinookSupervisor.DeletePlaylist(id))
+                if (await _chinookSupervisor.DeletePlaylist(id))
                 {
                     return Ok();
                 }
@@ -159,11 +160,11 @@ namespace Chinook.API.Controllers
             OperationId = "Playlist.GetByTrackId",
             Tags = new[] { "PlaylistEndpoint"})]
         [Produces(typeof(List<TrackApiModel>))]
-        public ActionResult<TrackApiModel> GetByTrackId(int id)
+        public async Task<ActionResult<TrackApiModel>> GetByTrackId(int id)
         {
             try
             {
-                return Ok(_chinookSupervisor.GetPlaylistByTrackId(id));
+                return Ok(await _chinookSupervisor.GetPlaylistByTrackId(id));
             }
             catch (Exception ex)
             {

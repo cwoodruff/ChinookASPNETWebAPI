@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Chinook.DataEF;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chinook.DataEFCore.Repositories
 {
@@ -15,60 +17,60 @@ namespace Chinook.DataEFCore.Repositories
             _context = context;
         }
 
-        private bool TrackExists(int id) =>
-            _context.Tracks.Any(i => i.Id == id);
+        private async Task<bool> TrackExists(int id) =>
+            await _context.Tracks.AnyAsync(i => i.Id == id);
 
         public void Dispose() => _context.Dispose();
 
-        public List<Track> GetAll() =>
-            _context.Tracks.ToList();
+        public async Task<List<Track>> GetAll() =>
+            await _context.Tracks.ToListAsync();
 
-        public Track GetById(int id) =>
-            _context.Tracks.Find(id);
+        public async Task<Track> GetById(int id) =>
+            await _context.Tracks.FindAsync(id);
 
-        public Track Add(Track newTrack)
+        public async Task<Track> Add(Track newTrack)
         {
-            _context.Tracks.Add(newTrack);
-            _context.SaveChanges();
+            await _context.Tracks.AddAsync(newTrack);
+            await _context.SaveChangesAsync();
             return newTrack;
         }
 
-        public bool Update(Track track)
+        public async Task<bool> Update(Track track)
         {
-            if (!TrackExists(track.Id))
+            if (!await TrackExists(track.Id))
                 return false;
             _context.Tracks.Update(track);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            if (!TrackExists(id))
+            if (!await TrackExists(id))
                 return false;
-            var toRemove = _context.Tracks.Find(id);
+            var toRemove = await _context.Tracks.FindAsync(id);
             _context.Tracks.Remove(toRemove);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public List<Track> GetByAlbumId(int id) =>
-            _context.Tracks.Where(a => a.AlbumId == id).ToList();
+        public async Task<List<Track>> GetByAlbumId(int id) =>
+            await _context.Tracks.Where(a => a.AlbumId == id).ToListAsync();
 
-        public List<Track> GetByGenreId(int id) =>
-            _context.Tracks.Where(a => a.GenreId == id).ToList();
+        public async Task<List<Track>> GetByGenreId(int id) =>
+            await _context.Tracks.Where(a => a.GenreId == id).ToListAsync();
 
-        public List<Track> GetByMediaTypeId(int id) =>
-            _context.Tracks.Where(a => a.MediaTypeId == id).ToList();
+        public async Task<List<Track>> GetByMediaTypeId(int id) =>
+            await _context.Tracks.Where(a => a.MediaTypeId == id).ToListAsync();
         
-        public List<Track> GetByPlaylistId(int id) =>
-            _context.PlaylistTracks.Where(p => p.PlaylistId == id).Select(p => p.Track).ToList();
+        public async Task<List<Track>> GetByPlaylistId(int id) =>
+            await _context.PlaylistTracks.Where(p => p.PlaylistId == id).Select(p => p.Track).ToListAsync();
 
-        public List<Track> GetByArtistId(int id) => 
-            _context.Albums.Where(a => a.ArtistId == 5).SelectMany(t => t.Tracks).ToList();
+        public async Task<List<Track>> GetByArtistId(int id) => 
+            await _context.Albums.Where(a => a.ArtistId == 5).SelectMany(t => t.Tracks).ToListAsync();
 
-            public List<Track> GetByInvoiceId(int id) =>_context.Tracks
+            public async Task<List<Track>> GetByInvoiceId(int id) =>await _context.Tracks
                 .Where(c => c.InvoiceLines.Any(o => o.InvoiceId == id))
-                .ToList();
+                .ToListAsync();
         }
 }
