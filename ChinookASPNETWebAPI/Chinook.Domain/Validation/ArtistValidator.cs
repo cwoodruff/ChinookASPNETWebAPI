@@ -1,9 +1,9 @@
-﻿using Chinook.Domain.Entities;
+﻿using Chinook.Domain.ApiModels;
 using FluentValidation;
 
 namespace Chinook.Domain.Validation
 {
-    public class ArtistValidator : AbstractValidator<Artist>
+    public class ArtistValidator : AbstractValidator<ArtistApiModel>
     {
         public ArtistValidator()
         {

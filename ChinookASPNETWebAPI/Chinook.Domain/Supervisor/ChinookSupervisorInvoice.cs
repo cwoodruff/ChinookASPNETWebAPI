@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Chinook.Domain.ApiModels;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Extensions;
+using FluentValidation;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
@@ -55,6 +56,7 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<InvoiceApiModel> AddInvoice(InvoiceApiModel newInvoiceApiModel)
         {
+            await _invoiceValidator.ValidateAndThrowAsync(newInvoiceApiModel);
             var invoice = await newInvoiceApiModel.ConvertAsync();
 
             invoice = await _invoiceRepository.Add(invoice);
@@ -64,6 +66,7 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<bool> UpdateInvoice(InvoiceApiModel invoiceApiModel)
         {
+            await _invoiceValidator.ValidateAndThrowAsync(invoiceApiModel);
             var invoice = await _invoiceRepository.GetById(invoiceApiModel.Id);
 
             if (invoice == null) return false;

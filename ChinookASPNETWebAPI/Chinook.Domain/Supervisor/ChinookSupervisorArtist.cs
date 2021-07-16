@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Chinook.Domain.ApiModels;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Extensions;
+using FluentValidation;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
@@ -46,6 +47,8 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<ArtistApiModel> AddArtist(ArtistApiModel newArtistApiModel)
         {
+            await _artistValidator.ValidateAndThrowAsync(newArtistApiModel);
+            
             var artist = await newArtistApiModel.ConvertAsync();
 
             artist = await _artistRepository.Add(artist);
@@ -55,6 +58,8 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<bool> UpdateArtist(ArtistApiModel artistApiModel)
         {
+            await _artistValidator.ValidateAndThrowAsync(artistApiModel);
+            
             var artist = await _artistRepository.GetById(artistApiModel.Id);
 
             if (artist == null) return false;

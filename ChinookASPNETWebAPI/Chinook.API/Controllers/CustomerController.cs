@@ -32,7 +32,7 @@ namespace Chinook.API.Controllers
             Description = "Get all Customers",
             OperationId = "Customer.GetAll",
             Tags = new[] { "CustomerEndpoint" })]
-        [Produces(typeof(List<CustomerApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<List<CustomerApiModel>>> Get()
         {
             try
@@ -53,7 +53,7 @@ namespace Chinook.API.Controllers
             Description = "Creates specific Customer",
             OperationId = "Customer.GetOne",
             Tags = new[] { "CustomerEndpoint" })]
-        [Produces(typeof(CustomerApiModel))]
+        [Produces("application/json")]
         public async Task<ActionResult<CustomerApiModel>> Get(int id)
         {
             try
@@ -77,7 +77,7 @@ namespace Chinook.API.Controllers
             Description = "Get Customers by Support Rep",
             OperationId = "Customer.GetBySupportRep",
             Tags = new[] { "CustomerEndpoint" })]
-        [Produces(typeof(List<CustomerApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<CustomerApiModel>> GetBySupportRepId(int id)
         {
             try
@@ -100,6 +100,8 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Customer",
             OperationId = "Customer.Create",
             Tags = new[] { "CustomerEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<CustomerApiModel>> Post([FromBody] CustomerApiModel input)
         {
             try
@@ -125,6 +127,8 @@ namespace Chinook.API.Controllers
             Description = "Update Customer",
             OperationId = "Customer.Update",
             Tags = new[] { "CustomerEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<CustomerApiModel>> Put(int id, [FromBody] CustomerApiModel input)
         {
             try

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Extensions;
+using FluentValidation;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
@@ -46,6 +47,7 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<PlaylistApiModel> AddPlaylist(PlaylistApiModel newPlaylistApiModel)
         {
+            await _playlistValidator.ValidateAndThrowAsync(newPlaylistApiModel);
             var playlist = await newPlaylistApiModel.ConvertAsync();
 
             playlist = await _playlistRepository.Add(playlist);
@@ -55,6 +57,7 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<bool> UpdatePlaylist(PlaylistApiModel playlistApiModel)
         {
+            await _playlistValidator.ValidateAndThrowAsync(playlistApiModel);
             var playlist = await _playlistRepository.GetById(playlistApiModel.Id);
 
             if (playlist == null) return false;

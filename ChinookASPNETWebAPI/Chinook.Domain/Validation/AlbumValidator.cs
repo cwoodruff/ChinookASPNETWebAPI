@@ -1,9 +1,9 @@
-﻿using Chinook.Domain.Entities;
+﻿using Chinook.Domain.ApiModels;
 using FluentValidation;
 
 namespace Chinook.Domain.Validation
 {
-    public class AlbumValidator : AbstractValidator<Album>
+    public class AlbumValidator : AbstractValidator<AlbumApiModel>
     {
         public AlbumValidator()
         {

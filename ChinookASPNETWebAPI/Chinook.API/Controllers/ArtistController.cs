@@ -32,7 +32,7 @@ namespace Chinook.API.Controllers
             Description = "Get all Artists",
             OperationId = "Artist.GetAll",
             Tags = new[] { "ArtistEndpoint" })]
-        [Produces(typeof(List<ArtistApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<List<ArtistApiModel>>> Get()
         {
             try
@@ -53,7 +53,7 @@ namespace Chinook.API.Controllers
             Description = "Get specific Artist",
             OperationId = "Artist.GetOne",
             Tags = new[] { "ArtistEndpoint" })]
-        [Produces(typeof(ArtistApiModel))]
+        [Produces("application/json")]
         public async Task<ActionResult<ArtistApiModel>> Get(int id)
         {
             try
@@ -76,6 +76,8 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Artist",
             OperationId = "Artist.Create",
             Tags = new[] { "ArtistEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<ArtistApiModel>> Post([FromBody] ArtistApiModel input)
         {
             try
@@ -101,6 +103,8 @@ namespace Chinook.API.Controllers
             Description = "Update a Artist",
             OperationId = "Artist.Update",
             Tags = new[] { "ArtistEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<ArtistApiModel>> Put(int id, [FromBody] ArtistApiModel input)
         {
             try

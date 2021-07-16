@@ -33,7 +33,7 @@ namespace Chinook.API.Controllers
             Description = "Gets all Genre",
             OperationId = "Genre.GetAll",
             Tags = new[] { "GenreEndpoint" })]
-        [Produces(typeof(List<GenreApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<List<GenreApiModel>>> Get()
         {
             try
@@ -54,7 +54,7 @@ namespace Chinook.API.Controllers
             Description = "Gets a specific Genre",
             OperationId = "Genre.GetOne",
             Tags = new[] { "GenreEndpoint" })]
-        [Produces(typeof(GenreApiModel))]
+        [Produces("application/json")]
         public async Task<ActionResult<GenreApiModel>> Get(int id)
         {
             try
@@ -77,6 +77,8 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Genre",
             OperationId = "Genre.Create",
             Tags = new[] { "GenreEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<GenreApiModel>> Post([FromBody] GenreApiModel input)
         {
             try
@@ -102,6 +104,8 @@ namespace Chinook.API.Controllers
             Description = "Update an Genre",
             OperationId = "Genre.Update",
             Tags = new[] { "GenreEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<GenreApiModel>> Put(int id, [FromBody] GenreApiModel input)
         {
             try

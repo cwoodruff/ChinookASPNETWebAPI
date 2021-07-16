@@ -1,9 +1,9 @@
-﻿using Chinook.Domain.Entities;
+﻿using Chinook.Domain.ApiModels;
 using FluentValidation;
 
 namespace Chinook.Domain.Validation
 {
-    public class MediaTypeValidator : AbstractValidator<MediaType>
+    public class MediaTypeValidator : AbstractValidator<MediaTypeApiModel>
     {
         public MediaTypeValidator()
         {

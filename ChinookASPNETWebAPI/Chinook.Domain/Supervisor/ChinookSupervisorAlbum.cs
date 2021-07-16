@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Chinook.Domain.ApiModels;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Extensions;
+using FluentValidation;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
@@ -55,6 +56,8 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<AlbumApiModel> AddAlbum(AlbumApiModel newAlbumApiModel)
         {
+            await _albumValidator.ValidateAndThrowAsync(newAlbumApiModel);
+            
             var album = await newAlbumApiModel.ConvertAsync();
 
             album = await _albumRepository.Add(album);
@@ -64,6 +67,8 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<bool> UpdateAlbum(AlbumApiModel albumApiModel)
         {
+            await _albumValidator.ValidateAndThrowAsync(albumApiModel);
+            
             var album = await _albumRepository.GetById(albumApiModel.Id);
 
             if (album is null) return false;

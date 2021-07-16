@@ -33,7 +33,7 @@ namespace Chinook.API.Controllers
             Description = "Gets all MediaType",
             OperationId = "MediaType.GetAll",
             Tags = new[] { "MediaTypeEndpoint" })]
-        [Produces(typeof(List<MediaTypeApiModel>))]
+        [Produces("application/json")]
         [ResponseCache(Duration = 604800)] // cache for a week
         public async Task<ActionResult<List<MediaTypeApiModel>>> Get()
         {
@@ -55,7 +55,7 @@ namespace Chinook.API.Controllers
             Description = "Gets a specific MediaType",
             OperationId = "MediaType.GetOne",
             Tags = new[] { "MediaTypeEndpoint" })]
-        [Produces(typeof(MediaTypeApiModel))]
+        [Produces("application/json")]
         public async Task<ActionResult<MediaTypeApiModel>> Get(int id)
         {
             try
@@ -78,6 +78,8 @@ namespace Chinook.API.Controllers
             Description = "Creates a new MediaType",
             OperationId = "MediaType.Create",
             Tags = new[] { "MediaTypeEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<MediaTypeApiModel>> Post([FromBody] MediaTypeApiModel input)
         {
             try
@@ -103,6 +105,8 @@ namespace Chinook.API.Controllers
             Description = "Update an MediaType",
             OperationId = "MediaType.Update",
             Tags = new[] { "MediaTypeEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<MediaTypeApiModel>> Put(int id, [FromBody] MediaTypeApiModel input)
         {
             try

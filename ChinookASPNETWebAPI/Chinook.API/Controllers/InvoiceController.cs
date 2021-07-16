@@ -32,7 +32,7 @@ namespace Chinook.API.Controllers
             Description = "Gets all Invoice",
             OperationId = "Invoice.GetAll",
             Tags = new[] { "InvoiceEndpoint" })]
-        [Produces(typeof(List<InvoiceApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<List<InvoiceApiModel>>> Get()
         {
             try
@@ -53,7 +53,7 @@ namespace Chinook.API.Controllers
             Description = "Gets a specific Invoice",
             OperationId = "Invoice.GetOne",
             Tags = new[] { "InvoiceEndpoint" })]
-        [Produces(typeof(InvoiceApiModel))]
+        [Produces("application/json")]
         public async Task<ActionResult<InvoiceApiModel>> Get(int id)
         {
             try
@@ -77,7 +77,7 @@ namespace Chinook.API.Controllers
             Description = "Gets Invoices by Customer",
             OperationId = "Invoice.GetByArtist",
             Tags = new[] { "InvoiceEndpoint" })]
-        [Produces(typeof(List<InvoiceApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<InvoiceApiModel>> GetByCustomerId(int id)
         {
             try
@@ -98,6 +98,8 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Invoice",
             OperationId = "Invoice.Create",
             Tags = new[] { "InvoiceEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<InvoiceApiModel>> Post([FromBody] InvoiceApiModel input)
         {
             try
@@ -123,6 +125,8 @@ namespace Chinook.API.Controllers
             Description = "Update an Invoice",
             OperationId = "Invoice.Update",
             Tags = new[] { "InvoiceEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<InvoiceApiModel>> Put(int id, [FromBody] InvoiceApiModel input)
         {
             try
@@ -171,7 +175,7 @@ namespace Chinook.API.Controllers
             Description = "Gets Invoices by Employee",
             OperationId = "Invoice.Create",
             Tags = new[] { "InvoiceEndpoint" })]
-        [Produces(typeof(List<InvoiceApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<InvoiceApiModel>> GetByEmployeeId(int id)
         {
             try

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Extensions;
+using FluentValidation;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
@@ -46,6 +47,7 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<MediaTypeApiModel> AddMediaType(MediaTypeApiModel newMediaTypeApiModel)
         {
+            await _mediaTypeValidator.ValidateAndThrowAsync(newMediaTypeApiModel);
             var mediaType = await newMediaTypeApiModel.ConvertAsync();
 
             mediaType = await _mediaTypeRepository.Add(mediaType);
@@ -55,6 +57,7 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<bool> UpdateMediaType(MediaTypeApiModel mediaTypeApiModel)
         {
+            await _mediaTypeValidator.ValidateAndThrowAsync(mediaTypeApiModel);
             var mediaType = await _mediaTypeRepository.GetById(mediaTypeApiModel.Id);
 
             if (mediaType == null) return false;

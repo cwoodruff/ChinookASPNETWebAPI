@@ -32,7 +32,7 @@ namespace Chinook.API.Controllers
             Description = "Gets all InvoiceLine",
             OperationId = "InvoiceLine.GetAll",
             Tags = new[] { "InvoiceLineEndpoint" })]
-        [Produces(typeof(List<InvoiceLineApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<List<InvoiceLineApiModel>>> Get()
         {
             try
@@ -53,7 +53,7 @@ namespace Chinook.API.Controllers
             Description = "Gets a specific InvoiceLine",
             OperationId = "InvoiceLine.GetOne",
             Tags = new[] { "InvoiceLineEndpoint" })]
-        [Produces(typeof(InvoiceLineApiModel))]
+        [Produces("application/json")]
         public async Task<ActionResult<InvoiceLineApiModel>> Get(int id)
         {
             try
@@ -77,7 +77,7 @@ namespace Chinook.API.Controllers
             Description = "Gets InvoiceLine by Invoice",
             OperationId = "InvoiceLine.GetByInvoice",
             Tags = new[] { "InvoiceLineEndpoint" })]
-        [Produces(typeof(List<InvoiceLineApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<InvoiceLineApiModel>> GetByInvoiceId(int id)
         {
             try
@@ -100,7 +100,7 @@ namespace Chinook.API.Controllers
             Description = "Gets InvoiceLine by Track",
             OperationId = "InvoiceLine.GetByTrackId",
             Tags = new[] { "InvoiceLineEndpoint" })]
-        [Produces(typeof(List<InvoiceLineApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<InvoiceLineApiModel>> GetByTrackId(int id)
         {
             try
@@ -123,6 +123,8 @@ namespace Chinook.API.Controllers
             Description = "Creates a new InvoiceLine",
             OperationId = "InvoiceLine.Create",
             Tags = new[] { "InvoiceLineEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<InvoiceLineApiModel>> Post([FromBody] InvoiceLineApiModel input)
         {
             try
@@ -148,6 +150,8 @@ namespace Chinook.API.Controllers
             Description = "Update an InvoiceLine",
             OperationId = "InvoiceLine.Update",
             Tags = new[] { "InvoiceLineEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<InvoiceLineApiModel>> Put(int id, [FromBody] InvoiceLineApiModel input)
         {
             try

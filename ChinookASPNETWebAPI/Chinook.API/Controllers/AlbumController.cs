@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Chinook.Domain.ApiModels;
 using Chinook.Domain.Supervisor;
+using FluentValidation;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -53,7 +54,7 @@ namespace Chinook.API.Controllers
             Description = "Gets a specific Album",
             OperationId = "Album.GetOne",
             Tags = new[] { "AlbumEndpoint" })]
-        [Produces(typeof(AlbumApiModel))]
+        [Produces("application/json")]
         public async Task<ActionResult<AlbumApiModel>> Get(int id)
         {
             try
@@ -77,7 +78,7 @@ namespace Chinook.API.Controllers
             Description = "Gets Albums by Artist",
             OperationId = "Album.GetByArtist",
             Tags = new[] { "AlbumEndpoint" })]
-        [Produces(typeof(List<AlbumApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<List<AlbumApiModel>>> GetByArtistId(int id)
         {
             try
@@ -100,6 +101,8 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Album",
             OperationId = "Album.Create",
             Tags = new[] { "AlbumEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<AlbumApiModel>> Post([FromBody] AlbumApiModel input)
         {
             try
@@ -110,6 +113,11 @@ namespace Chinook.API.Controllers
                 var album = await _chinookSupervisor.AddAlbum(input);
 
                 return CreatedAtRoute("GetAlbumById", new { id = album.Id }, album);
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogError($"Validation error for Album Post action: {ex}");
+                return StatusCode(422, "Validation error for Album");
             }
             catch (Exception ex)
             {
@@ -125,6 +133,8 @@ namespace Chinook.API.Controllers
             Description = "Update an Album",
             OperationId = "Album.Update",
             Tags = new[] { "AlbumEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<AlbumApiModel>> Put(int id, [FromBody] AlbumApiModel input)
         {
             try
@@ -136,6 +146,11 @@ namespace Chinook.API.Controllers
                     return CreatedAtRoute("GetAlbumById", new { id = input.Id }, input);
 
                 return StatusCode(500);
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogError($"Validation error for Album Post action: {ex}");
+                return StatusCode(422, "Validation error for Album");
             }
             catch (Exception ex)
             {

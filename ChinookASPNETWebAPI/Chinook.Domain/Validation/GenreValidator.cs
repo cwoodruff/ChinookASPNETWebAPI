@@ -1,9 +1,9 @@
-﻿using Chinook.Domain.Entities;
+﻿using Chinook.Domain.ApiModels;
 using FluentValidation;
 
 namespace Chinook.Domain.Validation
 {
-    public class GenreValidator : AbstractValidator<Genre>
+    public class GenreValidator : AbstractValidator<GenreApiModel>
     {
         public GenreValidator()
         {

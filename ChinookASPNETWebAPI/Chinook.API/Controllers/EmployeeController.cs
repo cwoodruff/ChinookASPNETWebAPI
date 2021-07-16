@@ -32,7 +32,7 @@ namespace Chinook.API.Controllers
             Description = "Gets all Employee",
             OperationId = "Employee.GetAll",
             Tags = new[] { "EmployeeEndpoint" })]
-        [Produces(typeof(List<EmployeeApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<List<EmployeeApiModel>>> Get()
         {
             try
@@ -53,7 +53,7 @@ namespace Chinook.API.Controllers
             Description = "Gets a specific Employee",
             OperationId = "Employee.GetOne",
             Tags = new[] { "EmployeeEndpoint" })]
-        [Produces(typeof(EmployeeApiModel))]
+        [Produces("application/json")]
         public async Task<ActionResult<EmployeeApiModel>> Get(int id)
         {
             try
@@ -77,7 +77,7 @@ namespace Chinook.API.Controllers
             Description = "Gets Reports to by Employee",
             OperationId = "Employee.GetReportsTo",
             Tags = new[] { "EmployeeEndpoint" })]
-        [Produces(typeof(List<EmployeeApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<List<EmployeeApiModel>>> GetReportsTo(int id)
         {
             try
@@ -101,7 +101,7 @@ namespace Chinook.API.Controllers
             Description = "Gets Employee direct reports",
             OperationId = "Employee.GetByArtist",
             Tags = new[] { "EmployeeEndpoint" })]
-        [Produces(typeof(EmployeeApiModel))]
+        [Produces("application/json")]
         public async Task<ActionResult<EmployeeApiModel>> GetDirectReports(int id)
         {
             try
@@ -124,6 +124,8 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Employee",
             OperationId = "Employee.Create",
             Tags = new[] { "EmployeeEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<EmployeeApiModel>> Post([FromBody] EmployeeApiModel input)
         {
             try
@@ -149,6 +151,8 @@ namespace Chinook.API.Controllers
             Description = "Update an Employee",
             OperationId = "Employee.Update",
             Tags = new[] { "EmployeeEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<EmployeeApiModel>> Put(int id, [FromBody] EmployeeApiModel input)
         {
             try

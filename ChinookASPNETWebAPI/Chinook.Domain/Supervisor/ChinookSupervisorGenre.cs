@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Extensions;
+using FluentValidation;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
@@ -48,6 +49,7 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<GenreApiModel> AddGenre(GenreApiModel newGenreApiModel)
         {
+            await _genreValidator.ValidateAndThrowAsync(newGenreApiModel);
             var genre = await newGenreApiModel.ConvertAsync();
 
             genre = await _genreRepository.Add(genre);
@@ -57,6 +59,7 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<bool> UpdateGenre(GenreApiModel genreApiModel)
         {
+            await _genreValidator.ValidateAndThrowAsync(genreApiModel);
             var genre = await _genreRepository.GetById(genreApiModel.Id);
 
             if (genre == null) return false;

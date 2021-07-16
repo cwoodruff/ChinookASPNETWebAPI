@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Chinook.Domain.ApiModels;
 using Chinook.Domain.Entities;
 using Chinook.Domain.Extensions;
+using FluentValidation;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
@@ -59,6 +60,7 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<EmployeeApiModel> AddEmployee(EmployeeApiModel newEmployeeApiModel)
         {
+            await _employeeValidator.ValidateAndThrowAsync(newEmployeeApiModel);
             var employee = await newEmployeeApiModel.ConvertAsync();
 
             employee = await _employeeRepository.Add(employee);
@@ -68,6 +70,7 @@ namespace Chinook.Domain.Supervisor
 
         public async Task<bool> UpdateEmployee(EmployeeApiModel employeeApiModel)
         {
+            await _employeeValidator.ValidateAndThrowAsync(employeeApiModel);
             var employee = await _employeeRepository.GetById(employeeApiModel.Id);
 
             if (employee == null) return false;

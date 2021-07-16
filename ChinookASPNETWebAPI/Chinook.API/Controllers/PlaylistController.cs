@@ -32,7 +32,7 @@ namespace Chinook.API.Controllers
             Description = "Gets all Playlist",
             OperationId = "Playlist.GetAll",
             Tags = new[] { "PlaylistEndpoint" })]
-        [Produces(typeof(List<PlaylistApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<List<PlaylistApiModel>>> Get()
         {
             try
@@ -53,7 +53,7 @@ namespace Chinook.API.Controllers
             Description = "Gets a specific Playlist",
             OperationId = "Playlist.GetOne",
             Tags = new[] { "PlaylistEndpoint" })]
-        [Produces(typeof(PlaylistApiModel))]
+        [Produces("application/json")]
         public async Task<ActionResult<PlaylistApiModel>> Get(int id)
         {
             try
@@ -76,6 +76,8 @@ namespace Chinook.API.Controllers
             Description = "Creates a new Playlist",
             OperationId = "Playlist.Create",
             Tags = new[] { "PlaylistEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<PlaylistApiModel>> Post([FromBody] PlaylistApiModel input)
         {
             try
@@ -101,6 +103,8 @@ namespace Chinook.API.Controllers
             Description = "Update an Playlist",
             OperationId = "Playlist.Update",
             Tags = new[] { "PlaylistEndpoint" })]
+        [Produces("application/json")]
+        [Consumes("application/json")]
         public async Task<ActionResult<PlaylistApiModel>> Put(int id, [FromBody] PlaylistApiModel input)
         {
             try
@@ -149,7 +153,7 @@ namespace Chinook.API.Controllers
             Description = "Gets Playlist by Track",
             OperationId = "Playlist.GetByTrackId",
             Tags = new[] { "PlaylistEndpoint" })]
-        [Produces(typeof(List<TrackApiModel>))]
+        [Produces("application/json")]
         public async Task<ActionResult<TrackApiModel>> GetByTrackId(int id)
         {
             try
