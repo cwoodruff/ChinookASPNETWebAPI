@@ -1,12 +1,11 @@
-﻿using Chinook.DataEFCore.Repositories;
+﻿using System;
+using Chinook.DataEFCore.Repositories;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Supervisor;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.OpenApi.Models;
 //using Chinook.DataJson.Repositories;
 //using Chinook.DataDapper.Repositories;
 
@@ -31,14 +30,6 @@ namespace Chinook.API.Configurations
         public static void ConfigureSupervisor(this IServiceCollection services)
         {
             services.AddScoped<IChinookSupervisor, ChinookSupervisor>();
-        }
-
-        public static void AddMiddleware(this IServiceCollection services)
-        {
-            // services.AddMvc().AddNewtonsoftJson(options =>
-            // {
-            //     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            // });
         }
 
         public static void AddAPILogging(this IServiceCollection services)
@@ -66,13 +57,6 @@ namespace Chinook.API.Configurations
             });
         }
 
-        public static void AddApiExplorerServices(this IServiceCollection services)
-        {
-            services.TryAddSingleton<IApiDescriptionGroupCollectionProvider, ApiDescriptionGroupCollectionProvider>();
-            services.TryAddEnumerable(ServiceDescriptor
-                .Transient<IApiDescriptionProvider, DefaultApiDescriptionProvider>());
-        }
-
         public static void AddVersioningServices(this IServiceCollection services)
         {
             services.AddApiVersioning(options =>
@@ -80,6 +64,32 @@ namespace Chinook.API.Configurations
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.ReportApiVersions = true;
+            });
+        }
+        
+        public static void AddSwaggerServices(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Chinook Music Store API",
+                    Description = "A simple example ASP.NET Core Web API",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Chris Woodruff",
+                        Email = string.Empty,
+                        Url = new Uri("https://chriswoodruff.com")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under MIT",
+                        Url = new Uri("https://opensource.org/licenses/MIT")
+                    }
+                });
+                c.EnableAnnotations();
             });
         }
     }
