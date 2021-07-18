@@ -30,18 +30,9 @@ namespace Chinook.API.Middleware
             {
                 switch (context.Request.Method)
                 {
-                    case "GET" when !context.Request.Headers.Keys.Contains("id"):
-                        context.Response.StatusCode = 400; //Bad Request                
+                    case "PUT" when !context.Request.Headers.Keys.Contains("id"):
+                        context.Response.StatusCode = 400; //UnAuthorized
                         await context.Response.WriteAsync("Id is missing");
-                        return;
-                    case "POST" when !context.Request.ContentLength.Equals(0):
-                        context.Response.StatusCode = 400; //UnAuthorized
-                        await context.Response.WriteAsync("Entity missing");
-                        return;
-                    case "PUT" when !context.Request.Headers.Keys.Contains("id") ||
-                                    !context.Request.ContentLength.Equals(0):
-                        context.Response.StatusCode = 400; //UnAuthorized
-                        await context.Response.WriteAsync("Entity missing");
                         return;
                     case "DELETE" when !context.Request.Headers.Keys.Contains("id"):
                         context.Response.StatusCode = 400; //UnAuthorized
