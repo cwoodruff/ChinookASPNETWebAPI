@@ -25,11 +25,10 @@ namespace Chinook.DataDapper.Repositories
 
         public void Dispose()
         {
-            
         }
 
         private async Task<bool> InvoiceLineExists(int id) =>
-            await Connection.ExecuteScalarAsync<bool>("select count(1) from InvoiceLine where Id = @id", new {id});
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from InvoiceLine where Id = @id", new { id });
 
         public async Task<List<InvoiceLine>> GetAll()
         {
@@ -43,14 +42,15 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            return cn.QueryFirstOrDefault<InvoiceLine>("Select * From InvoiceLine WHERE Id = @Id", new {id});
+            return cn.QueryFirstOrDefault<InvoiceLine>("Select * From InvoiceLine WHERE Id = @Id", new { id });
         }
 
         public async Task<List<InvoiceLine>> GetByInvoiceId(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var invoiceLines = await cn.QueryAsync<InvoiceLine>("Select * From InvoiceLine WHERE InvoiceId = @Id", new { id });
+            var invoiceLines =
+                await cn.QueryAsync<InvoiceLine>("Select * From InvoiceLine WHERE InvoiceId = @Id", new { id });
             return invoiceLines.ToList();
         }
 
@@ -58,7 +58,7 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            var invoiceLines =  cn.Query<InvoiceLine>("Select * From InvoiceLine WHERE TrackId = @Id", new { id });
+            var invoiceLines = cn.Query<InvoiceLine>("Select * From InvoiceLine WHERE TrackId = @Id", new { id });
             return invoiceLines.ToList();
         }
 
@@ -91,7 +91,7 @@ namespace Chinook.DataDapper.Repositories
                 cn.Open();
                 return await cn.UpdateAsync(invoiceLine);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -103,9 +103,9 @@ namespace Chinook.DataDapper.Repositories
             {
                 using var cn = Connection;
                 cn.Open();
-                return await cn.DeleteAsync(new InvoiceLine {Id = id});
+                return await cn.DeleteAsync(new InvoiceLine { Id = id });
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }

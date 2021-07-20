@@ -10,12 +10,10 @@ namespace Chinook.Domain.ApiModels
     {
         public int PlaylistId { get; set; }
         public int TrackId { get; set; }
-        
-        [JsonIgnore]
-        public PlaylistApiModel Playlist { get; set; }
-        
-        [JsonIgnore]
-        public TrackApiModel Track { get; set; }
+
+        [JsonIgnore] public PlaylistApiModel Playlist { get; set; }
+
+        [JsonIgnore] public TrackApiModel Track { get; set; }
 
         public PlaylistTrack Convert() =>
             new()
@@ -23,7 +21,7 @@ namespace Chinook.Domain.ApiModels
                 PlaylistId = PlaylistId,
                 TrackId = TrackId
             };
-        
+
         public async Task<PlaylistTrack> ConvertAsync() =>
             new()
             {

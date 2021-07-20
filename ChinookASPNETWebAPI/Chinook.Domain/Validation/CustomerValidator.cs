@@ -5,7 +5,8 @@ namespace Chinook.Domain.Validation
 {
     public class CustomerValidator : AbstractValidator<CustomerApiModel>
     {
-        public CustomerValidator() {
+        public CustomerValidator()
+        {
             RuleFor(c => c.FirstName).NotNull();
             RuleFor(c => c.LastName).NotNull();
             RuleFor(c => c.Email).EmailAddress();

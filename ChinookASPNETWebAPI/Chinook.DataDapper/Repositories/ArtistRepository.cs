@@ -22,14 +22,13 @@ namespace Chinook.DataDapper.Repositories
         }
 
         private IDbConnection Connection => new SqlConnection(_dbInfo.ConnectionStrings);
-        
+
         public void Dispose()
         {
-            
         }
 
         private async Task<bool> ArtistExists(int id) =>
-            await Connection.ExecuteScalarAsync<bool>("select count(1) from Artist where Id = @id", new {id});
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from Artist where Id = @id", new { id });
 
         public async Task<List<Artist>> GetAll()
         {
@@ -43,7 +42,7 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            return cn.QueryFirstOrDefault<Artist>("Select * From Artist WHERE Id = @Id", new {id});
+            return cn.QueryFirstOrDefault<Artist>("Select * From Artist WHERE Id = @Id", new { id });
         }
 
         public async Task<Artist> Add(Artist newArtist)
@@ -51,7 +50,7 @@ namespace Chinook.DataDapper.Repositories
             using var cn = Connection;
             cn.Open();
 
-            newArtist.Id = await cn.InsertAsync(new Artist {Name = newArtist.Name});
+            newArtist.Id = await cn.InsertAsync(new Artist { Name = newArtist.Name });
 
             return newArtist;
         }
@@ -67,7 +66,7 @@ namespace Chinook.DataDapper.Repositories
                 cn.Open();
                 return await cn.UpdateAsync(artist);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -79,9 +78,9 @@ namespace Chinook.DataDapper.Repositories
             {
                 using var cn = Connection;
                 cn.Open();
-                return await cn.DeleteAsync(new Artist {Id = id});
+                return await cn.DeleteAsync(new Artist { Id = id });
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }

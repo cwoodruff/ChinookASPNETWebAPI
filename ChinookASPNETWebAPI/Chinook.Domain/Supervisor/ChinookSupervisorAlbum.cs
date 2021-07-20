@@ -19,7 +19,7 @@ namespace Chinook.Domain.Supervisor
             {
                 var cacheEntryOptions =
                     new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Album-", album.Id), album, cacheEntryOptions);
+                _cache.Set(string.Concat((object?)"Album-", album.Id), album, cacheEntryOptions);
             }
 
             return albumApiModels;
@@ -42,7 +42,7 @@ namespace Chinook.Domain.Supervisor
 
                 var cacheEntryOptions =
                     new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Album-", albumApiModel.Id), albumApiModel, cacheEntryOptions);
+                _cache.Set(string.Concat((object?)"Album-", albumApiModel.Id), albumApiModel, cacheEntryOptions);
 
                 return albumApiModel;
             }
@@ -57,7 +57,7 @@ namespace Chinook.Domain.Supervisor
         public async Task<AlbumApiModel> AddAlbum(AlbumApiModel newAlbumApiModel)
         {
             await _albumValidator.ValidateAndThrowAsync(newAlbumApiModel);
-            
+
             var album = await newAlbumApiModel.ConvertAsync();
 
             album = await _albumRepository.Add(album);
@@ -68,7 +68,7 @@ namespace Chinook.Domain.Supervisor
         public async Task<bool> UpdateAlbum(AlbumApiModel albumApiModel)
         {
             await _albumValidator.ValidateAndThrowAsync(albumApiModel);
-            
+
             var album = await _albumRepository.GetById(albumApiModel.Id);
 
             if (album is null) return false;

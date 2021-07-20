@@ -20,12 +20,10 @@ namespace Chinook.Domain.ApiModels
         public string BillingCountry { get; set; }
         public string BillingPostalCode { get; set; }
         public decimal Total { get; set; }
-        
-        [JsonIgnore]
-        public IList<InvoiceLineApiModel> InvoiceLines { get; set; }
-        
-        [JsonIgnore]
-        public CustomerApiModel Customer { get; set; }
+
+        [JsonIgnore] public IList<InvoiceLineApiModel> InvoiceLines { get; set; }
+
+        [JsonIgnore] public CustomerApiModel Customer { get; set; }
 
         public Invoice Convert() =>
             new()
@@ -40,7 +38,7 @@ namespace Chinook.Domain.ApiModels
                 BillingPostalCode = BillingPostalCode,
                 Total = Total
             };
-        
+
         public async Task<Invoice> ConvertAsync() =>
             new()
             {

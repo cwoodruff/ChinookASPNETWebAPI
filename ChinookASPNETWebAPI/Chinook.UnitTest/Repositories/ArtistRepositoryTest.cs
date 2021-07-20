@@ -9,7 +9,7 @@ namespace Chinook.UnitTest.Repository
         private readonly IArtistRepository _repo;
 
         public ArtistRepositoryTest(IArtistRepository a) => _repo = a;
-        
+
         [Fact]
         public async Task ArtistGetAll()
         {

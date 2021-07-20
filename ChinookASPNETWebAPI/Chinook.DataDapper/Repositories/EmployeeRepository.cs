@@ -25,11 +25,10 @@ namespace Chinook.DataDapper.Repositories
 
         public void Dispose()
         {
-            
         }
 
         private async Task<bool> EmployeeExists(int id) =>
-            await Connection.ExecuteScalarAsync<bool>("select count(1) from Employee where Id = @id", new {id});
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from Employee where Id = @id", new { id });
 
         public async Task<List<Employee>> GetAll()
         {
@@ -43,14 +42,14 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            return cn.QueryFirstOrDefault<Employee>("Select * From Employee WHERE Id = @Id", new {id});
+            return cn.QueryFirstOrDefault<Employee>("Select * From Employee WHERE Id = @Id", new { id });
         }
 
         public async Task<Employee> GetReportsTo(int id)
         {
             using var cn = Connection;
             cn.Open();
-            return cn.QueryFirstOrDefault<Employee>("Select * From Employee WHERE ReportsTo = @Id", new {id});
+            return cn.QueryFirstOrDefault<Employee>("Select * From Employee WHERE ReportsTo = @Id", new { id });
         }
 
         public async Task<Employee> Add(Employee newEmployee)
@@ -91,7 +90,7 @@ namespace Chinook.DataDapper.Repositories
                 cn.Open();
                 return await cn.UpdateAsync(employee);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -103,9 +102,9 @@ namespace Chinook.DataDapper.Repositories
             {
                 using var cn = Connection;
                 cn.Open();
-                return await cn.DeleteAsync(new Employee {Id = id});
+                return await cn.DeleteAsync(new Employee { Id = id });
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }

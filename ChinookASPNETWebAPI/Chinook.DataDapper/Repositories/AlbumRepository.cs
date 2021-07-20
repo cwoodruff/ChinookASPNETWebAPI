@@ -25,11 +25,10 @@ namespace Chinook.DataDapper.Repositories
 
         public void Dispose()
         {
-            
         }
 
         private async Task<bool> AlbumExists(int id) =>
-            await Connection.ExecuteScalarAsync<bool>("select count(1) from Album where Id = @id", new {id});
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from Album where Id = @id", new { id });
 
         public async Task<List<Album>> GetAll()
         {
@@ -43,7 +42,7 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            var album = await cn.QueryFirstOrDefaultAsync<Album>("Select * From Album WHERE Id = @id", new {id});
+            var album = await cn.QueryFirstOrDefaultAsync<Album>("Select * From Album WHERE Id = @id", new { id });
             return album;
         }
 
@@ -51,7 +50,7 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            var albums = await cn.QueryAsync<Album>("Select * From Album WHERE ArtistId = @Id", new {id});
+            var albums = await cn.QueryAsync<Album>("Select * From Album WHERE ArtistId = @Id", new { id });
             return albums.ToList();
         }
 
@@ -60,7 +59,7 @@ namespace Chinook.DataDapper.Repositories
             using var cn = Connection;
             cn.Open();
             var albumId = cn.Insert(newAlbum);
-            newAlbum.Id = (int) albumId;
+            newAlbum.Id = (int)albumId;
 
             return newAlbum;
         }
@@ -76,7 +75,7 @@ namespace Chinook.DataDapper.Repositories
                 cn.Open();
                 return await cn.UpdateAsync(album);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -88,9 +87,9 @@ namespace Chinook.DataDapper.Repositories
             {
                 using var cn = Connection;
                 cn.Open();
-                return await cn.DeleteAsync(new Album {Id = id});
+                return await cn.DeleteAsync(new Album { Id = id });
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }

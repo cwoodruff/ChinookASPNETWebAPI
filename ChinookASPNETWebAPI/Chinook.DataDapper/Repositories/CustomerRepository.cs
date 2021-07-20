@@ -22,14 +22,13 @@ namespace Chinook.DataDapper.Repositories
         }
 
         private IDbConnection Connection => new SqlConnection(_dbInfo.ConnectionStrings);
-        
+
         public void Dispose()
         {
-            
         }
 
-        private async Task<bool> CustomerExists(int id) => 
-            await Connection.ExecuteScalarAsync<bool>("select count(1) from Customer where Id = @id", new {id});
+        private async Task<bool> CustomerExists(int id) =>
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from Customer where Id = @id", new { id });
 
         public async Task<List<Customer>> GetAll()
         {
@@ -43,14 +42,14 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            return cn.QueryFirstOrDefault<Customer>("Select * From Customer WHERE Id = @Id", new {id});
+            return cn.QueryFirstOrDefault<Customer>("Select * From Customer WHERE Id = @Id", new { id });
         }
 
         public async Task<List<Customer>> GetBySupportRepId(int id)
         {
             using var cn = Connection;
             cn.Open();
-            var customers = await cn.QueryAsync<Customer>("Select * From Customer WHERE ArtistId = @Id", new {id});
+            var customers = await cn.QueryAsync<Customer>("Select * From Customer WHERE ArtistId = @Id", new { id });
             return customers.ToList();
         }
 
@@ -91,7 +90,7 @@ namespace Chinook.DataDapper.Repositories
                 cn.Open();
                 return await cn.UpdateAsync(customer);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -103,9 +102,9 @@ namespace Chinook.DataDapper.Repositories
             {
                 using var cn = Connection;
                 cn.Open();
-                return await cn.DeleteAsync(new Customer {Id = id});
+                return await cn.DeleteAsync(new Customer { Id = id });
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }

@@ -21,15 +21,12 @@ namespace Chinook.Domain.ApiModels
         public int Milliseconds { get; set; }
         public int? Bytes { get; set; }
         public decimal UnitPrice { get; set; }
-        
-        [JsonIgnore]
-        public IList<InvoiceLineApiModel>? InvoiceLines { get; set; }
-        
-        [JsonIgnore]
-        public IList<PlaylistTrackApiModel>? PlaylistTracks { get; set; }
-        
-        [JsonIgnore]
-        public AlbumApiModel? Album { get; set; }
+
+        [JsonIgnore] public IList<InvoiceLineApiModel>? InvoiceLines { get; set; }
+
+        [JsonIgnore] public IList<PlaylistTrackApiModel>? PlaylistTracks { get; set; }
+
+        [JsonIgnore] public AlbumApiModel? Album { get; set; }
         public GenreApiModel? Genre { get; set; }
         public MediaTypeApiModel? MediaType { get; set; }
 
@@ -46,7 +43,7 @@ namespace Chinook.Domain.ApiModels
                 Bytes = Bytes,
                 UnitPrice = UnitPrice
             };
-        
+
         public async Task<Track> ConvertAsync() =>
             new()
             {

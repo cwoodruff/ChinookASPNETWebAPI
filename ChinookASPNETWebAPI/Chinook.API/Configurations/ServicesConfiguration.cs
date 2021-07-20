@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+
 //using Chinook.DataJson.Repositories;
 //using Chinook.DataDapper.Repositories;
 
@@ -66,7 +67,7 @@ namespace Chinook.API.Configurations
                 options.ReportApiVersions = true;
             });
         }
-        
+
         public static void AddSwaggerServices(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>

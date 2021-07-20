@@ -18,7 +18,7 @@ namespace Chinook.Domain.Entities
                 PlaylistId = PlaylistId,
                 TrackId = TrackId
             };
-        
+
         public async Task<PlaylistTrackApiModel> ConvertAsync() =>
             new()
             {

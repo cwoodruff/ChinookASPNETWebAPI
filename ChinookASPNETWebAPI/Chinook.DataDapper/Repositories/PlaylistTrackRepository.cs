@@ -22,10 +22,9 @@ namespace Chinook.DataDapper.Repositories
         }
 
         private IDbConnection Connection => new SqlConnection(_dbInfo.ConnectionStrings);
-        
+
         public void Dispose()
         {
-            
         }
 
         public async Task<List<PlaylistTrack>> GetAll()
@@ -40,7 +39,8 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            var playListTracks = await cn.QueryAsync<PlaylistTrack>("Select * From PlaylistTrack WHERE PlaylistId = @Id", new { id });
+            var playListTracks =
+                await cn.QueryAsync<PlaylistTrack>("Select * From PlaylistTrack WHERE PlaylistId = @Id", new { id });
             return playListTracks.ToList();
         }
 
@@ -48,7 +48,8 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            var playListTracks = await cn.QueryAsync<PlaylistTrack>("Select * From PlaylistTrack WHERE TrackId = @Id", new { id });
+            var playListTracks =
+                await cn.QueryAsync<PlaylistTrack>("Select * From PlaylistTrack WHERE TrackId = @Id", new { id });
             return playListTracks.ToList();
         }
 
@@ -57,7 +58,8 @@ namespace Chinook.DataDapper.Repositories
             using var cn = Connection;
             cn.Open();
 
-            cn.Insert(new PlaylistTrack {PlaylistId = newPlaylistTrack.PlaylistId, TrackId = newPlaylistTrack.TrackId});
+            cn.Insert(new PlaylistTrack
+                { PlaylistId = newPlaylistTrack.PlaylistId, TrackId = newPlaylistTrack.TrackId });
 
             return newPlaylistTrack;
         }
@@ -70,7 +72,7 @@ namespace Chinook.DataDapper.Repositories
                 cn.Open();
                 return await cn.UpdateAsync(playlistTrack);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -82,9 +84,9 @@ namespace Chinook.DataDapper.Repositories
             {
                 using var cn = Connection;
                 cn.Open();
-                return await cn.DeleteAsync(new PlaylistTrack {PlaylistId = id});
+                return await cn.DeleteAsync(new PlaylistTrack { PlaylistId = id });
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }

@@ -7,6 +7,7 @@ namespace Chinook.API.Controllers
     public class DocumentationController : Controller
     {
         private readonly IApiDescriptionGroupCollectionProvider _apiExplorer;
+
         public DocumentationController(IApiDescriptionGroupCollectionProvider apiExplorer)
         {
             _apiExplorer = apiExplorer;

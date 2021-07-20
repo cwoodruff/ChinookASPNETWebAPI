@@ -25,11 +25,10 @@ namespace Chinook.DataDapper.Repositories
 
         public void Dispose()
         {
-            
         }
 
         private async Task<bool> MediaTypeExists(int id) =>
-            await Connection.ExecuteScalarAsync<bool>("select count(1) from MediaType where Id = @id", new {id});
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from MediaType where Id = @id", new { id });
 
         public async Task<List<MediaType>> GetAll()
         {
@@ -43,7 +42,7 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            return cn.QueryFirstOrDefault<MediaType>("Select * From MediaType WHERE Id = @Id", new {id});
+            return cn.QueryFirstOrDefault<MediaType>("Select * From MediaType WHERE Id = @Id", new { id });
         }
 
         public async Task<MediaType> Add(MediaType newMediaType)
@@ -51,7 +50,7 @@ namespace Chinook.DataDapper.Repositories
             using var cn = Connection;
             cn.Open();
 
-            newMediaType.Id = await cn.InsertAsync(new MediaType {Name = newMediaType.Name});
+            newMediaType.Id = await cn.InsertAsync(new MediaType { Name = newMediaType.Name });
 
             return newMediaType;
         }
@@ -67,7 +66,7 @@ namespace Chinook.DataDapper.Repositories
                 cn.Open();
                 return await cn.UpdateAsync(mediaType);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -79,9 +78,9 @@ namespace Chinook.DataDapper.Repositories
             {
                 using var cn = Connection;
                 cn.Open();
-                return await cn.DeleteAsync(new MediaType {Id = id});
+                return await cn.DeleteAsync(new MediaType { Id = id });
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }

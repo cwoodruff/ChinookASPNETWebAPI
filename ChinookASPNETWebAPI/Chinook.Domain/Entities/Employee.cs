@@ -31,13 +31,13 @@ namespace Chinook.Domain.Entities
         public string? Fax { get; set; }
         public string? Email { get; set; }
 
-        
+
         public virtual Employee ReportsToNavigation { get; set; }
-        
+
         public virtual ICollection<Customer> Customers { get; set; }
-        
+
         public virtual ICollection<Employee> InverseReportsToNavigation { get; set; }
-        
+
         public EmployeeApiModel Convert() =>
             new()
             {
@@ -57,7 +57,7 @@ namespace Chinook.Domain.Entities
                 Fax = Fax,
                 Email = Email
             };
-        
+
         public async Task<EmployeeApiModel> ConvertAsync() =>
             new()
             {

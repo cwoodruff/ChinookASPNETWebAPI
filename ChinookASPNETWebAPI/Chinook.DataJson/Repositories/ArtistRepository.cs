@@ -18,10 +18,9 @@ namespace Chinook.DataJson.Repositories
         {
             _sqlconn = sqlconn;
         }
-        
+
         public void Dispose()
         {
-            
         }
 
         private async Task<bool> ArtistExists(int id)
@@ -70,7 +69,6 @@ namespace Chinook.DataJson.Repositories
 
         public async Task<Artist> Add(Artist newArtist)
         {
-
             return newArtist;
         }
 

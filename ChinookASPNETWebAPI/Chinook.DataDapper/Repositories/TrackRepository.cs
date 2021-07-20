@@ -22,14 +22,13 @@ namespace Chinook.DataDapper.Repositories
         }
 
         private IDbConnection Connection => new SqlConnection(_dbInfo.ConnectionStrings);
-        
+
         public void Dispose()
         {
-            
         }
 
         private async Task<bool> TrackExists(int id) =>
-            await Connection.ExecuteScalarAsync<bool>("select count(1) from Track where Id = @id", new {id});
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from Track where Id = @id", new { id });
 
         public async Task<List<Track>> GetAll()
         {
@@ -43,7 +42,7 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            return await cn.QueryFirstOrDefaultAsync<Track>("Select * From Track WHERE Id = @Id", new {id});
+            return await cn.QueryFirstOrDefaultAsync<Track>("Select * From Track WHERE Id = @Id", new { id });
         }
 
         public async Task<Track> Add(Track newTrack)
@@ -78,7 +77,7 @@ namespace Chinook.DataDapper.Repositories
                 cn.Open();
                 return await cn.UpdateAsync(track);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -90,9 +89,9 @@ namespace Chinook.DataDapper.Repositories
             {
                 using var cn = Connection;
                 cn.Open();
-                return await cn.DeleteAsync(new Track {Id = id});
+                return await cn.DeleteAsync(new Track { Id = id });
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -102,7 +101,9 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            var tracks = await cn.QueryAsync<Track>("SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN InvoiceLine AS IL ON T.Id = IL.TrackId WHERE IL.InvoiceID = @Id", new { id });
+            var tracks = await cn.QueryAsync<Track>(
+                "SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN InvoiceLine AS IL ON T.Id = IL.TrackId WHERE IL.InvoiceID = @Id",
+                new { id });
             return tracks.ToList();
         }
 
@@ -110,7 +111,9 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            var tracks = await cn.QueryAsync<Track>("SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN PlaylistTrack AS PLT ON T.Id = PLT.TrackId WHERE PLT.PlayListId = @Id", new { id });
+            var tracks = await cn.QueryAsync<Track>(
+                "SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN PlaylistTrack AS PLT ON T.Id = PLT.TrackId WHERE PLT.PlayListId = @Id",
+                new { id });
             return tracks.ToList();
         }
 
@@ -118,7 +121,9 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            var tracks = await cn.QueryAsync<Track>("SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN Album AS A ON T.AlbumId = A.Id WHERE A.Id = @Id", new { id });
+            var tracks = await cn.QueryAsync<Track>(
+                "SELECT T.Id, T.Name, T.AlbumId, T.MediaTypeId, T.GenreId, T.Composer, T.Milliseconds, T.Bytes, T.UnitPrice FROM Track AS T INNER JOIN Album AS A ON T.AlbumId = A.Id WHERE A.Id = @Id",
+                new { id });
             return tracks.ToList();
         }
 

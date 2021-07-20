@@ -5,7 +5,8 @@ namespace Chinook.Domain.Validation
 {
     public class InvoiceValidator : AbstractValidator<InvoiceApiModel>
     {
-        public InvoiceValidator() {
+        public InvoiceValidator()
+        {
             RuleFor(i => i.CustomerId).NotNull();
             RuleFor(i => i.InvoiceDate).NotNull();
             RuleFor(i => i.Total).NotNull();

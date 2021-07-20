@@ -54,6 +54,7 @@ namespace Chinook.DataEFCore.Repositories
             return true;
         }
 
-        public async Task<List<Customer>> GetBySupportRepId(int id) => await _context.Customers.Where(a => a.SupportRepId == id).ToListAsync();
+        public async Task<List<Customer>> GetBySupportRepId(int id) =>
+            await _context.Customers.Where(a => a.SupportRepId == id).ToListAsync();
     }
 }

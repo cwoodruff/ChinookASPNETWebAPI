@@ -17,9 +17,11 @@ namespace Chinook.Domain.Supervisor
             var invoiceLineApiModels = invoiceLines.ConvertAll();
             foreach (var invoiceLine in invoiceLineApiModels)
             {
-                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "InvoiceLine-", invoiceLine.Id), invoiceLine, cacheEntryOptions);
+                var cacheEntryOptions =
+                    new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(string.Concat((object?)"InvoiceLine-", invoiceLine.Id), invoiceLine, cacheEntryOptions);
             }
+
             return invoiceLineApiModels;
         }
 
@@ -40,7 +42,8 @@ namespace Chinook.Domain.Supervisor
 
                 var cacheEntryOptions =
                     new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "InvoiceLine-", invoiceLineApiModel.Id), invoiceLineApiModel, cacheEntryOptions);
+                _cache.Set(string.Concat((object?)"InvoiceLine-", invoiceLineApiModel.Id), invoiceLineApiModel,
+                    cacheEntryOptions);
 
                 return invoiceLineApiModel;
             }
@@ -83,7 +86,7 @@ namespace Chinook.Domain.Supervisor
             return await _invoiceLineRepository.Update(invoiceLine);
         }
 
-        public Task<bool> DeleteInvoiceLine(int id) 
+        public Task<bool> DeleteInvoiceLine(int id)
             => _invoiceLineRepository.Delete(id);
     }
 }

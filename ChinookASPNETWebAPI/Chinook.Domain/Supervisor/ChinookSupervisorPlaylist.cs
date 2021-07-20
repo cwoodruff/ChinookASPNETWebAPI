@@ -18,9 +18,11 @@ namespace Chinook.Domain.Supervisor
             var playlistApiModels = playlists.ConvertAll();
             foreach (var playlist in playlistApiModels)
             {
-                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Playlist-", playlist.Id), playlist, cacheEntryOptions);
+                var cacheEntryOptions =
+                    new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(string.Concat((object?)"Playlist-", playlist.Id), playlist, cacheEntryOptions);
             }
+
             return playlistApiModels;
         }
 
@@ -34,12 +36,13 @@ namespace Chinook.Domain.Supervisor
             }
             else
             {
-                var playlistApiModel = await(await _playlistRepository.GetById(id)).ConvertAsync();
+                var playlistApiModel = await (await _playlistRepository.GetById(id)).ConvertAsync();
                 playlistApiModel.Tracks = (await GetTrackByPlaylistId(playlistApiModel.Id)).ToList();
 
                 var cacheEntryOptions =
                     new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Playlist-", playlistApiModel.Id), playlistApiModel, cacheEntryOptions);
+                _cache.Set(string.Concat((object?)"Playlist-", playlistApiModel.Id), playlistApiModel,
+                    cacheEntryOptions);
 
                 return playlistApiModel;
             }
@@ -67,9 +70,9 @@ namespace Chinook.Domain.Supervisor
             return await _playlistRepository.Update(playlist);
         }
 
-        public Task<bool> DeletePlaylist(int id) 
+        public Task<bool> DeletePlaylist(int id)
             => _playlistRepository.Delete(id);
-        
+
         public async Task<IEnumerable<PlaylistApiModel>> GetPlaylistByTrackId(int id)
         {
             var playlists = await _playlistRepository.GetByTrackId(id);

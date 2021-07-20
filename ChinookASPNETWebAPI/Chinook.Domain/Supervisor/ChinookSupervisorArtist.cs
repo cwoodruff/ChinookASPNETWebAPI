@@ -18,9 +18,11 @@ namespace Chinook.Domain.Supervisor
             var artistApiModels = artists.ConvertAll();
             foreach (var artist in artistApiModels)
             {
-                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Artist-", artist.Id), artist, cacheEntryOptions);
+                var cacheEntryOptions =
+                    new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(string.Concat((object?)"Artist-", artist.Id), artist, cacheEntryOptions);
             }
+
             return artistApiModels;
         }
 
@@ -39,7 +41,7 @@ namespace Chinook.Domain.Supervisor
 
                 var cacheEntryOptions =
                     new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Artist-", artistApiModel.Id), artistApiModel, cacheEntryOptions);
+                _cache.Set(string.Concat((object?)"Artist-", artistApiModel.Id), artistApiModel, cacheEntryOptions);
 
                 return artistApiModel;
             }
@@ -48,7 +50,7 @@ namespace Chinook.Domain.Supervisor
         public async Task<ArtistApiModel> AddArtist(ArtistApiModel newArtistApiModel)
         {
             await _artistValidator.ValidateAndThrowAsync(newArtistApiModel);
-            
+
             var artist = await newArtistApiModel.ConvertAsync();
 
             artist = await _artistRepository.Add(artist);
@@ -59,7 +61,7 @@ namespace Chinook.Domain.Supervisor
         public async Task<bool> UpdateArtist(ArtistApiModel artistApiModel)
         {
             await _artistValidator.ValidateAndThrowAsync(artistApiModel);
-            
+
             var artist = await _artistRepository.GetById(artistApiModel.Id);
 
             if (artist == null) return false;
@@ -69,7 +71,7 @@ namespace Chinook.Domain.Supervisor
             return await _artistRepository.Update(artist);
         }
 
-        public Task<bool> DeleteArtist(int id) 
+        public Task<bool> DeleteArtist(int id)
             => _artistRepository.Delete(id);
     }
 }

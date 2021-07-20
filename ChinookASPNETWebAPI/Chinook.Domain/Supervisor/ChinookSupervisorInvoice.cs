@@ -18,12 +18,14 @@ namespace Chinook.Domain.Supervisor
             var invoiceApiModels = invoices.ConvertAll();
             foreach (var invoice in invoiceApiModels)
             {
-                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Invoice-", invoice.Id), invoice, cacheEntryOptions);
+                var cacheEntryOptions =
+                    new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(string.Concat((object?)"Invoice-", invoice.Id), invoice, cacheEntryOptions);
             }
+
             return invoiceApiModels;
         }
-        
+
         public async Task<InvoiceApiModel> GetInvoiceById(int id)
         {
             var invoiceApiModelCached = _cache.Get<InvoiceApiModel>(string.Concat("Invoice-", id));
@@ -42,7 +44,7 @@ namespace Chinook.Domain.Supervisor
 
                 var cacheEntryOptions =
                     new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Invoice-", invoiceApiModel.Id), invoiceApiModel, cacheEntryOptions);
+                _cache.Set(string.Concat((object?)"Invoice-", invoiceApiModel.Id), invoiceApiModel, cacheEntryOptions);
 
                 return invoiceApiModel;
             }
@@ -83,10 +85,10 @@ namespace Chinook.Domain.Supervisor
             return await _invoiceRepository.Update(invoice);
         }
 
-        public Task<bool> DeleteInvoice(int id) 
+        public Task<bool> DeleteInvoice(int id)
             => _invoiceRepository.Delete(id);
-        
-        
+
+
         public async Task<IEnumerable<InvoiceApiModel>> GetInvoiceByEmployeeId(int id)
         {
             var invoices = await _invoiceRepository.GetByEmployeeId(id);

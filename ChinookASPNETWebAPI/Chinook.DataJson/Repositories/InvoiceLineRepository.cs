@@ -47,7 +47,8 @@ namespace Chinook.DataJson.Repositories
             var adap = new SqlDataAdapter(sqlcomm);
             adap.Fill(dset);
             var converted =
-                JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<InvoiceLine>)) as List<InvoiceLine>;
+                JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<InvoiceLine>)) as
+                    List<InvoiceLine>;
             return converted;
         }
 
@@ -62,7 +63,8 @@ namespace Chinook.DataJson.Repositories
             var adap = new SqlDataAdapter(sqlcomm);
             adap.Fill(dset);
             var converted =
-                JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<InvoiceLine>)) as List<InvoiceLine>;
+                JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<InvoiceLine>)) as
+                    List<InvoiceLine>;
 
             return converted.FirstOrDefault();
         }
@@ -78,7 +80,8 @@ namespace Chinook.DataJson.Repositories
             var adap = new SqlDataAdapter(sqlcomm);
             adap.Fill(dset);
             var converted =
-                JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<InvoiceLine>)) as List<InvoiceLine>;
+                JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<InvoiceLine>)) as
+                    List<InvoiceLine>;
             return converted;
         }
 
@@ -95,10 +98,11 @@ namespace Chinook.DataJson.Repositories
             try
             {
                 var converted =
-                    JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<InvoiceLine>)) as List<InvoiceLine>;
+                    JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<InvoiceLine>)) as
+                        List<InvoiceLine>;
                 return converted;
             }
-            catch(JsonException)
+            catch (JsonException)
             {
                 return null;
             }

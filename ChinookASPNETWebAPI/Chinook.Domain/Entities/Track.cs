@@ -29,10 +29,10 @@ namespace Chinook.Domain.Entities
         public virtual Genre? Genre { get; set; }
         public virtual MediaType? MediaType { get; set; }
         public virtual ICollection<InvoiceLine> InvoiceLines { get; set; }
-        
-        
+
+
         public virtual ICollection<PlaylistTrack> PlaylistTracks { get; set; }
-        
+
         public TrackApiModel Convert() =>
             new()
             {
@@ -46,7 +46,7 @@ namespace Chinook.Domain.Entities
                 Bytes = Bytes,
                 UnitPrice = UnitPrice
             };
-        
+
         public async Task<TrackApiModel> ConvertAsync() =>
             new()
             {

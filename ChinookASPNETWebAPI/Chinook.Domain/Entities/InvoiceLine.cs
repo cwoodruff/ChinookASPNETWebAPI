@@ -13,9 +13,9 @@ namespace Chinook.Domain.Entities
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
 
-        
+
         public virtual Invoice Invoice { get; set; }
-        
+
         public virtual Track Track { get; set; }
 
         public InvoiceLineApiModel Convert() =>
@@ -27,7 +27,7 @@ namespace Chinook.Domain.Entities
                 UnitPrice = UnitPrice,
                 Quantity = Quantity
             };
-        
+
         public async Task<InvoiceLineApiModel> ConvertAsync() =>
             new()
             {

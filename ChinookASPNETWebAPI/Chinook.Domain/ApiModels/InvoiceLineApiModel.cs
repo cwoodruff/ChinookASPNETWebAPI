@@ -14,12 +14,10 @@ namespace Chinook.Domain.ApiModels
         public string TrackName { get; set; }
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
-        
-        [JsonIgnore]
-        public InvoiceApiModel Invoice { get; set; }
-        
-        [JsonIgnore]
-        public TrackApiModel Track { get; set; }
+
+        [JsonIgnore] public InvoiceApiModel Invoice { get; set; }
+
+        [JsonIgnore] public TrackApiModel Track { get; set; }
 
         public InvoiceLine Convert() =>
             new()
@@ -30,7 +28,7 @@ namespace Chinook.Domain.ApiModels
                 UnitPrice = UnitPrice,
                 Quantity = Quantity
             };
-        
+
         public async Task<InvoiceLine> ConvertAsync() =>
             new()
             {

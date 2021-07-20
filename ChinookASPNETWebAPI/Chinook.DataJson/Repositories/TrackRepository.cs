@@ -158,7 +158,7 @@ namespace Chinook.DataJson.Repositories
                 JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<Track>)) as List<Track>;
             return converted;
         }
-        
+
         public async Task<List<Track>> GetByPlaylistId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetTrackByPlaylist", _sqlconn)
@@ -173,7 +173,7 @@ namespace Chinook.DataJson.Repositories
                 JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<Track>)) as List<Track>;
             return converted;
         }
-        
+
         public async Task<List<Track>> GetByArtistId(int id)
         {
             var sqlcomm = new SqlCommand("dbo.sproc_GetTrackByArtist", _sqlconn)

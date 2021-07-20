@@ -11,9 +11,8 @@ namespace Chinook.Domain.ApiModels
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        
-        [JsonIgnore]
-        public IList<AlbumApiModel>? Albums { get; set; }
+
+        [JsonIgnore] public IList<AlbumApiModel>? Albums { get; set; }
 
         public Artist Convert() =>
             new()
@@ -21,7 +20,7 @@ namespace Chinook.Domain.ApiModels
                 Id = Id,
                 Name = Name ?? string.Empty
             };
-        
+
         public async Task<Artist> ConvertAsync() =>
             new()
             {

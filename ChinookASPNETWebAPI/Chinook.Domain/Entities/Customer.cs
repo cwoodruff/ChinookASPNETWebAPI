@@ -27,11 +27,11 @@ namespace Chinook.Domain.Entities
         public string Email { get; set; }
         public int? SupportRepId { get; set; }
 
-        
+
         public virtual Employee SupportRep { get; set; }
-        
+
         public virtual ICollection<Invoice> Invoices { get; set; }
-        
+
         public CustomerApiModel Convert() =>
             new()
             {
@@ -49,7 +49,7 @@ namespace Chinook.Domain.Entities
                 Email = Email,
                 SupportRepId = SupportRepId
             };
-        
+
         public async Task<CustomerApiModel> ConvertAsync() =>
             new()
             {

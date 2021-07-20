@@ -26,15 +26,12 @@ namespace Chinook.Domain.ApiModels
         public string? Phone { get; set; }
         public string? Fax { get; set; }
         public string? Email { get; set; }
-        
-        [JsonIgnore]
-        public List<CustomerApiModel>? Customers { get; set; }
-        
-        [JsonIgnore]
-        public EmployeeApiModel? Manager { get; set; }
-        
-        [JsonIgnore]
-        public ICollection<EmployeeApiModel>? DirectReports { get; set; }
+
+        [JsonIgnore] public List<CustomerApiModel>? Customers { get; set; }
+
+        [JsonIgnore] public EmployeeApiModel? Manager { get; set; }
+
+        [JsonIgnore] public ICollection<EmployeeApiModel>? DirectReports { get; set; }
 
         public Employee Convert() =>
             new()
@@ -55,7 +52,7 @@ namespace Chinook.Domain.ApiModels
                 Fax = Fax ?? string.Empty,
                 Email = Email ?? string.Empty
             };
-        
+
         public async Task<Employee> ConvertAsync() =>
             new()
             {

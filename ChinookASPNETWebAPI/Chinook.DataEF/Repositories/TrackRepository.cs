@@ -62,15 +62,15 @@ namespace Chinook.DataEFCore.Repositories
 
         public async Task<List<Track>> GetByMediaTypeId(int id) =>
             await _context.Tracks.Where(a => a.MediaTypeId == id).ToListAsync();
-        
+
         public async Task<List<Track>> GetByPlaylistId(int id) =>
             await _context.PlaylistTracks.Where(p => p.PlaylistId == id).Select(p => p.Track).ToListAsync();
 
-        public async Task<List<Track>> GetByArtistId(int id) => 
+        public async Task<List<Track>> GetByArtistId(int id) =>
             await _context.Albums.Where(a => a.ArtistId == 5).SelectMany(t => t.Tracks).ToListAsync();
 
-            public async Task<List<Track>> GetByInvoiceId(int id) =>await _context.Tracks
-                .Where(c => c.InvoiceLines.Any(o => o.InvoiceId == id))
-                .ToListAsync();
-        }
+        public async Task<List<Track>> GetByInvoiceId(int id) => await _context.Tracks
+            .Where(c => c.InvoiceLines.Any(o => o.InvoiceId == id))
+            .ToListAsync();
+    }
 }

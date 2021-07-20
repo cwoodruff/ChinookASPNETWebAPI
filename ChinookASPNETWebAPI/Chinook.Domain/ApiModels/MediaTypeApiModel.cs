@@ -11,9 +11,8 @@ namespace Chinook.Domain.ApiModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        
-        [JsonIgnore]
-        public IList<TrackApiModel> Tracks { get; set; }
+
+        [JsonIgnore] public IList<TrackApiModel> Tracks { get; set; }
 
         public MediaType Convert() =>
             new()
@@ -21,7 +20,7 @@ namespace Chinook.Domain.ApiModels
                 Id = Id,
                 Name = Name
             };
-        
+
         public async Task<MediaType> ConvertAsync() =>
             new()
             {

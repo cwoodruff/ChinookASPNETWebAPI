@@ -26,7 +26,8 @@ namespace Chinook.UnitTest.Supervisor
             _context = new ChinookContext(builder.Options);
             _albumRepo = new AlbumRepository(_context);
             var artistRepo = new ArtistRepository(_context);
-            _super = new ChinookSupervisor(_albumRepo, artistRepo, null, null, null, null, null, null, null, null, new MemoryCache(new MemoryCacheOptions()));
+            _super = new ChinookSupervisor(_albumRepo, artistRepo, null, null, null, null, null, null, null, null,
+                new MemoryCache(new MemoryCacheOptions()));
         }
 
         [Fact]
@@ -57,8 +58,8 @@ namespace Chinook.UnitTest.Supervisor
             var artistId = 1234;
 
             // We are currently required to care about an Artist ID because the convert part of album specifically references the artist repository as well.
-            _context.Artists.Add(new Artist() {Id = artistId});
-            _context.Albums.Add(new Album() {Id = 1, ArtistId = 1234});
+            _context.Artists.Add(new Artist() { Id = artistId });
+            _context.Albums.Add(new Album() { Id = 1, ArtistId = 1234 });
             _context.SaveChanges();
 
             // Act

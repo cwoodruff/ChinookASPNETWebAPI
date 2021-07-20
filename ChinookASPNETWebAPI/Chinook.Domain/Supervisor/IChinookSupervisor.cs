@@ -7,7 +7,7 @@ namespace Chinook.Domain.Supervisor
     public interface IChinookSupervisor
     {
         Task<IEnumerable<AlbumApiModel>> GetAllAlbum();
-        Task<AlbumApiModel?>  GetAlbumById(int? id);
+        Task<AlbumApiModel?> GetAlbumById(int? id);
         Task<IEnumerable<AlbumApiModel>> GetAlbumByArtistId(int id);
 
         Task<AlbumApiModel> AddAlbum(AlbumApiModel newAlbumApiModel);
@@ -74,9 +74,9 @@ namespace Chinook.Domain.Supervisor
         Task<bool> UpdateInvoice(InvoiceApiModel invoiceApiModel);
 
         Task<bool> DeleteInvoice(int id);
-        
+
         Task<IEnumerable<InvoiceApiModel>> GetInvoiceByEmployeeId(int id);
-        
+
         Task<IEnumerable<MediaTypeApiModel>> GetAllMediaType();
         Task<MediaTypeApiModel> GetMediaTypeById(int id);
 
@@ -93,9 +93,9 @@ namespace Chinook.Domain.Supervisor
         Task<bool> UpdatePlaylist(PlaylistApiModel playlistApiModel);
 
         Task<bool> DeletePlaylist(int id);
-        
+
         Task<IEnumerable<PlaylistApiModel>> GetPlaylistByTrackId(int id);
-        
+
         Task<IEnumerable<TrackApiModel>> GetAllTrack();
         Task<TrackApiModel> GetTrackById(int id);
         Task<IEnumerable<TrackApiModel>> GetTrackByAlbumId(int id);
@@ -109,7 +109,7 @@ namespace Chinook.Domain.Supervisor
 
         Task<bool> UpdateTrack(TrackApiModel trackApiModel);
         Task<bool> DeleteTrack(int id);
-        
+
         Task<IEnumerable<TrackApiModel>> GetTrackByArtistId(int id);
         Task<IEnumerable<TrackApiModel>> GetTrackByInvoiceId(int id);
     }

@@ -47,7 +47,8 @@ namespace Chinook.DataJson.Repositories
             var adap = new SqlDataAdapter(sqlcomm);
             adap.Fill(dset);
             var converted =
-                JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<Customer>)) as List<Customer>;
+                JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<Customer>)) as
+                    List<Customer>;
             return converted;
         }
 
@@ -62,7 +63,8 @@ namespace Chinook.DataJson.Repositories
             var adap = new SqlDataAdapter(sqlcomm);
             adap.Fill(dset);
             var converted =
-                JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<Customer>)) as List<Customer>;
+                JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<Customer>)) as
+                    List<Customer>;
 
             return converted.FirstOrDefault();
         }
@@ -78,7 +80,8 @@ namespace Chinook.DataJson.Repositories
             var adap = new SqlDataAdapter(sqlcomm);
             adap.Fill(dset);
             var converted =
-                JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<Customer>)) as List<Customer>;
+                JsonSerializer.Deserialize(dset.Tables[0].Rows[0][0].ToString(), typeof(List<Customer>)) as
+                    List<Customer>;
             return converted;
         }
 

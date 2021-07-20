@@ -10,7 +10,7 @@ namespace Chinook.UnitTest.Supervisor
         private readonly IChinookSupervisor _super;
 
         public ArtistSupervisorTest(IChinookSupervisor s) => _super = s;
-        
+
         [Fact]
         public async Task ArtistGetAll()
         {

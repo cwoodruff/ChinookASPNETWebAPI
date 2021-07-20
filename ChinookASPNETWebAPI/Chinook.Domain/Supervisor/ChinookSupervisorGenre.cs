@@ -18,10 +18,11 @@ namespace Chinook.Domain.Supervisor
             var genreApiModels = customers.ConvertAll();
             foreach (var genre in genreApiModels)
             {
-                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Genre-", genre.Id), genre, cacheEntryOptions);
+                var cacheEntryOptions =
+                    new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(string.Concat((object?)"Genre-", genre.Id), genre, cacheEntryOptions);
             }
-            
+
             return genreApiModels;
         }
 
@@ -39,10 +40,11 @@ namespace Chinook.Domain.Supervisor
                 if (genre == null) return null;
                 var genreApiModel = genre.Convert();
                 genreApiModel.Tracks = (await GetTrackByGenreId(genreApiModel.Id)).ToList();
-                
-                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Genre-", genreApiModel.Id), genreApiModel, cacheEntryOptions);
-                
+
+                var cacheEntryOptions =
+                    new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(string.Concat((object?)"Genre-", genreApiModel.Id), genreApiModel, cacheEntryOptions);
+
                 return genreApiModel;
             }
         }
@@ -69,7 +71,7 @@ namespace Chinook.Domain.Supervisor
             return await _genreRepository.Update(genre);
         }
 
-        public Task<bool> DeleteGenre(int id) 
+        public Task<bool> DeleteGenre(int id)
             => _genreRepository.Delete(id);
     }
 }

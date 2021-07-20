@@ -18,9 +18,11 @@ namespace Chinook.Domain.Supervisor
             var mediaTypeApiModels = mediaTypes.ConvertAll();
             foreach (var mediaType in mediaTypeApiModels)
             {
-                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "MediaType-", mediaType.Id), mediaType, cacheEntryOptions);
+                var cacheEntryOptions =
+                    new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(string.Concat((object?)"MediaType-", mediaType.Id), mediaType, cacheEntryOptions);
             }
+
             return mediaTypeApiModels;
         }
 
@@ -34,12 +36,13 @@ namespace Chinook.Domain.Supervisor
             }
             else
             {
-                var mediaTypeApiModel = await(await _mediaTypeRepository.GetById(id)).ConvertAsync();
+                var mediaTypeApiModel = await (await _mediaTypeRepository.GetById(id)).ConvertAsync();
                 mediaTypeApiModel.Tracks = (await GetTrackByMediaTypeId(mediaTypeApiModel.Id)).ToList();
 
                 var cacheEntryOptions =
                     new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "MediaType-", mediaTypeApiModel.Id), mediaTypeApiModel, cacheEntryOptions);
+                _cache.Set(string.Concat((object?)"MediaType-", mediaTypeApiModel.Id), mediaTypeApiModel,
+                    cacheEntryOptions);
 
                 return mediaTypeApiModel;
             }
@@ -67,7 +70,7 @@ namespace Chinook.Domain.Supervisor
             return await _mediaTypeRepository.Update(mediaType);
         }
 
-        public Task<bool> DeleteMediaType(int id) 
+        public Task<bool> DeleteMediaType(int id)
             => _mediaTypeRepository.Delete(id);
     }
 }

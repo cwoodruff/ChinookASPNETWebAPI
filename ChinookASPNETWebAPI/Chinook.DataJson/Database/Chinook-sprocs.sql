@@ -1,4 +1,5 @@
-USE [Chinook]
+USE
+[Chinook]
 GO
 /****** Object:  StoredProcedure [dbo].[sproc_CheckAlbum]    Script Date: 5/3/2020 9:40:34 PM ******/
 SET ANSI_NULLS ON
@@ -12,19 +13,20 @@ CREATE PROCEDURE [dbo].[sproc_CheckAlbum]
 )
 
 AS
-SELECT CASE WHEN EXISTS (
-        SELECT *
-        FROM [Album]
+SELECT CASE
+           WHEN EXISTS(
+                   SELECT *
+                   FROM [Album]
         WHERE Id = @AlbumId
     )
-                THEN CAST(1 AS BIT)
-            ELSE CAST(0 AS BIT) END
-GO
+               THEN CAST(1 AS BIT)
+           ELSE CAST(0 AS BIT) END GO
 /****** Object:  StoredProcedure [dbo].[sproc_CheckArtist]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_CheckArtist]
 
 (
@@ -32,19 +34,20 @@ CREATE PROCEDURE [dbo].[sproc_CheckArtist]
 )
 
 AS
-SELECT CASE WHEN EXISTS (
-        SELECT *
-        FROM [Artist]
+SELECT CASE
+           WHEN EXISTS(
+                   SELECT *
+                   FROM [Artist]
         WHERE Id = @ArtistId
     )
-THEN CAST(1 AS BIT)
-ELSE CAST(0 AS BIT) END
-GO
+               THEN CAST(1 AS BIT)
+           ELSE CAST(0 AS BIT) END GO
 /****** Object:  StoredProcedure [dbo].[sproc_CheckCustomer]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_CheckCustomer]
 
 (
@@ -52,19 +55,20 @@ CREATE PROCEDURE [dbo].[sproc_CheckCustomer]
 )
 
 AS
-SELECT CASE WHEN EXISTS (
-        SELECT *
-        FROM [Customer]
+SELECT CASE
+           WHEN EXISTS(
+                   SELECT *
+                   FROM [Customer]
         WHERE Id = @CustomerId
     )
-THEN CAST(1 AS BIT)
-ELSE CAST(0 AS BIT) END
-GO
+               THEN CAST(1 AS BIT)
+           ELSE CAST(0 AS BIT) END GO
 /****** Object:  StoredProcedure [dbo].[sproc_CheckEmployee]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_CheckEmployee]
 
 (
@@ -72,19 +76,20 @@ CREATE PROCEDURE [dbo].[sproc_CheckEmployee]
 )
 
 AS
-SELECT CASE WHEN EXISTS (
-        SELECT *
-        FROM [Employee]
+SELECT CASE
+           WHEN EXISTS(
+                   SELECT *
+                   FROM [Employee]
         WHERE Id = @EmployeeId
     )
-THEN CAST(1 AS BIT)
-ELSE CAST(0 AS BIT) END
-GO
+               THEN CAST(1 AS BIT)
+           ELSE CAST(0 AS BIT) END GO
 /****** Object:  StoredProcedure [dbo].[sproc_CheckGenre]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_CheckGenre]
 
 (
@@ -92,19 +97,20 @@ CREATE PROCEDURE [dbo].[sproc_CheckGenre]
 )
 
 AS
-SELECT CASE WHEN EXISTS (
-        SELECT *
-        FROM [Genre]
+SELECT CASE
+           WHEN EXISTS(
+                   SELECT *
+                   FROM [Genre]
         WHERE Id = @GenreId
     )
-THEN CAST(1 AS BIT)
-ELSE CAST(0 AS BIT) END
-GO
+               THEN CAST(1 AS BIT)
+           ELSE CAST(0 AS BIT) END GO
 /****** Object:  StoredProcedure [dbo].[sproc_CheckInvoice]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_CheckInvoice]
 
 (
@@ -112,19 +118,20 @@ CREATE PROCEDURE [dbo].[sproc_CheckInvoice]
 )
 
 AS
-SELECT CASE WHEN EXISTS (
-        SELECT *
-        FROM [Invoice]
+SELECT CASE
+           WHEN EXISTS(
+                   SELECT *
+                   FROM [Invoice]
         WHERE Id = @InvoiceId
     )
-THEN CAST(1 AS BIT)
-ELSE CAST(0 AS BIT) END
-GO
+               THEN CAST(1 AS BIT)
+           ELSE CAST(0 AS BIT) END GO
 /****** Object:  StoredProcedure [dbo].[sproc_CheckInvoiceLine]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_CheckInvoiceLine]
 
 (
@@ -132,19 +139,20 @@ CREATE PROCEDURE [dbo].[sproc_CheckInvoiceLine]
 )
 
 AS
-SELECT CASE WHEN EXISTS (
-        SELECT *
-        FROM [InvoiceLine]
+SELECT CASE
+           WHEN EXISTS(
+                   SELECT *
+                   FROM [InvoiceLine]
         WHERE Id = @InvoiceLineId
     )
-THEN CAST(1 AS BIT)
-ELSE CAST(0 AS BIT) END
-GO
+               THEN CAST(1 AS BIT)
+           ELSE CAST(0 AS BIT) END GO
 /****** Object:  StoredProcedure [dbo].[sproc_CheckMediaType]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_CheckMediaType]
 
 (
@@ -152,19 +160,20 @@ CREATE PROCEDURE [dbo].[sproc_CheckMediaType]
 )
 
 AS
-SELECT CASE WHEN EXISTS (
-        SELECT *
-        FROM [MediaType]
+SELECT CASE
+           WHEN EXISTS(
+                   SELECT *
+                   FROM [MediaType]
         WHERE Id = @MediaTypeId
     )
-THEN CAST(1 AS BIT)
-ELSE CAST(0 AS BIT) END
-GO
+               THEN CAST(1 AS BIT)
+           ELSE CAST(0 AS BIT) END GO
 /****** Object:  StoredProcedure [dbo].[sproc_CheckPlaylist]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_CheckPlaylist]
 
 (
@@ -172,19 +181,20 @@ CREATE PROCEDURE [dbo].[sproc_CheckPlaylist]
 )
 
 AS
-SELECT CASE WHEN EXISTS (
-        SELECT *
-        FROM [Playlist]
+SELECT CASE
+           WHEN EXISTS(
+                   SELECT *
+                   FROM [Playlist]
         WHERE Id = @PlaylistId
     )
-THEN CAST(1 AS BIT)
-ELSE CAST(0 AS BIT) END
-GO
+               THEN CAST(1 AS BIT)
+           ELSE CAST(0 AS BIT) END GO
 /****** Object:  StoredProcedure [dbo].[sproc_CheckTrack]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_CheckTrack]
 
 (
@@ -192,19 +202,20 @@ CREATE PROCEDURE [dbo].[sproc_CheckTrack]
 )
 
 AS
-SELECT CASE WHEN EXISTS (
-        SELECT *
-        FROM [Track]
+SELECT CASE
+           WHEN EXISTS(
+                   SELECT *
+                   FROM [Track]
         WHERE Id = @TrackId
     )
-THEN CAST(1 AS BIT)
-ELSE CAST(0 AS BIT) END
-GO
+               THEN CAST(1 AS BIT)
+           ELSE CAST(0 AS BIT) END GO
 /****** Object:  StoredProcedure [dbo].[sproc_DeleteAlbum]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_DeleteAlbum]
 
 (
@@ -212,17 +223,19 @@ CREATE PROCEDURE [dbo].[sproc_DeleteAlbum]
 )
 
 AS
-DELETE FROM [Album]
+DELETE
+FROM [Album]
 WHERE Id = @AlbumId
 
 
 /*DROP PROC dbo.sproc_DeleteAlbum*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_DeleteArtist]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_DeleteArtist]
 
 (
@@ -230,17 +243,19 @@ CREATE PROCEDURE [dbo].[sproc_DeleteArtist]
 )
 
 AS
-DELETE FROM [Artist]
+DELETE
+FROM [Artist]
 WHERE Id = @ArtistId
 
 
 /*DROP PROC dbo.sproc_DeleteArtist*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_DeleteCustomer]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_DeleteCustomer]
 
 (
@@ -248,17 +263,19 @@ CREATE PROCEDURE [dbo].[sproc_DeleteCustomer]
 )
 
 AS
-DELETE FROM [Customer]
+DELETE
+FROM [Customer]
 WHERE Id = @CustomerId
 
 
 /*DROP PROC dbo.sproc_DeleteCustomer*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_DeleteEmployee]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_DeleteEmployee]
 
 (
@@ -266,17 +283,19 @@ CREATE PROCEDURE [dbo].[sproc_DeleteEmployee]
 )
 
 AS
-DELETE FROM [Employee]
+DELETE
+FROM [Employee]
 WHERE Id = @EmployeeId
 
 
 /*DROP PROC dbo.sproc_DeleteEmployee*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_DeleteGenre]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_DeleteGenre]
 
 (
@@ -284,17 +303,19 @@ CREATE PROCEDURE [dbo].[sproc_DeleteGenre]
 )
 
 AS
-DELETE FROM [Genre]
+DELETE
+FROM [Genre]
 WHERE Id = @GenreId
 
 
 /*DROP PROC dbo.sproc_DeleteGenre*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_DeleteInvoice]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_DeleteInvoice]
 
 (
@@ -302,17 +323,19 @@ CREATE PROCEDURE [dbo].[sproc_DeleteInvoice]
 )
 
 AS
-DELETE FROM [Invoice]
+DELETE
+FROM [Invoice]
 WHERE Id = @InvoiceId
 
 
 /*DROP PROC dbo.sproc_DeleteInvoice*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_DeleteInvoiceLine]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_DeleteInvoiceLine]
 
 (
@@ -320,17 +343,19 @@ CREATE PROCEDURE [dbo].[sproc_DeleteInvoiceLine]
 )
 
 AS
-DELETE FROM [InvoiceLine]
+DELETE
+FROM [InvoiceLine]
 WHERE Id = @InvoiceLineId
 
 
 /*DROP PROC dbo.sproc_DeleteInvoiceLine*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_DeleteMediaType]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_DeleteMediaType]
 
 (
@@ -338,17 +363,19 @@ CREATE PROCEDURE [dbo].[sproc_DeleteMediaType]
 )
 
 AS
-DELETE FROM [MediaType]
+DELETE
+FROM [MediaType]
 WHERE Id = @MediaTypeId
 
 
 /*DROP PROC dbo.sproc_DeleteMediaType*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_DeletePlaylist]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_DeletePlaylist]
 
 (
@@ -356,17 +383,19 @@ CREATE PROCEDURE [dbo].[sproc_DeletePlaylist]
 )
 
 AS
-DELETE FROM [Playlist]
+DELETE
+FROM [Playlist]
 WHERE Id = @PlaylistId
 
 
 /*DROP PROC dbo.sproc_DeletePlaylist*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_DeletePlaylistTrack]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_DeletePlaylistTrack]
 
 (
@@ -375,21 +404,23 @@ CREATE PROCEDURE [dbo].[sproc_DeletePlaylistTrack]
 )
 
 AS
-DELETE FROM [PlaylistTrack]
+DELETE
+FROM [PlaylistTrack]
 
 WHERE
-PlaylistId = @PlaylistId
-AND 
-TrackId = @TrackId
+    PlaylistId = @PlaylistId
+  AND
+    TrackId = @TrackId
 
 
 /*DROP PROC dbo.sproc_DeletePlaylistTrack*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_DeleteTrack]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_DeleteTrack]
 
 (
@@ -397,28 +428,31 @@ CREATE PROCEDURE [dbo].[sproc_DeleteTrack]
 )
 
 AS
-DELETE FROM [Track]
+DELETE
+FROM [Track]
 WHERE Id = @TrackId
 
 
 /*DROP PROC dbo.sproc_DeleteTrack*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetAlbum]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetAlbum]
 AS
 SELECT CAST((SELECT * FROM Album FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
 
 /*DROP PROC dbo.sproc_GetAlbum*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetAlbumByArtist]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetAlbumByArtist]
 
 (
@@ -426,13 +460,13 @@ CREATE PROCEDURE [dbo].[sproc_GetAlbumByArtist]
 )
 
 AS
-SELECT CAST((SELECT * FROM [Album] WHERE ArtistId = @ArtistId  FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Album] WHERE ArtistId = @ArtistId  FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetAlbumDetails]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetAlbumDetails]
 
 (
@@ -443,23 +477,25 @@ SELECT CAST((SELECT * FROM [Album] WHERE Id = @AlbumId  FOR JSON PATH) AS VARCHA
 
 
 /*DROP PROC dbo.sproc_GetAlbumDetails*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetArtist]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetArtist]
 AS
 SELECT CAST((SELECT * FROM [Artist] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
 
 /*DROP PROC dbo.sproc_GetArtist*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetArtistDetails]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetArtistDetails]
 
 (
@@ -467,22 +503,22 @@ CREATE PROCEDURE [dbo].[sproc_GetArtistDetails]
 )
 
 AS
-SELECT CAST((SELECT * FROM [Artist] WHERE Id = @ArtistId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Artist] WHERE Id = @ArtistId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetCustomer]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetCustomer]
 AS
-SELECT CAST((SELECT * FROM [Customer] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Customer] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetCustomerBySupportRep]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetCustomerBySupportRep]
 
 (
@@ -490,13 +526,13 @@ CREATE PROCEDURE [dbo].[sproc_GetCustomerBySupportRep]
 )
 
 AS
-SELECT CAST((SELECT * FROM [Customer] WHERE SupportRepId = @SupportRepId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Customer] WHERE SupportRepId = @SupportRepId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetCustomerDetails]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetCustomerDetails]
 
 (
@@ -504,23 +540,22 @@ CREATE PROCEDURE [dbo].[sproc_GetCustomerDetails]
 )
 
 AS
-SELECT CAST((SELECT * FROM [Customer] WHERE Id = @CustomerId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-
-GO
+SELECT CAST((SELECT * FROM [Customer] WHERE Id = @CustomerId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetEmployee]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetEmployee]
 AS
-SELECT CAST((SELECT * FROM [Employee] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Employee] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetEmployeeDetails]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetEmployeeDetails]
 
 (
@@ -528,13 +563,13 @@ CREATE PROCEDURE [dbo].[sproc_GetEmployeeDetails]
 )
 
 AS
-SELECT CAST((SELECT * FROM [Employee] WHERE Id = @EmployeeId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Employee] WHERE Id = @EmployeeId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetEmployeeDirectReports]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetEmployeeDirectReports]
 
 (
@@ -542,13 +577,13 @@ CREATE PROCEDURE [dbo].[sproc_GetEmployeeDirectReports]
 )
 
 AS
-SELECT CAST((SELECT * FROM [Employee] WHERE ReportsTo = @EmployeeId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Employee] WHERE ReportsTo = @EmployeeId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetEmployeeReportTo]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetEmployeeReportTo]
 
 (
@@ -556,22 +591,22 @@ CREATE PROCEDURE [dbo].[sproc_GetEmployeeReportTo]
 )
 
 AS
-SELECT CAST((SELECT * FROM [Employee] WHERE ReportsTo = (SELECT ReportsTo FROM dbo.Employee WHERE  Id = @EmployeeId) FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Employee] WHERE ReportsTo = (SELECT ReportsTo FROM dbo.Employee WHERE  Id = @EmployeeId) FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetGenre]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetGenre]
 AS
-SELECT CAST((SELECT * FROM [Genre] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Genre] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetGenreDetails]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetGenreDetails]
 
 (
@@ -579,22 +614,22 @@ CREATE PROCEDURE [dbo].[sproc_GetGenreDetails]
 )
 
 AS
-SELECT CAST((SELECT * FROM [Genre] WHERE Id = @GenreId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Genre] WHERE Id = @GenreId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetInvoice]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetInvoice]
 AS
-SELECT CAST((SELECT * FROM [Invoice] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Invoice] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetInvoiceByCustomer]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetInvoiceByCustomer]
 
 (
@@ -602,13 +637,13 @@ CREATE PROCEDURE [dbo].[sproc_GetInvoiceByCustomer]
 )
 
 AS
-SELECT CAST((SELECT * FROM [Invoice] WHERE CustomerId = @CustomerId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Invoice] WHERE CustomerId = @CustomerId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetInvoiceByEmployee]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetInvoiceByEmployee]
 
 (
@@ -616,16 +651,17 @@ CREATE PROCEDURE [dbo].[sproc_GetInvoiceByEmployee]
 )
 
 AS
-SELECT CAST((SELECT  Invoice.*
-FROM Customer INNER JOIN
-Invoice ON Customer.Id = Invoice.CustomerId
-WHERE dbo.Customer.SupportRepId = @EmployeeId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT Invoice.*
+             FROM Customer
+                      INNER JOIN
+                  Invoice ON Customer.Id = Invoice.CustomerId
+             WHERE dbo.Customer.SupportRepId = @EmployeeId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetInvoiceDetails]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetInvoiceDetails]
 
 (
@@ -633,22 +669,22 @@ CREATE PROCEDURE [dbo].[sproc_GetInvoiceDetails]
 )
 
 AS
-SELECT CAST((SELECT * FROM [Invoice] WHERE Id = @InvoiceId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Invoice] WHERE Id = @InvoiceId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetInvoiceLine]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetInvoiceLine]
 AS
-SELECT CAST((SELECT * FROM [InvoiceLine] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [InvoiceLine] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetInvoiceLineByInvoice]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetInvoiceLineByInvoice]
 
 (
@@ -656,13 +692,13 @@ CREATE PROCEDURE [dbo].[sproc_GetInvoiceLineByInvoice]
 )
 
 AS
-SELECT CAST((SELECT * FROM [InvoiceLine] WHERE InvoiceId = @InvoiceId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [InvoiceLine] WHERE InvoiceId = @InvoiceId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetInvoiceLineByTrack]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetInvoiceLineByTrack]
 
 (
@@ -670,13 +706,13 @@ CREATE PROCEDURE [dbo].[sproc_GetInvoiceLineByTrack]
 )
 
 AS
-SELECT CAST((SELECT * FROM [InvoiceLine] WHERE TrackId = @TrackId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [InvoiceLine] WHERE TrackId = @TrackId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetInvoiceLineDetails]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetInvoiceLineDetails]
 
 (
@@ -684,22 +720,22 @@ CREATE PROCEDURE [dbo].[sproc_GetInvoiceLineDetails]
 )
 
 AS
-SELECT CAST((SELECT * FROM [InvoiceLine] WHERE Id = @InvoiceLineId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [InvoiceLine] WHERE Id = @InvoiceLineId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetMediaType]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetMediaType]
 AS
-SELECT CAST((SELECT * FROM [MediaType] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [MediaType] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetMediaTypeDetails]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetMediaTypeDetails]
 
 (
@@ -707,22 +743,22 @@ CREATE PROCEDURE [dbo].[sproc_GetMediaTypeDetails]
 )
 
 AS
-SELECT CAST((SELECT * FROM [MediaType] WHERE Id = @MediaTypeId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [MediaType] WHERE Id = @MediaTypeId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetPlaylist]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetPlaylist]
 AS
-SELECT CAST((SELECT * FROM [Playlist] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Playlist] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetPlaylistByTrack]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetPlaylistByTrack]
 
 (
@@ -731,15 +767,16 @@ CREATE PROCEDURE [dbo].[sproc_GetPlaylistByTrack]
 
 AS
 SELECT CAST((SELECT Playlist.*
-FROM            Playlist INNER JOIN
-                PlaylistTrack ON Playlist.Id = PlaylistTrack.PlaylistId
-WHERE dbo.PlaylistTrack.TrackId = @TrackId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+             FROM Playlist
+                      INNER JOIN
+                  PlaylistTrack ON Playlist.Id = PlaylistTrack.PlaylistId
+             WHERE dbo.PlaylistTrack.TrackId = @TrackId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetPlaylistDetails]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetPlaylistDetails]
 
 (
@@ -747,22 +784,22 @@ CREATE PROCEDURE [dbo].[sproc_GetPlaylistDetails]
 )
 
 AS
-SELECT CAST((SELECT * FROM [Playlist] WHERE Id = @PlaylistId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Playlist] WHERE Id = @PlaylistId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetPlaylistTrack]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetPlaylistTrack]
 AS
-SELECT CAST((SELECT * FROM [PlaylistTrack] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [PlaylistTrack] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetPlaylistTrackDetails]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetPlaylistTrackDetails]
 
 (
@@ -775,22 +812,22 @@ SELECT CAST((SELECT * FROM [PlaylistTrack]
 WHERE
 PlaylistId = @PlaylistId
 AND 
-TrackId = @TrackId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+TrackId = @TrackId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetTrack]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetTrack]
 AS
-SELECT CAST((SELECT * FROM [Track] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Track] FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetTrackByAlbum]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetTrackByAlbum]
 
 (
@@ -799,13 +836,13 @@ CREATE PROCEDURE [dbo].[sproc_GetTrackByAlbum]
 
 AS
 SELECT CAST((SELECT * FROM [Track]
-WHERE AlbumId = @AlbumId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+WHERE AlbumId = @AlbumId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetTrackByArtist]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetTrackByArtist]
 (
     @ArtistId int
@@ -813,15 +850,16 @@ CREATE PROCEDURE [dbo].[sproc_GetTrackByArtist]
 
 AS
 SELECT CAST((SELECT Track.*
-FROM  Album INNER JOIN
-        Track ON Album.Id = Track.AlbumId
-WHERE Album.ArtistId = @ArtistId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+             FROM Album
+                      INNER JOIN
+                  Track ON Album.Id = Track.AlbumId
+             WHERE Album.ArtistId = @ArtistId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetTrackByGenre]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetTrackByGenre]
 
 (
@@ -829,13 +867,13 @@ CREATE PROCEDURE [dbo].[sproc_GetTrackByGenre]
 )
 
 AS
-SELECT CAST((SELECT * FROM [Track] WHERE GenreId = @GenreId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Track] WHERE GenreId = @GenreId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetTrackByInvoice]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetTrackByInvoice]
 
 (
@@ -843,16 +881,17 @@ CREATE PROCEDURE [dbo].[sproc_GetTrackByInvoice]
 )
 
 AS
-SELECT CAST((SELECT  Track.*
-FROM InvoiceLine INNER JOIN
-Track ON InvoiceLine.TrackId = Track.Id
-WHERE dbo.InvoiceLine.InvoiceId = @InvoiceId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT Track.*
+             FROM InvoiceLine
+                      INNER JOIN
+                  Track ON InvoiceLine.TrackId = Track.Id
+             WHERE dbo.InvoiceLine.InvoiceId = @InvoiceId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetTrackByMediaType]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetTrackByMediaType]
 
 (
@@ -860,13 +899,13 @@ CREATE PROCEDURE [dbo].[sproc_GetTrackByMediaType]
 )
 
 AS
-SELECT CAST((SELECT * FROM [Track] WHERE MediaTypeId = @MediaTypeId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT * FROM [Track] WHERE MediaTypeId = @MediaTypeId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetTrackByPlaylist]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetTrackByPlaylist]
 
 (
@@ -874,13 +913,16 @@ CREATE PROCEDURE [dbo].[sproc_GetTrackByPlaylist]
 )
 
 AS
-SELECT CAST((SELECT Track.* FROM PlaylistTrack INNER JOIN Track ON PlaylistTrack.TrackId = Track.Id WHERE dbo.PlaylistTrack.PlaylistId = @PlaylistId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA
-GO
+SELECT CAST((SELECT Track.*
+             FROM PlaylistTrack
+                      INNER JOIN Track ON PlaylistTrack.TrackId = Track.Id
+             WHERE dbo.PlaylistTrack.PlaylistId = @PlaylistId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_GetTrackDetails]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_GetTrackDetails]
 
 (
@@ -889,13 +931,13 @@ CREATE PROCEDURE [dbo].[sproc_GetTrackDetails]
 
 AS
 SELECT CAST((SELECT CAST((SELECT * FROM [Track]
-WHERE Id = @TrackId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA) AS VARCHAR(MAX)) AS JSONDATA
-GO
+WHERE Id = @TrackId FOR JSON PATH) AS VARCHAR(MAX)) AS JSONDATA) AS VARCHAR( MAX)) AS JSONDATA GO
 /****** Object:  StoredProcedure [dbo].[sproc_InsertAlbum]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_InsertAlbum]
 (
 	@Title nvarchar (MAX),
@@ -1325,20 +1367,21 @@ CREATE PROCEDURE [dbo].[sproc_UpdateAlbum]
 )
 
 AS
-UPDATE [Album] 
-SET 
-Title = @Title,
-ArtistId = @ArtistId
+UPDATE [Album]
+SET
+    Title = @Title,
+    ArtistId = @ArtistId
 WHERE Id = @AlbumId
 
 
 /*DROP PROC dbo.sproc_UpdateAlbum*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_UpdateArtist]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_UpdateArtist]
 (
 	@ArtistId int,
@@ -1346,19 +1389,20 @@ CREATE PROCEDURE [dbo].[sproc_UpdateArtist]
 )
 
 AS
-UPDATE [Artist] 
-SET 
-Name = @Name
+UPDATE [Artist]
+SET
+    Name = @Name
 WHERE Id = @ArtistId
 
 
 /*DROP PROC dbo.sproc_UpdateArtist*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_UpdateCustomer]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_UpdateCustomer]
 (
 	@CustomerId int,
@@ -1377,30 +1421,31 @@ CREATE PROCEDURE [dbo].[sproc_UpdateCustomer]
 )
 
 AS
-UPDATE [Customer] 
-SET 
-FirstName = @FirstName,
-LastName = @LastName,
-Company = @Company,
-Address = @Address,
-City = @City,
-State = @State,
-Country = @Country,
-PostalCode = @PostalCode,
-Phone = @Phone,
-Fax = @Fax,
-Email = @Email,
-SupportRepId = @SupportRepId
+UPDATE [Customer]
+SET
+    FirstName = @FirstName,
+    LastName = @LastName,
+    Company = @Company,
+    Address = @Address,
+    City = @City,
+    State = @State,
+    Country = @Country,
+    PostalCode = @PostalCode,
+    Phone = @Phone,
+    Fax = @Fax,
+    Email = @Email,
+    SupportRepId = @SupportRepId
 WHERE Id = @CustomerId
 
 
 /*DROP PROC dbo.sproc_UpdateCustomer*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_UpdateEmployee]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_UpdateEmployee]
 (
 	@EmployeeId int,
@@ -1421,32 +1466,33 @@ CREATE PROCEDURE [dbo].[sproc_UpdateEmployee]
 )
 
 AS
-UPDATE [Employee] 
-SET 
-LastName = @LastName,
-FirstName = @FirstName,
-Title = @Title,
-ReportsTo = @ReportsTo,
-BirthDate = @BirthDate,
-HireDate = @HireDate,
-Address = @Address,
-City = @City,
-State = @State,
-Country = @Country,
-PostalCode = @PostalCode,
-Phone = @Phone,
-Fax = @Fax,
-Email = @Email
+UPDATE [Employee]
+SET
+    LastName = @LastName,
+    FirstName = @FirstName,
+    Title = @Title,
+    ReportsTo = @ReportsTo,
+    BirthDate = @BirthDate,
+    HireDate = @HireDate,
+    Address = @Address,
+    City = @City,
+    State = @State,
+    Country = @Country,
+    PostalCode = @PostalCode,
+    Phone = @Phone,
+    Fax = @Fax,
+    Email = @Email
 WHERE Id = @EmployeeId
 
 
 /*DROP PROC dbo.sproc_UpdateEmployee*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_UpdateGenre]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_UpdateGenre]
 (
 	@GenreId int,
@@ -1454,19 +1500,20 @@ CREATE PROCEDURE [dbo].[sproc_UpdateGenre]
 )
 
 AS
-UPDATE [Genre] 
-SET 
-Name = @Name
+UPDATE [Genre]
+SET
+    Name = @Name
 WHERE Id = @GenreId
 
 
 /*DROP PROC dbo.sproc_UpdateGenre*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_UpdateInvoice]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_UpdateInvoice]
 (
 	@InvoiceId int,
@@ -1481,26 +1528,27 @@ CREATE PROCEDURE [dbo].[sproc_UpdateInvoice]
 )
 
 AS
-UPDATE [Invoice] 
-SET 
-CustomerId = @CustomerId,
-InvoiceDate = @InvoiceDate,
-BillingAddress = @BillingAddress,
-BillingCity = @BillingCity,
-BillingState = @BillingState,
-BillingCountry = @BillingCountry,
-BillingPostalCode = @BillingPostalCode,
-Total = @Total
+UPDATE [Invoice]
+SET
+    CustomerId = @CustomerId,
+    InvoiceDate = @InvoiceDate,
+    BillingAddress = @BillingAddress,
+    BillingCity = @BillingCity,
+    BillingState = @BillingState,
+    BillingCountry = @BillingCountry,
+    BillingPostalCode = @BillingPostalCode,
+    Total = @Total
 WHERE Id = @InvoiceId
 
 
 /*DROP PROC dbo.sproc_UpdateInvoice*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_UpdateInvoiceLine]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_UpdateInvoiceLine]
 (
 	@InvoiceLineId int,
@@ -1511,22 +1559,23 @@ CREATE PROCEDURE [dbo].[sproc_UpdateInvoiceLine]
 )
 
 AS
-UPDATE [InvoiceLine] 
-SET 
-InvoiceId = @InvoiceId,
-TrackId = @TrackId,
-UnitPrice = @UnitPrice,
-Quantity = @Quantity
+UPDATE [InvoiceLine]
+SET
+    InvoiceId = @InvoiceId,
+    TrackId = @TrackId,
+    UnitPrice = @UnitPrice,
+    Quantity = @Quantity
 WHERE Id = @InvoiceLineId
 
 
 /*DROP PROC dbo.sproc_UpdateInvoiceLine*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_UpdateMediaType]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_UpdateMediaType]
 (
 	@MediaTypeId int,
@@ -1534,19 +1583,20 @@ CREATE PROCEDURE [dbo].[sproc_UpdateMediaType]
 )
 
 AS
-UPDATE [MediaType] 
-SET 
-Name = @Name
+UPDATE [MediaType]
+SET
+    Name = @Name
 WHERE Id = @MediaTypeId
 
 
 /*DROP PROC dbo.sproc_UpdateMediaType*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_UpdatePlaylist]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_UpdatePlaylist]
 (
 	@PlaylistId int,
@@ -1554,19 +1604,20 @@ CREATE PROCEDURE [dbo].[sproc_UpdatePlaylist]
 )
 
 AS
-UPDATE [Playlist] 
-SET 
-Name = @Name
+UPDATE [Playlist]
+SET
+    Name = @Name
 WHERE Id = @PlaylistId
 
 
 /*DROP PROC dbo.sproc_UpdatePlaylist*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_UpdatePlaylistTrack]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_UpdatePlaylistTrack]
 (
 	@PlaylistId int,
@@ -1574,23 +1625,24 @@ CREATE PROCEDURE [dbo].[sproc_UpdatePlaylistTrack]
 )
 
 AS
-UPDATE [PlaylistTrack] 
-SET 
-PlaylistId = @PlaylistId,
-TrackId = @TrackId
+UPDATE [PlaylistTrack]
+SET
+    PlaylistId = @PlaylistId,
+    TrackId = @TrackId
 WHERE
-PlaylistId = @PlaylistId
-AND 
-TrackId = @TrackId
+    PlaylistId = @PlaylistId
+  AND
+    TrackId = @TrackId
 
 
 /*DROP PROC dbo.sproc_UpdatePlaylistTrack*/
-GO
+    GO
 /****** Object:  StoredProcedure [dbo].[sproc_UpdateTrack]    Script Date: 5/3/2020 9:40:34 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+SET ANSI_NULLS
+ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
 CREATE PROCEDURE [dbo].[sproc_UpdateTrack]
 (
 	@TrackId int,
@@ -1605,18 +1657,18 @@ CREATE PROCEDURE [dbo].[sproc_UpdateTrack]
 )
 
 AS
-UPDATE [Track] 
-SET 
-Name = @Name,
-AlbumId = @AlbumId,
-MediaTypeId = @MediaTypeId,
-GenreId = @GenreId,
-Composer = @Composer,
-Milliseconds = @Milliseconds,
-Bytes = @Bytes,
-UnitPrice = @UnitPrice
+UPDATE [Track]
+SET
+    Name = @Name,
+    AlbumId = @AlbumId,
+    MediaTypeId = @MediaTypeId,
+    GenreId = @GenreId,
+    Composer = @Composer,
+    Milliseconds = @Milliseconds,
+    Bytes = @Bytes,
+    UnitPrice = @UnitPrice
 WHERE Id = @TrackId
 
 
 /*DROP PROC dbo.sproc_UpdateTrack*/
-GO
+    GO

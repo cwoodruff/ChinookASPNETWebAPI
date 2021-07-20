@@ -25,11 +25,10 @@ namespace Chinook.DataDapper.Repositories
 
         public void Dispose()
         {
-            
         }
 
         private async Task<bool> GenreExists(int id) =>
-            await Connection.ExecuteScalarAsync<bool>("select count(1) from Genre where Id = @id", new {id});
+            await Connection.ExecuteScalarAsync<bool>("select count(1) from Genre where Id = @id", new { id });
 
         public async Task<List<Genre>> GetAll()
         {
@@ -43,7 +42,7 @@ namespace Chinook.DataDapper.Repositories
         {
             using var cn = Connection;
             cn.Open();
-            return cn.QueryFirstOrDefault<Genre>("Select * From Genre WHERE Id = @Id", new {id});
+            return cn.QueryFirstOrDefault<Genre>("Select * From Genre WHERE Id = @Id", new { id });
         }
 
         public async Task<Genre> Add(Genre newGenre)
@@ -51,7 +50,7 @@ namespace Chinook.DataDapper.Repositories
             using var cn = Connection;
             cn.Open();
 
-            newGenre.Id = await cn.InsertAsync(new Genre {Name = newGenre.Name});
+            newGenre.Id = await cn.InsertAsync(new Genre { Name = newGenre.Name });
 
             return newGenre;
         }
@@ -67,7 +66,7 @@ namespace Chinook.DataDapper.Repositories
                 cn.Open();
                 return await cn.UpdateAsync(genre);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -79,9 +78,9 @@ namespace Chinook.DataDapper.Repositories
             {
                 using var cn = Connection;
                 cn.Open();
-                return await cn.DeleteAsync(new Genre {Id = id});
+                return await cn.DeleteAsync(new Genre { Id = id });
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }

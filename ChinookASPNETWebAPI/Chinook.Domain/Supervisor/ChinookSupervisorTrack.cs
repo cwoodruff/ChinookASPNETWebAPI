@@ -17,9 +17,11 @@ namespace Chinook.Domain.Supervisor
             var trackApiModels = tracks.ConvertAll();
             foreach (var track in trackApiModels)
             {
-                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Track-", track.Id), track, cacheEntryOptions);
+                var cacheEntryOptions =
+                    new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(string.Concat((object?)"Track-", track.Id), track, cacheEntryOptions);
             }
+
             return trackApiModels;
         }
 
@@ -33,7 +35,7 @@ namespace Chinook.Domain.Supervisor
             }
             else
             {
-                var trackApiModel = await(await _trackRepository.GetById(id)).ConvertAsync();
+                var trackApiModel = await (await _trackRepository.GetById(id)).ConvertAsync();
                 trackApiModel.Genre = await GetGenreById(trackApiModel.GenreId.GetValueOrDefault());
                 trackApiModel.Album = await GetAlbumById(trackApiModel.AlbumId);
                 trackApiModel.MediaType = await GetMediaTypeById(trackApiModel.MediaTypeId);
@@ -41,15 +43,16 @@ namespace Chinook.Domain.Supervisor
                 {
                     trackApiModel.AlbumName = trackApiModel.Album.Title;
                 }
+
                 trackApiModel.MediaTypeName = trackApiModel.MediaType.Name;
                 if (trackApiModel.Genre != null)
                 {
-                    trackApiModel.GenreName = trackApiModel.Genre.Name;   
+                    trackApiModel.GenreName = trackApiModel.Genre.Name;
                 }
 
                 var cacheEntryOptions =
                     new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Track-", trackApiModel.Id), trackApiModel, cacheEntryOptions);
+                _cache.Set(string.Concat((object?)"Track-", trackApiModel.Id), trackApiModel, cacheEntryOptions);
 
                 return trackApiModel;
             }
@@ -108,9 +111,9 @@ namespace Chinook.Domain.Supervisor
             return await _trackRepository.Update(track);
         }
 
-        public Task<bool> DeleteTrack(int id) 
+        public Task<bool> DeleteTrack(int id)
             => _trackRepository.Delete(id);
-        
+
         public async Task<IEnumerable<TrackApiModel>> GetTrackByArtistId(int id)
         {
             var tracks = await _trackRepository.GetByArtistId(id);

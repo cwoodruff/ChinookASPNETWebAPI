@@ -17,9 +17,11 @@ namespace Chinook.Domain.Supervisor
             var employeeApiModels = employees.ConvertAll();
             foreach (var employee in employeeApiModels)
             {
-                var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Employee-", employee.Id), employee, cacheEntryOptions);
+                var cacheEntryOptions =
+                    new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
+                _cache.Set(string.Concat((object?)"Employee-", employee.Id), employee, cacheEntryOptions);
             }
+
             return employeeApiModels;
         }
 
@@ -46,7 +48,8 @@ namespace Chinook.Domain.Supervisor
 
                 var cacheEntryOptions =
                     new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(604800));
-                _cache.Set(string.Concat((object?) "Employee-", employeeApiModel.Id), employeeApiModel, cacheEntryOptions);
+                _cache.Set(string.Concat((object?)"Employee-", employeeApiModel.Id), employeeApiModel,
+                    cacheEntryOptions);
 
                 return employeeApiModel;
             }
@@ -93,7 +96,7 @@ namespace Chinook.Domain.Supervisor
             return await _employeeRepository.Update(employee);
         }
 
-        public Task<bool> DeleteEmployee(int id) 
+        public Task<bool> DeleteEmployee(int id)
             => _employeeRepository.Delete(id);
 
         public async Task<IEnumerable<EmployeeApiModel>> GetEmployeeDirectReports(int id)

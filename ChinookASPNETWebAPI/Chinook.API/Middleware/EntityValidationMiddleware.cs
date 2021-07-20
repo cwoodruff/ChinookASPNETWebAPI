@@ -14,14 +14,16 @@ namespace Chinook.API.Middleware
             return app;
         }
     }
-    
+
     public class EntityValidationMiddleware
     {
-        private readonly RequestDelegate _next;       
+        private readonly RequestDelegate _next;
+
         public EntityValidationMiddleware(RequestDelegate next)
         {
             _next = next;
         }
+
         public async Task Invoke(HttpContext context)
         {
             if (context.Request.GetDisplayUrl().Contains("swagger"))

@@ -5,7 +5,8 @@ namespace Chinook.Domain.Validation
 {
     public class EmployeeValidator : AbstractValidator<EmployeeApiModel>
     {
-        public EmployeeValidator() {
+        public EmployeeValidator()
+        {
             RuleFor(e => e.FirstName).NotNull();
             RuleFor(e => e.LastName).NotNull();
             RuleFor(e => e.Email).EmailAddress();

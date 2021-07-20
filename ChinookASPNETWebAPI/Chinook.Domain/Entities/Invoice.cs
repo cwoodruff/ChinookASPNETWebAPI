@@ -39,7 +39,7 @@ namespace Chinook.Domain.Entities
                 BillingPostalCode = BillingPostalCode,
                 Total = Total
             };
-        
+
         public async Task<InvoiceApiModel> ConvertAsync() =>
             new()
             {

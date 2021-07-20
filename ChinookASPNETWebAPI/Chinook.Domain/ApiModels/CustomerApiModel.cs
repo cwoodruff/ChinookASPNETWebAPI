@@ -23,12 +23,10 @@ namespace Chinook.Domain.ApiModels
         public string? Email { get; set; }
         public int? SupportRepId { get; set; }
         public string? SupportRepName { get; set; }
-        
-        [JsonIgnore]
-        public IList<InvoiceApiModel>? Invoices { get; set; }
-        
-        [JsonIgnore]
-        public EmployeeApiModel? SupportRep { get; set; }
+
+        [JsonIgnore] public IList<InvoiceApiModel>? Invoices { get; set; }
+
+        [JsonIgnore] public EmployeeApiModel? SupportRep { get; set; }
 
 
         public Customer Convert() =>
@@ -48,7 +46,7 @@ namespace Chinook.Domain.ApiModels
                 Email = Email,
                 SupportRepId = SupportRepId
             };
-        
+
         public async Task<Customer> ConvertAsync() =>
             new()
             {
