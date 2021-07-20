@@ -33,6 +33,7 @@ namespace Chinook.API
                         "https://httpstatuses.com/404";
                 });
             services.ConfigureRepositories();
+            services.ConfigureValidators();
             services.ConfigureSupervisor();
             services.AddConnectionProvider(Configuration);
             services.AddAppSettings(Configuration);

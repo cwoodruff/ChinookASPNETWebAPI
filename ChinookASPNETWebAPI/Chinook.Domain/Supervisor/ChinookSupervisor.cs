@@ -1,5 +1,7 @@
-﻿using Chinook.Domain.Repositories;
+﻿using Chinook.Domain.ApiModels;
+using Chinook.Domain.Repositories;
 using Chinook.Domain.Validation;
+using FluentValidation;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Chinook.Domain.Supervisor
@@ -18,17 +20,16 @@ namespace Chinook.Domain.Supervisor
         private readonly ITrackRepository _trackRepository;
         private readonly IMemoryCache _cache;
 
-        private readonly AlbumValidator _albumValidator;
-        private readonly ArtistValidator _artistValidator;
-        private readonly CustomerValidator _customerValidator;
-        private readonly EmployeeValidator _employeeValidator;
-        private readonly GenreValidator _genreValidator;
-        private readonly InvoiceValidator _invoiceValidator;
-        private readonly InvoiceLineValidator _invoiceLineValidator;
-        private readonly MediaTypeValidator _mediaTypeValidator;
-        private readonly PlaylistValidator _playlistValidator;
-        private readonly PlaylistTrackValidator _playlistTrackValidator;
-        private readonly TrackValidator _trackValidator;
+        private readonly IValidator<AlbumApiModel> _albumValidator;
+        private readonly IValidator<ArtistApiModel> _artistValidator;
+        private readonly IValidator<CustomerApiModel> _customerValidator;
+        private readonly IValidator<EmployeeApiModel> _employeeValidator;
+        private readonly IValidator<GenreApiModel> _genreValidator;
+        private readonly IValidator<InvoiceApiModel> _invoiceValidator;
+        private readonly IValidator<InvoiceLineApiModel> _invoiceLineValidator;
+        private readonly IValidator<MediaTypeApiModel> _mediaTypeValidator;
+        private readonly IValidator<PlaylistApiModel> _playlistValidator;
+        private readonly IValidator<TrackApiModel> _trackValidator;
 
         public ChinookSupervisor(IAlbumRepository albumRepository,
             IArtistRepository artistRepository,
@@ -40,7 +41,17 @@ namespace Chinook.Domain.Supervisor
             IMediaTypeRepository mediaTypeRepository,
             IPlaylistRepository playlistRepository,
             ITrackRepository trackRepository,
-            IMemoryCache memoryCache
+            IMemoryCache memoryCache,
+            IValidator<AlbumApiModel> albumValidator,
+            IValidator<ArtistApiModel> artistValidator,
+            IValidator<CustomerApiModel> customerValidator,
+            IValidator<EmployeeApiModel> employeeValidator,
+            IValidator<GenreApiModel> genreValidator,
+            IValidator<InvoiceApiModel> invoiceValidator,
+            IValidator<InvoiceLineApiModel> invoiceLineValidator,
+            IValidator<MediaTypeApiModel> mediaTypeValidator,
+            IValidator<PlaylistApiModel> playlistValidator,
+            IValidator<TrackApiModel> trackValidator
         )
         {
             _albumRepository = albumRepository;
@@ -55,17 +66,16 @@ namespace Chinook.Domain.Supervisor
             _trackRepository = trackRepository;
             _cache = memoryCache;
 
-            _albumValidator = new AlbumValidator();
-            _artistValidator = new ArtistValidator();
-            _customerValidator = new CustomerValidator();
-            _employeeValidator = new EmployeeValidator();
-            _genreValidator = new GenreValidator();
-            _invoiceValidator = new InvoiceValidator();
-            _invoiceLineValidator = new InvoiceLineValidator();
-            _mediaTypeValidator = new MediaTypeValidator();
-            _playlistValidator = new PlaylistValidator();
-            _playlistTrackValidator = new PlaylistTrackValidator();
-            _trackValidator = new TrackValidator();
+            _albumValidator = albumValidator;
+            _artistValidator = artistValidator;
+            _customerValidator = customerValidator;
+            _employeeValidator = employeeValidator;
+            _genreValidator = genreValidator;
+            _invoiceValidator = invoiceValidator;
+            _invoiceLineValidator = invoiceLineValidator;
+            _mediaTypeValidator = mediaTypeValidator;
+            _playlistValidator = playlistValidator;
+            _trackValidator = trackValidator;
         }
     }
 }

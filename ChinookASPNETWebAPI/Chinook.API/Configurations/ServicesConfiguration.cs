@@ -1,7 +1,10 @@
 ﻿using System;
 using Chinook.DataEFCore.Repositories;
+using Chinook.Domain.ApiModels;
 using Chinook.Domain.Repositories;
 using Chinook.Domain.Supervisor;
+using Chinook.Domain.Validation;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -26,6 +29,20 @@ namespace Chinook.API.Configurations
                 .AddScoped<IMediaTypeRepository, MediaTypeRepository>()
                 .AddScoped<IPlaylistRepository, PlaylistRepository>()
                 .AddScoped<ITrackRepository, TrackRepository>();
+        }
+        
+        public static void ConfigureValidators(this IServiceCollection services)
+        {
+            services.AddScoped<IValidator<AlbumApiModel>, AlbumValidator>()
+                .AddScoped<IValidator<ArtistApiModel>, ArtistValidator>()
+                .AddScoped<IValidator<CustomerApiModel>, CustomerValidator>()
+                .AddScoped<IValidator<EmployeeApiModel>, EmployeeValidator>()
+                .AddScoped<IValidator<GenreApiModel>, GenreValidator>()
+                .AddScoped<IValidator<InvoiceApiModel>, InvoiceValidator>()
+                .AddScoped<IValidator<InvoiceLineApiModel>, InvoiceLineValidator>()
+                .AddScoped<IValidator<MediaTypeApiModel>, MediaTypeValidator>()
+                .AddScoped<IValidator<PlaylistApiModel>, PlaylistValidator>()
+                .AddScoped<IValidator<TrackApiModel>, TrackValidator>();
         }
 
         public static void ConfigureSupervisor(this IServiceCollection services)
