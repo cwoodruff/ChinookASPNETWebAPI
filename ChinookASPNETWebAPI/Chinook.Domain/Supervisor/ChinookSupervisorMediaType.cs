@@ -65,7 +65,7 @@ namespace Chinook.Domain.Supervisor
 
             if (mediaType == null) return false;
             mediaType.Id = mediaTypeApiModel.Id;
-            mediaType.Name = mediaTypeApiModel.Name;
+            mediaType.Name = mediaTypeApiModel.Name ?? string.Empty;
 
             return await _mediaTypeRepository.Update(mediaType);
         }

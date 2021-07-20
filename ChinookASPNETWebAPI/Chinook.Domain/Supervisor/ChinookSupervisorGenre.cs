@@ -66,7 +66,7 @@ namespace Chinook.Domain.Supervisor
 
             if (genre == null) return false;
             genre.Id = genreApiModel.Id;
-            genre.Name = genreApiModel.Name;
+            genre.Name = genreApiModel.Name ?? string.Empty;
 
             return await _genreRepository.Update(genre);
         }

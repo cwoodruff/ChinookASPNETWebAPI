@@ -65,7 +65,7 @@ namespace Chinook.Domain.Supervisor
 
             if (playlist == null) return false;
             playlist.Id = playlistApiModel.Id;
-            playlist.Name = playlistApiModel.Name;
+            playlist.Name = playlistApiModel.Name ?? string.Empty;
 
             return await _playlistRepository.Update(playlist);
         }

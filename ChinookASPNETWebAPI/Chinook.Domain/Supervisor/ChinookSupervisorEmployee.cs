@@ -78,8 +78,8 @@ namespace Chinook.Domain.Supervisor
 
             if (employee == null) return false;
             employee.Id = employeeApiModel.Id;
-            employee.LastName = employeeApiModel.LastName ?? string.Empty;
-            employee.FirstName = employeeApiModel.FirstName ?? string.Empty;
+            employee.LastName = employeeApiModel.LastName;
+            employee.FirstName = employeeApiModel.FirstName;
             employee.Title = employeeApiModel.Title ?? string.Empty;
             employee.ReportsTo = employeeApiModel.ReportsTo;
             employee.BirthDate = employeeApiModel.BirthDate;

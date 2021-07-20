@@ -76,15 +76,15 @@ namespace Chinook.Domain.Supervisor
             if (customer == null) return false;
             customer.FirstName = customerApiModel.FirstName;
             customer.LastName = customerApiModel.LastName;
-            customer.Company = customerApiModel.Company;
-            customer.Address = customerApiModel.Address;
-            customer.City = customerApiModel.City;
-            customer.State = customerApiModel.State;
-            customer.Country = customerApiModel.Country;
-            customer.PostalCode = customerApiModel.PostalCode;
-            customer.Phone = customerApiModel.Phone;
-            customer.Fax = customerApiModel.Fax;
-            customer.Email = customerApiModel.Email;
+            customer.Company = customerApiModel.Company ?? string.Empty;
+            customer.Address = customerApiModel.Address ?? string.Empty;
+            customer.City = customerApiModel.City ?? string.Empty;
+            customer.State = customerApiModel.State ?? string.Empty;
+            customer.Country = customerApiModel.Country ?? string.Empty;
+            customer.PostalCode = customerApiModel.PostalCode ?? string.Empty;
+            customer.Phone = customerApiModel.Phone ?? string.Empty;
+            customer.Fax = customerApiModel.Fax ?? string.Empty;
+            customer.Email = customerApiModel.Email ?? string.Empty;
             customer.SupportRepId = customerApiModel.SupportRepId;
 
             return await _customerRepository.Update(customer);

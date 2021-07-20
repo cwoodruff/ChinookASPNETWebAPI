@@ -103,7 +103,7 @@ namespace Chinook.Domain.Supervisor
             track.AlbumId = trackApiModel.AlbumId;
             track.MediaTypeId = trackApiModel.MediaTypeId;
             track.GenreId = trackApiModel.GenreId;
-            track.Composer = trackApiModel.Composer;
+            track.Composer = trackApiModel.Composer ?? string.Empty;
             track.Milliseconds = trackApiModel.Milliseconds;
             track.Bytes = trackApiModel.Bytes;
             track.UnitPrice = trackApiModel.UnitPrice;

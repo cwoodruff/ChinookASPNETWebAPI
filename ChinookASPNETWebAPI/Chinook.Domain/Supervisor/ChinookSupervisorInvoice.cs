@@ -75,11 +75,11 @@ namespace Chinook.Domain.Supervisor
             invoice.Id = invoiceApiModel.Id;
             invoice.CustomerId = invoiceApiModel.CustomerId;
             invoice.InvoiceDate = invoiceApiModel.InvoiceDate;
-            invoice.BillingAddress = invoiceApiModel.BillingAddress;
-            invoice.BillingCity = invoiceApiModel.BillingCity;
-            invoice.BillingState = invoiceApiModel.BillingState;
-            invoice.BillingCountry = invoiceApiModel.BillingCountry;
-            invoice.BillingPostalCode = invoiceApiModel.BillingPostalCode;
+            invoice.BillingAddress = invoiceApiModel.BillingAddress ?? string.Empty;
+            invoice.BillingCity = invoiceApiModel.BillingCity ?? string.Empty;
+            invoice.BillingState = invoiceApiModel.BillingState ?? string.Empty;
+            invoice.BillingCountry = invoiceApiModel.BillingCountry ?? string.Empty;
+            invoice.BillingPostalCode = invoiceApiModel.BillingPostalCode ?? string.Empty;
             invoice.Total = invoiceApiModel.Total;
 
             return await _invoiceRepository.Update(invoice);
