@@ -15,11 +15,9 @@ namespace Chinook.Domain.ApiModels
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public InvoiceApiModel Invoice { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public TrackApiModel Track { get; set; }
 

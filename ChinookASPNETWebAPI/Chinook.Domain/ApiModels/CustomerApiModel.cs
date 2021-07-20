@@ -22,16 +22,11 @@ namespace Chinook.Domain.ApiModels
         public string? Fax { get; set; }
         public string? Email { get; set; }
         public int? SupportRepId { get; set; }
-        
-        [ValidateNever]
-        [JsonIgnore]
         public string? SupportRepName { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public IList<InvoiceApiModel>? Invoices { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public EmployeeApiModel? SupportRep { get; set; }
 

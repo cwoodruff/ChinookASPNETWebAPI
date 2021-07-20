@@ -12,7 +12,6 @@ namespace Chinook.Domain.ApiModels
         public int Id { get; set; }
         public string? Name { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public IList<AlbumApiModel>? Albums { get; set; }
 

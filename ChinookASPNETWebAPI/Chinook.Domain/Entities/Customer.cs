@@ -27,9 +27,9 @@ namespace Chinook.Domain.Entities
         public string Email { get; set; }
         public int? SupportRepId { get; set; }
 
-        [JsonIgnore]
+        
         public virtual Employee SupportRep { get; set; }
-        [JsonIgnore]
+        
         public virtual ICollection<Invoice> Invoices { get; set; }
         
         public CustomerApiModel Convert() =>

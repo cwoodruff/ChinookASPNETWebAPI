@@ -8,6 +8,7 @@ namespace Chinook.Domain.Validation
         public MediaTypeValidator()
         {
             RuleFor(m => m.Name).NotNull();
+            RuleFor(m => m.Name).MaximumLength(120);
         }
     }
 }

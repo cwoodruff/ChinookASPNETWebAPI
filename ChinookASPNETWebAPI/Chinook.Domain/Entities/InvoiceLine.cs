@@ -13,9 +13,9 @@ namespace Chinook.Domain.Entities
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
 
-        [JsonIgnore]
+        
         public virtual Invoice Invoice { get; set; }
-        [JsonIgnore]
+        
         public virtual Track Track { get; set; }
 
         public InvoiceLineApiModel Convert() =>

@@ -8,6 +8,7 @@ namespace Chinook.Domain.Validation
         public GenreValidator()
         {
             RuleFor(g => g.Name).NotNull();
+            RuleFor(g => g.Name).MaximumLength(120);
         }
     }
 }

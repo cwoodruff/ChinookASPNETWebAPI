@@ -8,6 +8,7 @@ namespace Chinook.Domain.Validation
         public PlaylistValidator()
         {
             RuleFor(p => p.Name).NotNull();
+            RuleFor(p => p.Name).MaximumLength(120);
         }
     }
 }

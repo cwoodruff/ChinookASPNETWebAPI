@@ -23,10 +23,7 @@ namespace Chinook.Domain.Entities
         public string? BillingCountry { get; set; }
         public string? BillingPostalCode { get; set; }
         public decimal Total { get; set; }
-
-        [JsonIgnore]
         public virtual Customer Customer { get; set; }
-        [JsonIgnore]
         public virtual ICollection<InvoiceLine> InvoiceLines { get; set; }
 
         public InvoiceApiModel Convert() =>

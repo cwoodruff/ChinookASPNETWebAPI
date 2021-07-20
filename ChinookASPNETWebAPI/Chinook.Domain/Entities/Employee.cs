@@ -31,11 +31,11 @@ namespace Chinook.Domain.Entities
         public string? Fax { get; set; }
         public string? Email { get; set; }
 
-        [JsonIgnore]
+        
         public virtual Employee ReportsToNavigation { get; set; }
-        [JsonIgnore]
+        
         public virtual ICollection<Customer> Customers { get; set; }
-        [JsonIgnore]
+        
         public virtual ICollection<Employee> InverseReportsToNavigation { get; set; }
         
         public EmployeeApiModel Convert() =>

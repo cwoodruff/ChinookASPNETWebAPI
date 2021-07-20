@@ -7,7 +7,8 @@ namespace Chinook.Domain.Validation
     {
         public PlaylistTrackValidator()
         {
-            
+            RuleFor(plt => plt.PlaylistId).NotNull();
+            RuleFor(plt => plt.TrackId).NotNull();
         }
     }
 }

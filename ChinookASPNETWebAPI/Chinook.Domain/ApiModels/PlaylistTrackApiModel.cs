@@ -11,11 +11,9 @@ namespace Chinook.Domain.ApiModels
         public int PlaylistId { get; set; }
         public int TrackId { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public PlaylistApiModel Playlist { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public TrackApiModel Track { get; set; }
 

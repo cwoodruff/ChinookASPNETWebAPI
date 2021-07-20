@@ -15,7 +15,7 @@ namespace Chinook.Domain.Entities
 
         public int Id { get; set; }
         public string? Name { get; set; }
-        [JsonIgnore]
+        
         public virtual ICollection<Album> Albums { get; set; }
         
         public ArtistApiModel Convert() =>

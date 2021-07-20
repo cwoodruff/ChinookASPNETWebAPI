@@ -21,11 +21,9 @@ namespace Chinook.Domain.ApiModels
         public string BillingPostalCode { get; set; }
         public decimal Total { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public IList<InvoiceLineApiModel> InvoiceLines { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public CustomerApiModel Customer { get; set; }
 

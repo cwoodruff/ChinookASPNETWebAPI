@@ -16,15 +16,9 @@ using System.Text.Json.Serialization;
 
         [Key]
         public int Id { get; set; }
-        
-        [StringLength(160, MinimumLength = 3)]
-        [Required]
         public string Title { get; set; }
         public int ArtistId { get; set; }
-
-        [JsonIgnore]
         public virtual Artist Artist { get; set; }
-        [JsonIgnore]
         public virtual ICollection<Track> Tracks { get; set; }
 
         public AlbumApiModel Convert() =>

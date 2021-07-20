@@ -8,6 +8,7 @@ namespace Chinook.Domain.Validation
         public ArtistValidator()
         {
             RuleFor(a => a.Name).NotNull();
+            RuleFor(a => a.Name).MaximumLength(120);
         }
     }
 }

@@ -27,15 +27,12 @@ namespace Chinook.Domain.ApiModels
         public string? Fax { get; set; }
         public string? Email { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public List<CustomerApiModel>? Customers { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public EmployeeApiModel? Manager { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public ICollection<EmployeeApiModel>? DirectReports { get; set; }
 

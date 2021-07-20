@@ -22,24 +22,15 @@ namespace Chinook.Domain.ApiModels
         public int? Bytes { get; set; }
         public decimal UnitPrice { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public IList<InvoiceLineApiModel>? InvoiceLines { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public IList<PlaylistTrackApiModel>? PlaylistTracks { get; set; }
         
-        [ValidateNever]
         [JsonIgnore]
         public AlbumApiModel? Album { get; set; }
-        
-        [ValidateNever]
-        [JsonIgnore]
         public GenreApiModel? Genre { get; set; }
-        
-        [ValidateNever]
-        [JsonIgnore]
         public MediaTypeApiModel? MediaType { get; set; }
 
         public Track Convert() =>
