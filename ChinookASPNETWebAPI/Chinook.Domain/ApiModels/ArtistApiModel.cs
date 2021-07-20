@@ -16,14 +16,14 @@ namespace Chinook.Domain.ApiModels
         public IList<AlbumApiModel>? Albums { get; set; }
 
         public Artist Convert() =>
-            new Artist
+            new()
             {
                 Id = Id,
                 Name = Name ?? string.Empty
             };
         
         public async Task<Artist> ConvertAsync() =>
-            new Artist
+            new()
             {
                 Id = Id,
                 Name = Name ?? string.Empty

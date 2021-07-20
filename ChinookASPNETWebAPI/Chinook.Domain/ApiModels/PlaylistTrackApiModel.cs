@@ -18,14 +18,14 @@ namespace Chinook.Domain.ApiModels
         public TrackApiModel Track { get; set; }
 
         public PlaylistTrack Convert() =>
-            new PlaylistTrack
+            new()
             {
                 PlaylistId = PlaylistId,
                 TrackId = TrackId
             };
         
         public async Task<PlaylistTrack> ConvertAsync() =>
-            new PlaylistTrack
+            new()
             {
                 PlaylistId = PlaylistId,
                 TrackId = TrackId

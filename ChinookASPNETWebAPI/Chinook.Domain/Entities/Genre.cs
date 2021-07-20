@@ -19,14 +19,14 @@ namespace Chinook.Domain.Entities
         public virtual ICollection<Track> Tracks { get; set; }
         
         public GenreApiModel Convert() =>
-            new GenreApiModel
+            new()
             {
                 Id = Id,
                 Name = Name
             };
         
         public async Task<GenreApiModel> ConvertAsync() =>
-            new GenreApiModel
+            new()
             {
                 Id = Id,
                 Name = Name

@@ -37,7 +37,7 @@ namespace Chinook.Domain.ApiModels
         public ICollection<EmployeeApiModel>? DirectReports { get; set; }
 
         public Employee Convert() =>
-            new Employee
+            new()
             {
                 Id = Id,
                 LastName = LastName ?? string.Empty,
@@ -57,7 +57,7 @@ namespace Chinook.Domain.ApiModels
             };
         
         public async Task<Employee> ConvertAsync() =>
-            new Employee
+            new()
             {
                 Id = Id,
                 LastName = LastName ?? string.Empty,

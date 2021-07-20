@@ -22,7 +22,7 @@ using System.Text.Json.Serialization;
         public virtual ICollection<Track> Tracks { get; set; }
 
         public AlbumApiModel Convert() =>
-            new AlbumApiModel
+            new()
             {
                 Id = Id,
                 ArtistId = ArtistId,
@@ -30,7 +30,7 @@ using System.Text.Json.Serialization;
             };
         
         public async Task<AlbumApiModel> ConvertAsync() =>
-            new AlbumApiModel
+            new()
             {
                 Id = Id,
                 ArtistId = ArtistId,

@@ -19,7 +19,7 @@ namespace Chinook.Domain.Entities
         public virtual Track Track { get; set; }
 
         public InvoiceLineApiModel Convert() =>
-            new InvoiceLineApiModel
+            new()
             {
                 Id = Id,
                 InvoiceId = InvoiceId,
@@ -29,7 +29,7 @@ namespace Chinook.Domain.Entities
             };
         
         public async Task<InvoiceLineApiModel> ConvertAsync() =>
-            new InvoiceLineApiModel
+            new()
             {
                 Id = Id,
                 InvoiceId = InvoiceId,

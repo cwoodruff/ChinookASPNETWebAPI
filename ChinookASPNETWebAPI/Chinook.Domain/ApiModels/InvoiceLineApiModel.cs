@@ -22,7 +22,7 @@ namespace Chinook.Domain.ApiModels
         public TrackApiModel Track { get; set; }
 
         public InvoiceLine Convert() =>
-            new InvoiceLine
+            new()
             {
                 Id = Id,
                 InvoiceId = InvoiceId,
@@ -32,7 +32,7 @@ namespace Chinook.Domain.ApiModels
             };
         
         public async Task<InvoiceLine> ConvertAsync() =>
-            new InvoiceLine
+            new()
             {
                 Id = Id,
                 InvoiceId = InvoiceId,

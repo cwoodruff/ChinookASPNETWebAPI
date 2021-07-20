@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
         public IList<TrackApiModel>? Tracks { get; set; }
 
         public Album Convert() =>
-            new Album
+            new()
             {
                 Id = Id,
                 ArtistId = ArtistId,
@@ -29,7 +29,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
             };
         
         public async Task<Album> ConvertAsync() =>
-            new Album
+            new()
             {
                 Id = Id,
                 ArtistId = ArtistId,

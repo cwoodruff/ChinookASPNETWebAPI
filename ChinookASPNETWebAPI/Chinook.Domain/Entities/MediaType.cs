@@ -20,14 +20,14 @@ namespace Chinook.Domain.Entities
         public virtual ICollection<Track> Tracks { get; set; }
         
         public MediaTypeApiModel Convert() =>
-            new MediaTypeApiModel
+            new()
             {
                 Id = Id,
                 Name = Name
             };
         
         public async Task<MediaTypeApiModel> ConvertAsync() =>
-            new MediaTypeApiModel
+            new()
             {
                 Id = Id,
                 Name = Name

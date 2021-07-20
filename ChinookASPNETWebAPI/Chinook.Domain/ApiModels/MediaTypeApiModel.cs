@@ -16,14 +16,14 @@ namespace Chinook.Domain.ApiModels
         public IList<TrackApiModel> Tracks { get; set; }
 
         public MediaType Convert() =>
-            new MediaType
+            new()
             {
                 Id = Id,
                 Name = Name
             };
         
         public async Task<MediaType> ConvertAsync() =>
-            new MediaType
+            new()
             {
                 Id = Id,
                 Name = Name

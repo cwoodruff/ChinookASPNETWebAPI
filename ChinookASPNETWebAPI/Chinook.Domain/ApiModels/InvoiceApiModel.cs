@@ -28,7 +28,7 @@ namespace Chinook.Domain.ApiModels
         public CustomerApiModel Customer { get; set; }
 
         public Invoice Convert() =>
-            new Invoice
+            new()
             {
                 Id = Id,
                 CustomerId = CustomerId,
@@ -42,7 +42,7 @@ namespace Chinook.Domain.ApiModels
             };
         
         public async Task<Invoice> ConvertAsync() =>
-            new Invoice
+            new()
             {
                 Id = Id,
                 CustomerId = CustomerId,

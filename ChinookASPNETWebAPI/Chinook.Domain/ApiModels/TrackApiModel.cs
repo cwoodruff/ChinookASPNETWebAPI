@@ -34,7 +34,7 @@ namespace Chinook.Domain.ApiModels
         public MediaTypeApiModel? MediaType { get; set; }
 
         public Track Convert() =>
-            new Track
+            new()
             {
                 Id = Id,
                 Name = Name,
@@ -48,7 +48,7 @@ namespace Chinook.Domain.ApiModels
             };
         
         public async Task<Track> ConvertAsync() =>
-            new Track
+            new()
             {
                 Id = Id,
                 Name = Name,

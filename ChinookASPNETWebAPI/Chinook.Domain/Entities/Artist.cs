@@ -19,14 +19,14 @@ namespace Chinook.Domain.Entities
         public virtual ICollection<Album> Albums { get; set; }
         
         public ArtistApiModel Convert() =>
-            new ArtistApiModel
+            new()
             {
                 Id = Id,
                 Name = Name
             };
         
         public async Task<ArtistApiModel> ConvertAsync() =>
-            new ArtistApiModel
+            new()
             {
                 Id = Id,
                 Name = Name

@@ -39,7 +39,7 @@ namespace Chinook.Domain.Entities
         public virtual ICollection<Employee> InverseReportsToNavigation { get; set; }
         
         public EmployeeApiModel Convert() =>
-            new EmployeeApiModel
+            new()
             {
                 Id = Id,
                 LastName = LastName,
@@ -59,7 +59,7 @@ namespace Chinook.Domain.Entities
             };
         
         public async Task<EmployeeApiModel> ConvertAsync() =>
-            new EmployeeApiModel
+            new()
             {
                 Id = Id,
                 LastName = LastName,

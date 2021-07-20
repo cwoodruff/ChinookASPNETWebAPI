@@ -16,14 +16,14 @@ namespace Chinook.Domain.ApiModels
         public IList<TrackApiModel> Tracks { get; set; }
         
         public Genre Convert() =>
-            new Genre
+            new()
             {
                 Id = Id,
                 Name = Name
             };
         
         public async Task<Genre> ConvertAsync() =>
-            new Genre
+            new()
             {
                 Id = Id,
                 Name = Name

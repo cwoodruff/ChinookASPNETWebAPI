@@ -84,7 +84,7 @@ namespace Chinook.Domain.Supervisor
             await _trackValidator.ValidateAndThrowAsync(newTrackApiModel);
             var track = await newTrackApiModel.ConvertAsync();
 
-            _trackRepository.Add(track);
+            await _trackRepository.Add(track);
             newTrackApiModel.Id = track.Id;
             return newTrackApiModel;
         }

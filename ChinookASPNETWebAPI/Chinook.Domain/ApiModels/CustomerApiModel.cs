@@ -32,7 +32,7 @@ namespace Chinook.Domain.ApiModels
 
 
         public Customer Convert() =>
-            new Customer
+            new()
             {
                 Id = Id,
                 FirstName = FirstName,
@@ -50,7 +50,7 @@ namespace Chinook.Domain.ApiModels
             };
         
         public async Task<Customer> ConvertAsync() =>
-            new Customer
+            new()
             {
                 Id = Id,
                 FirstName = FirstName,

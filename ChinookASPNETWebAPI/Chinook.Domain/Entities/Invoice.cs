@@ -27,7 +27,7 @@ namespace Chinook.Domain.Entities
         public virtual ICollection<InvoiceLine> InvoiceLines { get; set; }
 
         public InvoiceApiModel Convert() =>
-            new InvoiceApiModel
+            new()
             {
                 Id = Id,
                 CustomerId = CustomerId,
@@ -41,7 +41,7 @@ namespace Chinook.Domain.Entities
             };
         
         public async Task<InvoiceApiModel> ConvertAsync() =>
-            new InvoiceApiModel
+            new()
             {
                 Id = Id,
                 CustomerId = CustomerId,

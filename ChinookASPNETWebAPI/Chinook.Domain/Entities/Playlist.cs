@@ -20,14 +20,14 @@ namespace Chinook.Domain.Entities
         public virtual ICollection<PlaylistTrack> PlaylistTracks { get; set; }
         
         public PlaylistApiModel Convert() =>
-            new PlaylistApiModel
+            new()
             {
                 Id = Id,
                 Name = Name
             };
         
         public async Task<PlaylistApiModel> ConvertAsync() =>
-            new PlaylistApiModel
+            new()
             {
                 Id = Id,
                 Name = Name

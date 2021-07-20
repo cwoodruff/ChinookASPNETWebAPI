@@ -13,14 +13,14 @@ namespace Chinook.Domain.Entities
         public virtual Track Track { get; set; }
 
         public PlaylistTrackApiModel Convert() =>
-            new PlaylistTrackApiModel
+            new()
             {
                 PlaylistId = PlaylistId,
                 TrackId = TrackId
             };
         
         public async Task<PlaylistTrackApiModel> ConvertAsync() =>
-            new PlaylistTrackApiModel
+            new()
             {
                 PlaylistId = PlaylistId,
                 TrackId = TrackId
