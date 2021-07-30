@@ -23,7 +23,7 @@ namespace Chinook.DataEFCore.Repositories
         public void Dispose() => _context.Dispose();
 
         public async Task<List<Genre>> GetAll() =>
-            await _context.Genres.ToListAsync();
+            await _context.Genres.AsNoTracking().ToListAsync();
 
         public async Task<Genre> GetById(int id)
         {

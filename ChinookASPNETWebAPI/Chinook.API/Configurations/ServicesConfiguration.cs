@@ -5,6 +5,7 @@ using Chinook.Domain.Repositories;
 using Chinook.Domain.Supervisor;
 using Chinook.Domain.Validation;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -33,16 +34,17 @@ namespace Chinook.API.Configurations
         
         public static void ConfigureValidators(this IServiceCollection services)
         {
-            services.AddScoped<IValidator<AlbumApiModel>, AlbumValidator>()
-                .AddScoped<IValidator<ArtistApiModel>, ArtistValidator>()
-                .AddScoped<IValidator<CustomerApiModel>, CustomerValidator>()
-                .AddScoped<IValidator<EmployeeApiModel>, EmployeeValidator>()
-                .AddScoped<IValidator<GenreApiModel>, GenreValidator>()
-                .AddScoped<IValidator<InvoiceApiModel>, InvoiceValidator>()
-                .AddScoped<IValidator<InvoiceLineApiModel>, InvoiceLineValidator>()
-                .AddScoped<IValidator<MediaTypeApiModel>, MediaTypeValidator>()
-                .AddScoped<IValidator<PlaylistApiModel>, PlaylistValidator>()
-                .AddScoped<IValidator<TrackApiModel>, TrackValidator>();
+            services.AddFluentValidation()
+                .AddTransient<IValidator<AlbumApiModel>, AlbumValidator>()
+                .AddTransient<IValidator<ArtistApiModel>, ArtistValidator>()
+                .AddTransient<IValidator<CustomerApiModel>, CustomerValidator>()
+                .AddTransient<IValidator<EmployeeApiModel>, EmployeeValidator>()
+                .AddTransient<IValidator<GenreApiModel>, GenreValidator>()
+                .AddTransient<IValidator<InvoiceApiModel>, InvoiceValidator>()
+                .AddTransient<IValidator<InvoiceLineApiModel>, InvoiceLineValidator>()
+                .AddTransient<IValidator<MediaTypeApiModel>, MediaTypeValidator>()
+                .AddTransient<IValidator<PlaylistApiModel>, PlaylistValidator>()
+                .AddTransient<IValidator<TrackApiModel>, TrackValidator>();
         }
 
         public static void ConfigureSupervisor(this IServiceCollection services)

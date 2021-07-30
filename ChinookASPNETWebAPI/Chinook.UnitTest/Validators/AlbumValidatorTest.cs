@@ -8,11 +8,11 @@ namespace Chinook.UnitTest.Validators
 {
     public class AlbumValidatorTest
     {
-        private AlbumValidator validator;
+        private readonly AlbumValidator _validator;
 
         public AlbumValidatorTest()
         {
-            validator = new AlbumValidator();
+            _validator = new AlbumValidator();
         }
 
         [Fact]
@@ -22,7 +22,7 @@ namespace Chinook.UnitTest.Validators
             var model = new AlbumApiModel { Title = null };
             
             // Act
-            var result = validator.TestValidate(model);
+            var result = _validator.TestValidate(model);
 
             // Assert
             result.ShouldHaveValidationErrorFor(album => album.Title);
@@ -35,7 +35,7 @@ namespace Chinook.UnitTest.Validators
             var model = new AlbumApiModel { Title = "Abbey Road" };
             
             // Act
-            var result = validator.TestValidate(model);
+            var result = _validator.TestValidate(model);
 
             // Assert
             result.ShouldNotHaveValidationErrorFor(album => album.Title);

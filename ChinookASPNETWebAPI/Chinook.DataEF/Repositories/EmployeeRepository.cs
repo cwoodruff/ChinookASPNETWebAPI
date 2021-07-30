@@ -23,7 +23,7 @@ namespace Chinook.DataEFCore.Repositories
         public void Dispose() => _context.Dispose();
 
         public async Task<List<Employee>> GetAll() =>
-            await _context.Employees.ToListAsync();
+            await _context.Employees.AsNoTracking().ToListAsync();
 
         public async Task<Employee> GetById(int id) =>
             await _context.Employees.FindAsync(id);
@@ -58,7 +58,7 @@ namespace Chinook.DataEFCore.Repositories
             await _context.Employees.FindAsync(id);
 
         public async Task<List<Employee>> GetDirectReports(int id) =>
-            await _context.Employees.Where(e => e.ReportsTo == id).ToListAsync();
+            await _context.Employees.Where(e => e.ReportsTo == id).AsNoTracking().ToListAsync();
 
         public async Task<Employee> GetToReports(int id) =>
             await _context.Employees

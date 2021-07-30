@@ -23,7 +23,7 @@ namespace Chinook.DataEFCore.Repositories
         public void Dispose() => _context.Dispose();
 
         public async Task<List<Track>> GetAll() =>
-            await _context.Tracks.ToListAsync();
+            await _context.Tracks.AsNoTracking().ToListAsync();
 
         public async Task<Track> GetById(int id) =>
             await _context.Tracks.FindAsync(id);
@@ -55,22 +55,22 @@ namespace Chinook.DataEFCore.Repositories
         }
 
         public async Task<List<Track>> GetByAlbumId(int id) =>
-            await _context.Tracks.Where(a => a.AlbumId == id).ToListAsync();
+            await _context.Tracks.Where(a => a.AlbumId == id).AsNoTracking().ToListAsync();
 
         public async Task<List<Track>> GetByGenreId(int id) =>
-            await _context.Tracks.Where(a => a.GenreId == id).ToListAsync();
+            await _context.Tracks.Where(a => a.GenreId == id).AsNoTracking().ToListAsync();
 
         public async Task<List<Track>> GetByMediaTypeId(int id) =>
-            await _context.Tracks.Where(a => a.MediaTypeId == id).ToListAsync();
+            await _context.Tracks.Where(a => a.MediaTypeId == id).AsNoTracking().ToListAsync();
 
         public async Task<List<Track>> GetByPlaylistId(int id) =>
-            await _context.PlaylistTracks.Where(p => p.PlaylistId == id).Select(p => p.Track).ToListAsync();
+            await _context.PlaylistTracks.Where(p => p.PlaylistId == id).Select(p => p.Track).AsNoTracking().ToListAsync();
 
         public async Task<List<Track>> GetByArtistId(int id) =>
-            await _context.Albums.Where(a => a.ArtistId == 5).SelectMany(t => t.Tracks).ToListAsync();
+            await _context.Albums.Where(a => a.ArtistId == 5).SelectMany(t => t.Tracks).AsNoTracking().ToListAsync();
 
         public async Task<List<Track>> GetByInvoiceId(int id) => await _context.Tracks
             .Where(c => c.InvoiceLines.Any(o => o.InvoiceId == id))
-            .ToListAsync();
+            .AsNoTracking().ToListAsync();
     }
 }

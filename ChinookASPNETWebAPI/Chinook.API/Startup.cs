@@ -1,5 +1,6 @@
 using Chinook.API.Configurations;
 using Chinook.API.Middleware;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
