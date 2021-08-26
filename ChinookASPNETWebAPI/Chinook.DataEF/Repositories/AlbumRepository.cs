@@ -22,7 +22,7 @@ namespace Chinook.DataEFCore.Repositories
 
         public void Dispose() => _context.Dispose();
 
-        public async Task<List<Album>> GetAll() => await _context.Albums.AsNoTracking().ToListAsync();
+        public async Task<List<Album>> GetAll() => await _context.Albums.AsNoTrackingWithIdentityResolution().ToListAsync();
 
         public async Task<Album> GetById(int? id)
         {
@@ -57,6 +57,6 @@ namespace Chinook.DataEFCore.Repositories
         }
 
         public async Task<List<Album>> GetByArtistId(int id) =>
-            await _context.Albums.Where(a => a.ArtistId == id).AsNoTracking().ToListAsync();
+            await _context.Albums.Where(a => a.ArtistId == id).AsNoTrackingWithIdentityResolution().ToListAsync();
     }
 }

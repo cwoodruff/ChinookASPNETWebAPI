@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Chinook.DataEF;
 using Chinook.Domain.Repositories;
@@ -23,7 +22,7 @@ namespace Chinook.DataEFCore.Repositories
         public void Dispose() => _context.Dispose();
 
         public async Task<List<Artist>> GetAll() =>
-            await _context.Artists.AsNoTracking().ToListAsync();
+            await _context.Artists.AsNoTrackingWithIdentityResolution().ToListAsync();
 
         public async Task<Artist> GetById(int id) =>
             await _context.Artists.FindAsync(id);

@@ -23,7 +23,7 @@ namespace Chinook.DataEFCore.Repositories
         public void Dispose() => _context.Dispose();
 
         public async Task<List<InvoiceLine>> GetAll() =>
-            await _context.InvoiceLines.AsNoTracking().ToListAsync();
+            await _context.InvoiceLines.AsNoTrackingWithIdentityResolution().ToListAsync();
 
         public async Task<InvoiceLine> GetById(int id) =>
             await _context.InvoiceLines.FindAsync(id);
@@ -55,9 +55,9 @@ namespace Chinook.DataEFCore.Repositories
         }
 
         public async Task<List<InvoiceLine>> GetByInvoiceId(int id) =>
-            await _context.InvoiceLines.Where(a => a.InvoiceId == id).AsNoTracking().ToListAsync();
+            await _context.InvoiceLines.Where(a => a.InvoiceId == id).AsNoTrackingWithIdentityResolution().ToListAsync();
 
         public async Task<List<InvoiceLine>> GetByTrackId(int id) =>
-            await _context.InvoiceLines.Where(a => a.TrackId == id).AsNoTracking().ToListAsync();
+            await _context.InvoiceLines.Where(a => a.TrackId == id).AsNoTrackingWithIdentityResolution().ToListAsync();
     }
 }

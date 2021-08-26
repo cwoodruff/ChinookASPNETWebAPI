@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Chinook.DataEF;
 using Chinook.Domain.Repositories;
@@ -23,14 +22,14 @@ namespace Chinook.DataEFCore.Repositories
         public void Dispose() => _context.Dispose();
 
         public async Task<List<MediaType>> GetAll() =>
-            await _context.MediaTypes.AsNoTracking().ToListAsync();
+            await _context.MediaTypes.AsNoTrackingWithIdentityResolution().ToListAsync();
 
         public async Task<MediaType> GetById(int id) =>
             await _context.MediaTypes.FindAsync(id);
 
         public async Task<MediaType> Add(MediaType newMediaType)
         {
-            _context.MediaTypes.AddAsync(newMediaType);
+            await _context.MediaTypes.AddAsync(newMediaType);
             await _context.SaveChangesAsync();
             return newMediaType;
         }

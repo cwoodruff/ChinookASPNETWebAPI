@@ -34,7 +34,7 @@ namespace Chinook.DataEFCore.Repositories
         public async Task<List<Invoice>> GetAll()
         {
             var invoices = _context.Invoices;
-            return await invoices.AsNoTracking().ToListAsync();
+            return await invoices.AsNoTrackingWithIdentityResolution().ToListAsync();
         }
 
         public async Task<Invoice> GetById(int id) =>
@@ -67,9 +67,9 @@ namespace Chinook.DataEFCore.Repositories
         }
 
         public async Task<List<Invoice>> GetByEmployeeId(int id) =>
-            await _context.Customers.Where(a => a.SupportRepId == 5).SelectMany(t => t.Invoices).AsNoTracking().ToListAsync();
+            await _context.Customers.Where(a => a.SupportRepId == 5).SelectMany(t => t.Invoices).AsNoTrackingWithIdentityResolution().ToListAsync();
 
         public async Task<List<Invoice>> GetByCustomerId(int id) =>
-            await _context.Invoices.Where(i => i.CustomerId == id).AsNoTracking().ToListAsync();
+            await _context.Invoices.Where(i => i.CustomerId == id).AsNoTrackingWithIdentityResolution().ToListAsync();
     }
 }

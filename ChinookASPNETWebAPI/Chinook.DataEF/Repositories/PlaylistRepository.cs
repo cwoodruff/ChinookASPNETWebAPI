@@ -23,7 +23,7 @@ namespace Chinook.DataEFCore.Repositories
         public void Dispose() => _context.Dispose();
 
         public async Task<List<Playlist>> GetAll() =>
-            await _context.Playlists.AsNoTracking().ToListAsync();
+            await _context.Playlists.AsNoTrackingWithIdentityResolution().ToListAsync();
 
         public async Task<Playlist> GetById(int id) =>
             await _context.Playlists.FindAsync(id);
@@ -58,7 +58,7 @@ namespace Chinook.DataEFCore.Repositories
         {
             return await _context.Playlists
                 .Where(c => c.PlaylistTracks.Any(o => o.TrackId == id))
-                .AsNoTracking().ToListAsync();
+                .AsNoTrackingWithIdentityResolution().ToListAsync();
         }
     }
 }
